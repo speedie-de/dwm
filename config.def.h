@@ -4,10 +4,6 @@
 /* You can set most of these options in your .Xresources.
  * Check the 'man' page if you're unsure how it's supposed to be used. */
 
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } } /* Shell to use */
-#define STATUSBAR                               "xshbar" /* Status bar to use, set to dwmblocks if using dwmblocks */
-#define ICONSIZE                                16 /* Icon size */
-#define ICONSPACING                             5  /* Space between icon and title */
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 32;
 static unsigned int gappx                     = 5; /* How big should your gaps be? 0 = No gaps */
@@ -16,6 +12,10 @@ static int topbar                             = 1; /* Should the bar be on the t
 static char font[]                            = { "Terminus:size=8" }; /* What font should we use? */
 static char font2[]                           = { "siji:size=8" }; /* Second font */
 static const char *fonts[]                    = { font, font2 };
+static char shell[]                           = "/bin/sh"; /* shell to use */
+static char status[]                          = "xshbar"; /* status bar to use, dwmblocks for dwmblocks, slstatus for slstatus, etc. */
+static int sizeicon                           = 16; /* size of the icon */
+static int spacingicon                        = 5; /* spacing between the title and icon */
 static char col_background[]                  = "#222222"; /* dwm dark bg & slstatus bg */
 static char col_backgroundmid[]               = "#222222"; /* dwm middle background */
 static char col_textnorm[]                    = "#bbbbbb"; /* application title bar/font for norm */
@@ -51,6 +51,9 @@ static char dmenumon[2]                       = "0";
 static const char *dmenucmd[]                 = { NULL };
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *alttags[] = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
+#define STATUSBAR                               status /* Status bar to use, set to dwmblocks if using dwmblocks */
+#define ICONSIZE                                sizeicon /* Icon size */
+#define ICONSPACING                             spacingicon  /* Space between icon and title */
 static char *colors[][3]      = {
 	[SchemeNorm] = { col_textnorm, col_background,    col_windowbordernorm },
 	[SchemeSel]  = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
@@ -144,7 +147,12 @@ ResourcePref resources[] = {
        { "mfact",                FLOAT,   &mfact },
        { "startontag",           INTEGER, &startontag },
 	   { "gappx",                INTEGER, &gappx },
+       { "shell",                STRING,  &shell },
+       { "status",               STRING,  &status },
+       { "sizeicon",             INTEGER, &sizeicon },
+	   { "spacingicon",          INTEGER, &spacingicon },
 };
+#define SHCMD(cmd) { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
 
 /* These are your keybinds. Unless you wanna add more you won't need to recompile.
  * Instead just edit ~/.config/dwm-applications
