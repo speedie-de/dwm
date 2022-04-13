@@ -127,8 +127,18 @@ Application binds
 - Alt+Shift+q       | Close the current window
 - Alt+Space         | Set layout
 - Alt+Shift+Space   | Unfloat floating windows
+- Alt+Shift+Tab     | Read .Xresources again without reloading dwm
+- Alt+Shift+1       | Move to tag 1
+- Alt+Shift+2       | Move to tag 2
+- Alt+Shift+3       | Move to tag 3
+- Alt+Shift+4       | Move to tag 4
+- Alt+Shift+5       | Move to tag 5
+- Alt+Shift+6       | Move to tag 6
+- Alt+Shift+7       | Move to tag 7
+- Alt+Shift+8       | Move to tag 8
+- Alt+Shift+9       | Move to tag 9
 - Control+Alt+e     | Switch to layout 3 (Grid)
 - Control+Alt+r     | Switch to layout 1 (Monocle)
 - Control+Alt+t     | Switch to layout 0 (Master & stack)
 - Control+Alt+0     | Set all windows to use the same tag
-
+- Control+Shift+a/d | Move between available layouts
