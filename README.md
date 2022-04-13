@@ -118,10 +118,17 @@ Application binds
 - Control+Alt+y   | Opens the defined RSS reader
 
 ### Navigation
-Alt+f             | Full-screen the selected window
-Alt+b             | Show/hide the dwm bar
-Alt+j/k           | Move focus between windows
-Alt+a/d           | Increase/decrease size of each window
-Alt+Enter         | Switch order of windows
-Alt+Shift+q       | Close the current window
+- Alt+f             | Full-screen the selected window
+- Alt+b             | Show/hide the dwm bar
+- Alt+j/k           | Move focus between windows
+- Alt+a/d           | Increase/decrease size of each window
+- Alt+
+- Alt+Enter         | Switch order of windows
+- Alt+Shift+q       | Close the current window
+- Alt+Space         | Set layout
+- Alt+Shift+Space   | Unfloat floating windows
+- Control+Alt+e     | Switch to layout 3 (Grid)
+- Control+Alt+r     | Switch to layout 1 (Monocle)
+- Control+Alt+t     | Switch to layout 0 (Master & stack)
+- Control+Alt+0     | Set all windows to use the same tag
 
