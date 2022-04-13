@@ -75,3 +75,18 @@ This build of dwm has full compatibility with .Xresources and allows defining th
 - dwm.startontag
 - dwm.gappx
 - dwm.rmaster
+- dwm.shell
+- dwm.sizeicon
+- dwm.spacingicon
+
+I know that seems like a lot but if you're unsure, there's an example file.
+To use a .Xresources file, simply install xrdb and add xrdb /path/to/.Xresources to .xinitrc
+Or if you're using a display manager, add it to the autostart function in config.def.h.
+
+It also has a configuration file which after compiling should be in ~/.config/dwm-applications.
+This file is sourced by the SHCMD function in dwm and MUST be POSIX compliant.
+  
+This file does not allow you to add any more keybinds but it does allow you to change what applications to use or change arguments.
+
+### Important
+This build does not keep object files or config.h. Those are automatically deleted after a successful compile. If a compile is not successful, they will not be deleted. If that's the case, do NOT edit config.h because if you do and it compiles successfully then your changes will be lost.
