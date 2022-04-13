@@ -61,7 +61,7 @@ static char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-   "sh", "-c", STATUSBAR, NULL,
+   shell, "-c", STATUSBAR, NULL,
    NULL
 };
 
