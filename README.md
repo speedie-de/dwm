@@ -93,11 +93,13 @@ This build does not keep object files or config.h. Those are automatically delet
   
 ### Keybinds
 NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do the same thing.
+  
+Application binds
 - Alt+Shift+Enter | Opens a terminal
 - Alt+Shift+Comma | Opens a dmenu prompt
 - Alt+Shift+s     | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
 - Alt+Shift+f     | Opens the defined file manager
-- Alt+Shift+w     | Opens the defined web broowser
+- Alt+Shift+w     | Opens the defined web browser
 - Alt+Shift+o     | Opens the [dfmpeg](https;//github.com/speediegamer/dfmpeg) dmenu script in dmenu which can record your screen (Only if manually installed)
 - Alt+Shift+p     | Opens the [genpkg](https://github.com/speediegamer/genpkg) dmenu script in dmenu which can look up ebuilds
 - Alt+Shift+c     | Opens the [copyout](https://github.com/speediegamer/copyout) dmenu script in dmenu which can copy the output of a command.
@@ -105,5 +107,13 @@ NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do t
 - Alt+Shift+j     | Opens the [cfgedit](https://github.com/speediegamer/cfgedit) dmenu script in dmenu which can open configuration files in your editor
 - Alt+Shift+t     | Opens the defined editor in your terminal
 - Alt+Shift+p     | pkills the defined web browser
+- Alt+Shift+m     | pkills the defined music player
+- Alt+Shift+d     | Opens https://discord.com/channels/@me in the defined web browser
+- Alt+Shift+y     | Opens the defined Invidious instance in the defined web browser
+- Alt+Shift+a     | Opens the defined mixer in your terminal
+- Alt+Shift+m     | Opens the defined music player
+- Alt+Shift+x     | Opens the defined system process viewer in your terminal
 - Control+Shift+m | Opens the defined email client
+- Control+Shift+4 | Opens the defined "chan" in your defined web browser
+- Control+Alt+y   | Opens the defined RSS reader
 
