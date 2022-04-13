@@ -90,3 +90,12 @@ This file does not allow you to add any more keybinds but it does allow you to c
 
 ### Important
 This build does not keep object files or config.h. Those are automatically deleted after a successful compile. If a compile is not successful, they will not be deleted. If that's the case, do NOT edit config.h because if you do and it compiles successfully then your changes will be lost.
+  
+### Keybinds
+- Alt+Shift+Enter | Opens a terminal
+- Alt+Shift+Comma | Opens a dmenu prompt
+- Alt+Shift+s     | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
+- Alt+Shift+f     | Opens the defined file manager
+- Alt+Shift+w     | Opens the defined web broowser
+- Alt+Shift+w     | Opens the [dfmpeg](https;//github.com/speediegamer/dfmpeg) dmenu script in dmenu which can record your screen (Only if manually installed)
+
