@@ -117,3 +117,11 @@ Application binds
 - Control+Shift+4 | Opens the defined "chan" in your defined web browser
 - Control+Alt+y   | Opens the defined RSS reader
 
+### Navigation
+Alt+f             | Full-screen the selected window
+Alt+b             | Show/hide the dwm bar
+Alt+j/k           | Move focus between windows
+Alt+a/d           | Increase/decrease size of each window
+Alt+Enter         | Switch order of windows
+Alt+Shift+q       | Close the current window
+
