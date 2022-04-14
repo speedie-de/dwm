@@ -34,6 +34,7 @@ Alt+Enter         | Switch order of windows
 Alt+Shift+q       | Close the current window
 Alt+Space         | Set layout
 Alt+Shift+Space   | Unfloat floating windows
+Alt+Shift+Arrow   | Resizes a window in floating mode
 Alt+Shift+Tab     | Read .Xresources again without reloading dwm
 Alt+Shift+1       | Move to tag 1
 Alt+Shift+2       | Move to tag 2
@@ -48,7 +49,6 @@ Control+Alt+e     | Switch to layout 3 (Grid)
 Control+Alt+r     | Switch to layout 1 (Monocle)
 Control+Alt+t     | Switch to layout 0 (Master & stack)
 Control+Alt+0     | Set all windows to use the same tag
-Control+Alt+1     | Mute ALSA volume
-Control+Alt+2     | Decrease ALSA volume
-Control+Alt+3     | Increse ALSA volume
+Control+Alt+Arrow | Moves a window to any corner of your screen
 Control+Shift+a/d | Move between available layouts
+Control+Alt+Shift+Arrow | Resize the window to the screen size.
