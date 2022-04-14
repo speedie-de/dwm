@@ -141,6 +141,9 @@ Application binds
 - Control+Alt+r     | Switch to layout 1 (Monocle)
 - Control+Alt+t     | Switch to layout 0 (Master & stack)
 - Control+Alt+0     | Set all windows to use the same tag
+- Control+Alt+1     | Mute ALSA volume
+- Control+Alt+2     | Decrease ALSA volume
+- Control+Alt+3     | Increse ALSA volume
 - Control+Shift+a/d | Move between available layouts
 
 ### Status bars
