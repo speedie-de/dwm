@@ -142,3 +142,17 @@ Application binds
 - Control+Alt+t     | Switch to layout 0 (Master & stack)
 - Control+Alt+0     | Set all windows to use the same tag
 - Control+Shift+a/d | Move between available layouts
+
+### Status bars
+As for status bars, this build of dwm has been patched with extrabar and therefore supports dwmblocks. Here are a few status bars I use or have used in the past
+- [xshbar](https://github.com/speediegamer/xshbar) (most based option)
+- [xshbar](https://github.com/speedie-de/xshbar) (my build)
+- [slstatus](https://github.com/speedie-de/slstatus) (my build)
+- [slstatus](https://tools.suckless.org/slstatus)
+- [dwmbar](https://github.com/joestandring/dwm-bar)
+- [candybar](https://github.com/jornmann/candybar)
+
+### Expanding
+You can easily expand this build of dwm by simply adding keybinds or patching it. That's the nice thing about suckless software.
+
+As for adding keybinds, just copy the existing binds and change a few things.
