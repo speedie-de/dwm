@@ -122,7 +122,6 @@ Application binds
 - Alt+b             | Show/hide the dwm bar
 - Alt+j/k           | Move focus between windows
 - Alt+a/d           | Increase/decrease size of each window
-- Alt+
 - Alt+Enter         | Switch order of windows
 - Alt+Shift+q       | Close the current window
 - Alt+Space         | Set layout
