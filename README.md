@@ -128,7 +128,7 @@ Application binds
 - Alt+Shift+q       | Close the current window
 - Alt+Space         | Set layout
 - Alt+Shift+Space   | Unfloat floating windows
-- Alt+Shift+Arrows  | Resizes a window in floating mode
+- Alt+Shift+Arrow   | Resizes a window in floating mode
 - Alt+Shift+Tab     | Read .Xresources again without reloading dwm
 - Alt+Shift+1       | Move to tag 1
 - Alt+Shift+2       | Move to tag 2
