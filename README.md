@@ -38,6 +38,7 @@ This build of dwm has been patched pretty heavily with the following patches
 - dwm-winicon
 - dwm-xresources
 - dwm-pywal # Script which makes this compatible with pywal
+- dwm.moveresize
 
 This build of dwm has full compatibility with .Xresources and allows defining these options
 - dwm.nmaster
@@ -118,6 +119,7 @@ Application binds
 - Control+Alt+y   | Opens the defined RSS reader
 
 ### Navigation
+- Alt+Arrow         | Moves a window around in floating mode
 - Alt+f             | Full-screen the selected window
 - Alt+b             | Show/hide the dwm bar
 - Alt+j/k           | Move focus between windows
@@ -126,6 +128,7 @@ Application binds
 - Alt+Shift+q       | Close the current window
 - Alt+Space         | Set layout
 - Alt+Shift+Space   | Unfloat floating windows
+- Alt+Shift+Arrows  | Resizes a window in floating mode
 - Alt+Shift+Tab     | Read .Xresources again without reloading dwm
 - Alt+Shift+1       | Move to tag 1
 - Alt+Shift+2       | Move to tag 2
@@ -143,7 +146,9 @@ Application binds
 - Control+Alt+1     | Mute ALSA volume
 - Control+Alt+2     | Decrease ALSA volume
 - Control+Alt+3     | Increse ALSA volume
+- Control+Alt+Arrow | Moves a windows to the top right, top left, bottom right and bottom left corner of the screen.
 - Control+Shift+a/d | Move between available layouts
+- Control+Alt+Shift+Arrow | Resize the window to the screen size.
 
 ### Status bars
 As for status bars, this build of dwm has been patched with extrabar and therefore supports dwmblocks. Here are a few status bars I use or have used in the past
