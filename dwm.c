@@ -518,23 +518,17 @@ buttonpress(XEvent *e)
 		focus(NULL);
 	}
 	if (ev->window == selmon->barwin) {
-		i = x = occ = 0;
-		unsigned int occ = 0;
+		i = x = 0;
 		for(c = m->clients; c; c=c->next)
-		    occ |= c->tags;
-		do {
-		    if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
-			    continue;
 		/* Bitmask of occupied tags */
 		{ for (c = m->clients; c; c = c->next)
 			occ |= c->tags; }
-			x += TEXTW(occ & 1 << i ? alttags[i] : tags[i]);
+			x += TEXTW(tags[i]);
 		} while (ev->x >= x && ++i < LENGTH(tags));
 		focus(c);
 		restack(selmon);
 		XAllowEvents(dpy, ReplayPointer, CurrentTime);
 	}
-}
 
 void
 checkotherwm(void)

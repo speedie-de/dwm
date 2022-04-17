@@ -13,6 +13,7 @@ Alt+Shift+p       | Opens the genpkg dmenu script in dmenu which can look up ebu
 Alt+Shift+c       | Opens the copyout dmenu script in dmenu which can copy the output of a command.
 Alt+Shift+v       | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
 Alt+Shift+j       | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
+Alt+Shift+e       | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
 Alt+Shift+t       | Opens the defined editor in your terminal
 Alt+Shift+p       | pkills the defined web browser
 Alt+Shift+m       | pkills the defined music player

@@ -1,3 +1,6 @@
+!! This is an example .Xresources file.
+!! It contains all options you can set in your .Xresources file.
+
 !! dwm resources
 dwm.nmaster:              1
 dwm.font:                 Terminus:size=8

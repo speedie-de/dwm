@@ -1,8 +1,14 @@
 /* speedie's dynamic window manager configuration
- * https://github.com/speedie-de/dwm */
-
-/* You can set most of these options in your .Xresources.
- * Check the 'man' page if you're unsure how it's supposed to be used. */
+ * https://github.com/speedie-de/dwm
+ *
+ * You can set most of these options in your .Xresources.
+ * Check the 'man' page if you're unsure how it's supposed to be used. 
+ * WARNING: Requires libXft-bgra to work properly. Otherwise this will CRASH when viewing a color emoji. 
+ * Since I hate this problem just as much as you do, I edited the Makefile so you can easily install it.
+ *
+ * To install libXft-bgra on Arch Linux, type 'make arch-libxftfix'
+ * To install libXft-bgra on Gentoo Linux, type 'make gentoo-libxftfix'
+ * To install libXft-bgra on other GNU/Linux distributions, type 'make libxftfix' */
 
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 32;
@@ -11,7 +17,8 @@ static int showbar                            = 1; /* Show the bar or not? 1 = y
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
 static char font[]                            = { "Terminus:size=8" }; /* What font should we use? */
 static char font2[]                           = { "siji:size=8" }; /* Second font */
-static const char *fonts[]                    = { font, font2 };
+static char font3[]                           = { "JoyPixels:size=8" }; /* Third font */
+static const char *fonts[]                    = { font, font2, font3 };
 static char shell[]                           = "/bin/sh"; /* shell to use */
 static char status[]                          = "xshbar"; /* status bar to use, dwmblocks for dwmblocks, slstatus for slstatus, etc. */
 static int sizeicon                           = 16; /* size of the icon */
@@ -113,6 +120,7 @@ static const Layout layouts[] = {
 ResourcePref resources[] = {
        { "font",                 STRING,  &font },
        { "font2",                STRING,  &font2 },
+	   { "font3",                STRING,  &font3 },
 	   { "col_background",       STRING,  &col_background },
        { "col_backgroundmid",    STRING,  &col_backgroundmid },
        { "col_textnorm",         STRING,  &col_textnorm },
@@ -171,6 +179,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,      spawn,          SHCMD(". ~/.config/dwm-applications && copyout || ~/Scripts/copyout") },
 	{ MODKEY|ShiftMask,             XK_v,      spawn,          SHCMD(". ~/.config/dwm-applications && dsearch || ~/Scripts/dsearch") },
 	{ MODKEY|ShiftMask,             XK_j,      spawn,          SHCMD(". ~/.config/dwm-applications && cfgedit || ~/Scripts/cfgedit") }, 
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD(". ~/.config/dwm-applications && emojilist || ~/Scripts/emojilist") },
 	{ ControlMask|ShiftMask,        XK_m,      spawn,          SHCMD(". ~/.config/dwm-applications && $TERMINAL $EMAIL") },
 	{ MODKEY|ShiftMask,             XK_t,	   spawn,          SHCMD(". ~/.config/dwm-applications && $TERMINAL $EDITOR") },
     { MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD(". ~/.config/dwm-applications && pkill $BROWSER") },

@@ -37,7 +37,6 @@ dist: clean
 	rm -rf dwm-${VERSION}
 
 install: all
-    ls /usr/bin/xrdb || echo "Missing dependency: xrdb" && exit 1
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin && cp dwm-applications ${DWMAPPLICATIONS}
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
@@ -50,4 +49,28 @@ uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1
 
-.PHONY: all options clean dist install uninstall
+help:
+	@echo install: Installs dwm. You may need to run this as root.
+	@echo uninstall: Uninstalls dwm. You may need to run this as root.
+	@echo libxftfix: This option compiles and installs libXft-bgra which is necessary to prevent dwm from crashing.
+	@echo gentoo-libxftfix: This option installs libXft-bgra by patching it for Gentoo only.
+	@echo arch-libxftfix: This option installs libXft-bgra using the AUR on Arch Linux only.
+	@echo help: Displays this help sheet.
+
+libxftfix:
+	git clone https://github.com/uditkarode/libxft-bgra && cd libxft-bgra
+	sh autogen.sh --sysconfdir=/etc --prefix=/usr --mandir=/usr/share/man
+	make install
+	cd .. && rm -r libxft-bgra
+
+gentoo-libxftfix:
+	mkdir -pv /etc/portage/patches/x11-libs/libXft
+	curl -o /etc/portage/patches/x11-libs/libXft/bgra.diff https://gitlab.freedesktop.org/xorg/lib/libXft/-/merge_requests/1.diff
+	emerge x11-libs/libXft
+
+arch-libxftfix:
+	git clone https://aur.archlinux.org/libxft-bgra
+	cd libxft-bgra
+	makepkg -si
+
+.PHONY: all options clean dist install uninstall help libxftfix gentoo-libxftfix arch-libxftfix
