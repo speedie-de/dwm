@@ -14,6 +14,13 @@ I recommend using my builds of [st](https://github.com/speedie-de/st) and [dmenu
 - cd dwm
 - sudo make install
 - echo "dwm" > ~/.xinitrc # If you're using a display manager, select it in your menu.
+- See "Installing libXft-bgra"
+
+### Installing libXft-bgra
+This has to be done because this build of dwm supports Color emojis. Now the only problem is that libXft will crash dwm because it doesn't support this. Therefore libXft has to be patched. This is pretty painful so I built this into the Makefile.
+- For Gentoo: make gentoo-libxftfix
+- For Arch: make arch-libxftfix
+- For other GNU/Linux distributions: make libxftfix
 
 ### Features
 This build of dwm has been patched pretty heavily with the following patches
@@ -106,6 +113,7 @@ Application binds
 - Alt+Shift+c     | Opens the [copyout](https://github.com/speediegamer/copyout) dmenu script in dmenu which can copy the output of a command.
 - Alt+Shift+v     | Opens the [dsearch](https://github.com/speediegamer/dsearch) dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
 - Alt+Shift+j     | Opens the [cfgedit](https://github.com/speediegamer/cfgedit) dmenu script in dmenu which can open configuration files in your editor
+- Alt+Shift+e     | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard.
 - Alt+Shift+t     | Opens the defined editor in your terminal
 - Alt+Shift+p     | pkills the defined web browser
 - Alt+Shift+m     | pkills the defined music player
