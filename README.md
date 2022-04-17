@@ -97,7 +97,8 @@ This file is sourced by the SHCMD function in dwm and MUST be POSIX compliant.
 This file does not allow you to add any more keybinds but it does allow you to change what applications to use or change arguments.
 
 ### Important
-This build does not keep object files or config.h. Those are automatically deleted after a successful compile. If a compile is not successful, they will not be deleted. If that's the case, do NOT edit config.h because if you do and it compiles successfully then your changes will be lost.
+- This build does not keep object files or config.h. Those are automatically deleted after a successful compile. If a compile is not successful, they will not be deleted. If that's the case, do NOT edit config.h because if you do and it compiles successfully then your changes will be lost.
+- This build REQUIRES libXft-bgra. If you don't know what that is, it's a patched build of libXft which fixes a bug which causes dmenu to crash when displaying certain characters.
   
 ### Keybinds
 NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do the same thing.
