@@ -1,18 +1,21 @@
 # This file is a list of applications that dwm will use.
 # Edit this to match your system.
 # Make sure this is present in the same folder your dwm binary is.
+# Make sure it uses POSIX shell syntax. No bash-isms, no fish-nonsense.
 
-TERMINAL=st
-EDITOR=vim
-DMENU_RUN=dmenu_run
-BROWSER=librewolf
-MIXER=alsamixer
-PLAYER_BIN=mocp
-MUSICDIR=$HOME/Music
-PLAYER="mocp -T transparent-background $MUSICDIR"
-EMAIL=neomutt
-CHAN="https://4channel.org/g/"
-FILEMANAGER=vifm
-INV_INSTANCE=yewtu.be
-RSS=newsboat
-STAT=htop
+TERMINAL=st # Terminal you wanna use
+EDITOR=vim # Text editor you wanna use
+DMENU_RUN=dmenu_run # Change this if you need a special path
+DMENU=dmenu # Change this if you need a special path
+BROWSER=tabbed\ \-c\ \vimb\ \-e # Web browser to use
+MIXER=alsamixer # Audio mixer to use
+MUSICDIR=/mnt/storage01/Music/Playlist # Directory to play music from.
+PLAYER_BIN=mocp # Music player (NOTE: mocp will CRASH on linux-hardened!!!)
+PLAYER="mocp -T transparent-background $MUSICDIR" # Command to run, if using mocp leave as default.
+EMAIL=neomutt # Email client to use
+FILEMANAGER=vifm # File manager to use
+RSS=newsboat # RSS reader to use
+STAT=htop # system stat viewer to use
+SCRIPTDIR=~/Scripts # Directory where your shell scripts can be found
+LOCKER=slock # How you lock your computer
+BOTTOM="-b" # Uncomment if you wanna run dmenu on the bottom
