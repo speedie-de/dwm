@@ -16,6 +16,14 @@ I recommend using my builds of [st](https://github.com/speedie-de/st) and [dmenu
 - echo "dwm" > ~/.xinitrc # If you're using a display manager, select it in your menu.
 - See "Installing libXft-bgra"
 
+### Installation (Package manager)
+If you're running (currently only) Gentoo then you can install my build of dwm using Portage.
+- emerge layman
+- layman -o https://raw.githubusercontent.com/spoverlay/splay/main/splay.xml -f -a splay
+- layman -S
+- emerge dwm-spde
+- Optional: emerge st-spde dmenu-spde
+
 ### Installing libXft-bgra
 This has to be done because this build of dwm supports Color emojis. Now the only problem is that libXft will crash dwm because it doesn't support this. Therefore libXft has to be patched. This is pretty painful so I built this into the Makefile.
 - For Gentoo: make gentoo-libxftfix
@@ -56,7 +64,6 @@ This build of dwm has been patched pretty heavily with the following patches
 - dwm-namedscratchpads
 - dwm-decorhints
 - dwm-swallow
-
 
 This build of dwm has full compatibility with .Xresources and allows defining these options
 - dwm.nmaster:              1
