@@ -23,28 +23,35 @@ config.h:
 	cp config.def.h $@
 
 dwm: ${OBJ}
-	${CC} -o $@ ${OBJ} ${LDFLAGS} && rm -f config.h drw.o dwm.o util.o ; cp -f dwm-applications ${DWMAPPLICATIONS} ; cp wal.sh ${PREFIX}/bin/wal_dwm.sh ; chmod +x ${PREFIX}/bin/wal_dwm.sh
+	${CC} -o $@ ${OBJ} ${LDFLAGS} ; rm -f config.h drw.o dwm.o util.o
 
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz && echo "Cleaned!"
 
 dist: clean
-	mkdir -p dwm-${VERSION}
-	cp -R LICENSE Makefile README config.def.h config.mk\
-		dwm.1 drw.h util.h ${SRC} dwm.png transient.c dwm-${VERSION}
-	tar -cf dwm-${VERSION}.tar dwm-${VERSION}
-	gzip dwm-${VERSION}.tar
-	rm -rf dwm-${VERSION}
+	mkdir -p dwm-spde-${VERSION}
+	cp -R config.def.h config.mk docs drw.c drw.h dwm-applications dwm-autostart.sh dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch transient.c util.c util.h wal.sh dwm-spde-${VERSION}
+	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
+	gzip dwm-spde-${VERSION}.tar
+	rm -rf dwm-spde-${VERSION}
 
 install: all
+	touch config.h drw.o dwm.o util.o
 	mkdir -p ${DESTDIR}${PREFIX}/bin
-	cp -f dwm ${DESTDIR}${PREFIX}/bin && cp dwm-applications ${DWMAPPLICATIONS}
+	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	sed "s/VERSION/${VERSION}/g" < dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
+	sed "s/VERSION/${VERSION}/g" < docs/dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
+	cp -f dwm-applications ${DESTDIR}${PREFIX}/bin
+	cp -f wal.sh ${DESTDIR}${PREFIX}/bin/wal_dwm.sh ; chmod +x ${DESTDIR}${PREFIX}/bin/wal_dwm.sh
+	cp -f dwm-autostart.sh ${DESTDIR}${PREFIX}/bin/dwm-autostart.sh ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-autostart.sh
+	cp -f docs/bindlist ${DESTDIR}${PREFIX}/bin
+	cp -f dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
+	cp -f shutdown.sh ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown.sh
+	cp -f switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
 	rm config.h drw.o dwm.o util.o ; chmod +x wal.sh ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
-
+   
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${MANPREFIX}/man1/dwm.1

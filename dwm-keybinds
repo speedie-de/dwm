@@ -1,0 +1,4 @@
+#!/bin/sh
+# Simple script which allows you to read all dwm keybinds
+
+less /usr/bin/bindlist

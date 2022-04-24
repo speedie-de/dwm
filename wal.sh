@@ -18,7 +18,7 @@ WAL_COLORS()
 {
   COLOR_01=$(sed -n 8,8p $COLORLIST)
   COLOR_02=$(sed -n 1,1p $COLORLIST)
-  COLOR_03=$(sed -n 9,9p $COLORLIST)
+  COLOR_03=$(sed -n 10,10p $COLORLIST)
   COLOR_04=$(sed -n 8,8p $COLORLIST)
   COLOR_05=$(sed -n 11,11p $COLORLIST)
   COLOR_06=$(sed -n 9,9p $COLORLIST)
@@ -78,7 +78,13 @@ WAL_WRITE()
   echo "dwm.col_tag9_text:        $TAGCOLOR_STATIC_01" >> $XRESOURCES
 }
 
+WAL_SET()
+{
+  xrdb -merge ~/.cache/wal/colors.Xresources
+}
+
 WAL_DMENU # Comment if you're not using my build of dmenu/one that supports .Xresources
 WAL_VARS || WAL_DIE
 WAL_COLORS || WAL_DIE
 WAL_WRITE || WAL_DIE
+WAL_SET || WAL_DIE
