@@ -38,13 +38,12 @@ You can also edit the source code directly, although that's pretty painful.
 .SH COMPILING
 To install dwm, simply run 'make install' as root. Then install libXft-bgra. Do this by running 'make libxftfix', 'make gentoo-libxftfix', or 'arch-libxftfix' depending on your distribution of choice. Now make sure dwm runs. For users of xinit, simply add 'dwm' to ~/.xinitrc.
 .P
-If you're going to use pywal, add 'dwm_wal.sh' to ~/.xinitrc BEFORE 'dwm'. If you are using a display manager or don't have access to .xinitrc, simply add it to dwm-autostart.sh and 'make install' again.
+If you're going to use pywal, add 'xrdb -merge ~/.cache/wal/colors.Xresources' to ~/.xinitrc BEFORE 'dwm'. If you are using a display manager or don't have access to .xinitrc, simply add it to config.def.h and 'make install' again.
 .P
-If you cannot open anything, it could be because your settings aren't set properly. If this is the case, edit 'dwm-applications' in your dwm source code folder or if you don't wanna recompile, /usr/share/dwm-applications.
+If you cannot open anything, it could be because your settings aren't set properly. If this is the case, edit the '#define's in your dwm source code folder.
 .P
 Make sure the values are set correctly. If they are, make sure all dependencies are installed.
 .P
 If you have any issues, feel free to email me. (speedie@duck.com)
 .P
 Or post an Issue over on GitHub, https://github.com/speedie-de/dwm
-

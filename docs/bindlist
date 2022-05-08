@@ -1,6 +1,7 @@
 Applications
 Alt+Shift+Enter   | Opens a terminal
 Alt+Shift+Colon   | Opens a dmenu prompt
+Alt+Shift+d       | Opens 'cordless' in a terminal
 Alt+Shift+s       | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
 Alt+Shift+f       | Opens the defined file manager
 Alt+Shift+w       | Opens the defined web browser
@@ -10,16 +11,14 @@ Alt+Shift+c       | Opens the copyout dmenu script in dmenu which can copy the o
 Alt+Shift+v       | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
 Alt+Shift+j       | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
 Alt+Shift+e       | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
+Alt+Shift+comma   | Opens the dscratchpad dmenu script
 Alt+Shift+t       | Opens the defined editor in your terminal
 Alt+Shift+p       | pkills the defined web browser
 Alt+Shift+m       | pkills the defined music player
-Alt+Shift+d       | Opens https://discord.com/channels/@me in the defined web browser
-Alt+Shift+y       | Opens the defined Invidious instance in the defined web browser
 Alt+Shift+a       | Opens the defined mixer in your terminal
 Alt+Shift+m       | Opens the defined music player
 Alt+Shift+x       | Opens the defined system process viewer in your terminal
 Control+Shift+m   | Opens the defined email client
-Control+Shift+4   | Opens the defined "chan" in your defined web browser
 Control+Alt+u     | Opens the defined RSS reader
 
 Navigation
@@ -47,12 +46,16 @@ Alt+Shift+7       | Move to tag 7
 Alt+Shift+8       | Move to tag 8
 Alt+Shift+9       | Move to tag 9
 Alt+Shift+Escape  | Ask the user if they want to shutdown or reboot or nothing
+Alt+Shift+i       | Open a dmenu prompt and open the file the user picks in Zathura
+Alt+Shift+k       | Open a dmenu prompt and open the file the user picks in Vim
 Control+Alt+e     | Switch to layout 3 (Grid)
 Control+Alt+r     | Switch to layout 1 (Monocle)
 Control+Alt+t     | Switch to layout 0 (Master & stack)
 Control+Alt+y     | Switch to layout 4 (Deck)
+NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D
 Control+Alt+0     | Set all windows to use the same tag
 Control+Alt+Arrow | Moves a window to any corner of your screen
+Control+Alt+comma | Run via if present.
 Control+Shift+a/d | Move between available layouts
 Control+Shift+Tab | Read .Xresources again without reloading dwm
 Control+Shift+s   | Make the current selected window sticky

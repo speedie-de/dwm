@@ -11,14 +11,14 @@ dwm-gridmode
 dwm-hide_vacant_tags
 dwm-no-mouse-support
 dwm-pertag
-dwm-rainbowtags # Not actually rainbow but that's the defaults.
-dwm-statuscmd # For status bars like dwmblocks
+dwm-rainbowtags
+dwm-statuscmd
 dwm-steam
-dwm-upgrade-6.3 # Patch which upgrades dwm 6.2 to 6.3
+dwm-upgrade-6.3
 dwm-warp
 dwm-winicon
 dwm-xresources
-dwm-pywal # Script which makes this compatible with pywal
+dwm-pywal
 dwm-moveresize
 dwm-autoresize
 dwm-deck
@@ -30,3 +30,13 @@ dwm-dynamicscratchpads
 dwm-namedscratchpads
 dwm-decorhints
 dwm-swallow
+dwm-fibonacci
+dwm-centeredmaster
+dwm-barpadding
+dwm-threecolumn
+dwm-bottomstack
+dwm-horizgrid
+dwm-alwayscenter
+dwm-rulerefresher
+dwm-alpha-monocle
+dwm-tatami
