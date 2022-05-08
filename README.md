@@ -45,14 +45,14 @@ This build of dwm has been patched pretty heavily with the following patches
 - dwm-hide_vacant_tags
 - dwm-no-mouse-support
 - dwm-pertag
-- dwm-rainbowtags # Not actually rainbow but that's the defaults.
-- dwm-statuscmd # For status bars like dwmblocks
+- dwm-rainbowtags
+- dwm-statuscmd
 - dwm-steam
-- dwm-upgrade-6.3 # Patch which upgrades dwm 6.2 to 6.3
+- dwm-upgrade-6.3
 - dwm-warp
 - dwm-winicon
 - dwm-xresources
-- dwm-pywal # Script which makes this compatible with pywal
+- dwm-pywal
 - dwm-moveresize
 - dwm-autoresize
 - dwm-deck
@@ -64,6 +64,16 @@ This build of dwm has been patched pretty heavily with the following patches
 - dwm-namedscratchpads
 - dwm-decorhints
 - dwm-swallow
+- dwm-fibonacci
+- dwm-centeredmaster
+- dwm-barpadding
+- dwm-threecolumn
+- dwm-bottomstack
+- dwm-horizgrid
+- dwm-alwayscenter
+- dwm-rulerefresher
+- dwm-alpha-monocle
+- dwm-tatami
 
 This build of dwm has full compatibility with .Xresources and allows defining these options
 - dwm.nmaster:              1
@@ -107,27 +117,25 @@ This build of dwm has full compatibility with .Xresources and allows defining th
 - dwm.sizeicon:             16
 - dwm.spacingicon:          5
 - dwm.status:               xshbar
-- dwm.decorhints            1
+- dwm.decorhints:           1
+- dwm.vertpad:              0
+- dwm.sidepad:              0  
 
 I know that seems like a lot but if you're unsure, there's an example file.
 To use a .Xresources file, simply install xrdb and add xrdb /path/to/.Xresources to .xinitrc
 Or if you're using a display manager, add it to the autostart function in config.def.h.
 
-It also has a configuration file which after compiling should be in ~/.config/dwm-applications.
-This file is sourced by the SHCMD function in dwm and MUST be POSIX compliant.
-  
-This file does not allow you to add any more keybinds but it does allow you to change what applications to use or change arguments.
-
 ### Important
 - This build does not keep object files or config.h. Those are automatically deleted after a successful compile. If a compile is not successful, they will not be deleted. If that's the case, do NOT edit config.h because if you do and it compiles successfully then your changes will be lost.
-- This build REQUIRES libXft-bgra. If you don't know what that is, it's a patched build of libXft which fixes a bug which causes dmenu to crash when displaying certain characters.
+- This build REQUIRES libXft-bgra. If you don't know what that is, it's a patched build of libXft which fixes a bug which causes dmenu to crash when displaying certain characters. That can be installed through make <distro>-libxftfix
   
 ### Keybinds
 NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do the same thing.
 
-Applications
+- Applications
 - Alt+Shift+Enter   | Opens a terminal
 - Alt+Shift+Colon   | Opens a dmenu prompt
+- Alt+Shift+d       | Opens 'cordless' in a terminal
 - Alt+Shift+s       | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
 - Alt+Shift+f       | Opens the defined file manager
 - Alt+Shift+w       | Opens the defined web browser
@@ -137,6 +145,7 @@ Applications
 - Alt+Shift+v       | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
 - Alt+Shift+j       | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
 - Alt+Shift+e       | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
+- Alt+Shift+comma   | Opens the dscratchpad dmenu script
 - Alt+Shift+t       | Opens the defined editor in your terminal
 - Alt+Shift+p       | pkills the defined web browser
 - Alt+Shift+m       | pkills the defined music player
@@ -145,8 +154,8 @@ Applications
 - Alt+Shift+x       | Opens the defined system process viewer in your terminal
 - Control+Shift+m   | Opens the defined email client
 - Control+Alt+u     | Opens the defined RSS reader
-
-Navigation
+- 
+- Navigation
 - Alt+f             | Full-screen the selected window
 - Alt+b             | Show/hide the dwm bar
 - Alt+j/k           | Move focus between windows
@@ -171,21 +180,25 @@ Navigation
 - Alt+Shift+8       | Move to tag 8
 - Alt+Shift+9       | Move to tag 9
 - Alt+Shift+Escape  | Ask the user if they want to shutdown or reboot or nothing
+- Alt+Shift+i       | Open a dmenu prompt and open the file the user picks in Zathura
+- Alt+Shift+k       | Open a dmenu prompt and open the file the user picks in Vim
 - Control+Alt+e     | Switch to layout 3 (Grid)
 - Control+Alt+r     | Switch to layout 1 (Monocle)
 - Control+Alt+t     | Switch to layout 0 (Master & stack)
 - Control+Alt+y     | Switch to layout 4 (Deck)
+- NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D
 - Control+Alt+0     | Set all windows to use the same tag
 - Control+Alt+Arrow | Moves a window to any corner of your screen
+- Control+Alt+comma | Run via if present.
 - Control+Shift+a/d | Move between available layouts
 - Control+Shift+Tab | Read .Xresources again without reloading dwm
 - Control+Shift+s   | Make the current selected window sticky
 - Control+Alt+Shift+Arrow | Resize the window to the screen size.
-
-Extras (These will only work if your keyboard has special multimedia buttons)
+- 
+- Extras (These will only work if your keyboard has special multimedia buttons)
 - Mute button       | Mutes your audio
-- Increase Volume button   | Increases your volume
-- Decrease Volume button   | Decreases your volume
+- + Volume button   | Increases your volume
+- - Volume button   | Decreases your volume
 - Stop button       | Stops your defined music player
 - Browser button    | Opens your defined web browser
 - Power button      | Ask if you wanna shut down, restart or lock your computer.
