@@ -187,6 +187,8 @@ typedef struct {
 
 /* function declarations */
 static void applyrules(Client *c);
+static void centeredmaster(Monitor *m);
+static void centeredfloatingmaster(Monitor *m);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void spawnscratch(const Arg *arg);
 static void togglescratch(const Arg *arg);
@@ -290,6 +292,7 @@ static void updatemotifhints(Client *c);
 static void updatenumlockmask(void);
 static void updatesizehints(Client *c);
 static void updatestatus(void);
+static void updaterules(Client *c);
 static void updatetitle(Client *c);
 static void updateicon(Client *c);
 static void updatewindowtype(Client *c);
@@ -322,6 +325,8 @@ static int screen;
 static int tw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
 static int lrpad;            /* sum of left and right padding for text */
+static int vp;               /* vertical padding for bar */
+static int sp;               /* side padding for bar */
 static int (*xerrorxlib)(Display *, XErrorEvent *);
 static unsigned int numlockmask = 0;
 static void (*handler[LASTEvent]) (XEvent *) = {
@@ -751,7 +756,7 @@ configurenotify(XEvent *e)
 				for (c = m->clients; c; c = c->next)
 					if (c->isfullscreen)
 						resizeclient(c, m->mx, m->my, m->mw, m->mh);
-				XMoveResizeWindow(dpy, m->barwin, m->wx, m->by, m->ww, bh);
+				XMoveResizeWindow(dpy, m->barwin, m->wx + sp, m->by + vp, m->ww -  2 * sp, bh);
 			}
 			focus(NULL);
 			arrange(NULL);
@@ -967,7 +972,7 @@ drawbar(Monitor *m)
 				ch = *s;
 				*s = '\0';
 				tw = TEXTW(text) - lrpad;
-				drw_text(drw, m->ww - statusw + x, 0, tw, bh, 0, text, 0);
+				drw_text(drw, m->ww - statusw + x, 0, tw - 2 * sp, bh, 0, text, 0);
 				x += tw;
 				*s = ch;
 				text = s + 1;
@@ -1004,13 +1009,13 @@ drawbar(Monitor *m)
 			/* make sure name will not overlap on tags even when it is very long */
 			mid = mid >= lrpad / 2 ? mid : lrpad / 2;
 			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
-			drw_text(drw, x, 0, w, bh, lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0), m->sel->name, 0);
+			drw_text(drw, x, 0, w - 2 * sp, bh, lrpad / 2 + (m->sel->icon ? m->sel->icw + ICONSPACING : 0), m->sel->name, 0);
 			if (m->sel->icon) drw_pic(drw, x + lrpad / 2, (bh - m->sel->ich) / 2, m->sel->icw, m->sel->ich, m->sel->icon);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
 		} else {
 			drw_setscheme(drw, scheme[SchemeNorm]);
-			drw_rect(drw, x, 0, w, bh, 1, 1);
+			drw_rect(drw, x, 0, w - 2 * sp, bh, 1, 1);
 		}
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
@@ -1076,6 +1081,8 @@ focus(Client *c)
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
 	}
 	selmon->sel = c;
+	if (selmon->lt[selmon->sellt]->arrange == monocle)
+		arrangemon(selmon);
 	drawbars();
 }
 
@@ -1410,6 +1417,8 @@ manage(Window w, XWindowAttributes *wa)
 	updatewindowtype(c);
 	updatesizehints(c);
 	updatewmhints(c);
+	c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
+	c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
 	updatemotifhints(c);
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
 	grabbuttons(c, 0);
@@ -1468,8 +1477,15 @@ monocle(Monitor *m)
 			n++;
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
-	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
+	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
+	if (c && !c->isfloating) {
+		XMoveWindow(dpy, c->win, m->wx, m->wy);
 		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+		c = c->snext;
+	}
+	for (; c; c = c->snext)
+		if (!c->isfloating && ISVISIBLE(c))
+			XMoveWindow(dpy, c->win, WIDTH(c) * -2, c->y);
 }
 
 void
@@ -1686,6 +1702,7 @@ propertynotify(XEvent *e)
 		}
 		if (ev->atom == XA_WM_NAME || ev->atom == netatom[NetWMName]) {
 			updatetitle(c);
+            updaterules(c);
 			if (c == c->mon->sel)
 				drawbar(c->mon);
 		}
@@ -2089,7 +2106,10 @@ setup(void)
 		die("no fonts could be loaded.");
 	lrpad = drw->fonts->h;
 	bh = drw->fonts->h + 2;
+	sp = sidepad;
+	vp = (topbar == 1) ? vertpad : - vertpad;
 	updategeom();
+
 	/* init atoms */
 	utf8string = XInternAtom(dpy, "UTF8_STRING", False);
 	wmatom[WMProtocols] = XInternAtom(dpy, "WM_PROTOCOLS", False);
@@ -2298,7 +2318,7 @@ togglebar(const Arg *arg)
 {
 	selmon->showbar = selmon->pertag->showbars[selmon->pertag->curtag] = !selmon->showbar;
 	updatebarpos(selmon);
-	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
+	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx + sp, selmon->by + vp, selmon->ww - 2 * sp, bh);
 	arrange(selmon);
 }
 
@@ -2460,7 +2480,7 @@ updatebars(void)
 	for (m = mons; m; m = m->next) {
 		if (m->barwin)
 			continue;
-		m->barwin = XCreateWindow(dpy, root, m->wx, m->by, m->ww, bh, 0, depth,
+		m->barwin = XCreateWindow(dpy, root, m->wx + sp, m->by + vp, m->ww - 2 * sp, bh, 0, depth,
 		                          InputOutput, visual,
 		                          CWOverrideRedirect|CWBackPixel|CWBorderPixel|CWColormap|CWEventMask, &wa);
 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
@@ -2475,11 +2495,11 @@ updatebarpos(Monitor *m)
 	m->wy = m->my;
 	m->wh = m->mh;
 	if (m->showbar) {
-		m->wh -= bh;
-		m->by = m->topbar ? m->wy : m->wy + m->wh;
-		m->wy = m->topbar ? m->wy + bh : m->wy;
+		m->wh = m->wh - vertpad - bh;
+		m->by = m->topbar ? m->wy : m->wy + m->wh + vertpad;
+		m->wy = m->topbar ? m->wy + bh + vp : m->wy;
 	} else
-		m->by = -bh;
+		m->by = -bh - vp;
 }
 
 void
@@ -2695,6 +2715,54 @@ updatestatus(void)
 
 	}
 	drawbar(selmon);
+}
+
+void
+updaterules(Client *c)
+{
+    //applyrules(c)
+	const char *class, *instance;
+	unsigned int i;
+	const Rule *r;
+	Monitor *m;
+	XClassHint ch = { NULL, NULL };
+
+	/* rule matching */
+	XGetClassHint(dpy, c->win, &ch);
+	class    = ch.res_class ? ch.res_class : broken;
+	instance = ch.res_name  ? ch.res_name  : broken;
+    char found_rule = 0;
+
+	for (i = 0; i < LENGTH(rules); i++) {
+		r = &rules[i];
+		if ((!r->title || strstr(c->name, r->title))
+		&& (!r->class || strstr(class, r->class))
+		&& (!r->instance || strstr(instance, r->instance)))
+		{
+			c->isfloating = r->isfloating;
+
+            if(!found_rule)
+            {
+                c->tags=0;
+			    found_rule=1;
+            }    
+            c->tags |= r->tags;
+            for (m = mons; m && m->num != r->monitor; m = m->next);
+			if (m)
+				c->mon = m;
+		}
+	}
+	if (ch.res_class)
+		XFree(ch.res_class);
+	if (ch.res_name)
+		XFree(ch.res_name);
+	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
+
+    // end apply rules
+	if (c->isfloating)
+		resize(c, c->x, c->y,
+			c->w, c->h, 0);
+	arrange(c->mon);
 }
 
 void
@@ -3119,4 +3187,107 @@ livereloadxrdb(const Arg *arg)
 		        scheme[i] = drw_scm_create(drw, colors[i], alphas[i], 3);
 		focus(NULL);
 		arrange(NULL);
+}
+
+void
+centeredmaster(Monitor *m)
+{
+	unsigned int i, n, h, mw, mx, my, oty, ety, tw;
+	Client *c;
+
+	/* count number of clients in the selected monitor */
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	/* initialize areas */
+	mw = m->ww;
+	mx = 0;
+	my = 0;
+	tw = mw;
+
+	if (n > m->nmaster) {
+		/* go mfact box in the center if more than nmaster clients */
+		mw = m->nmaster ? m->ww * m->mfact : 0;
+		tw = m->ww - mw;
+
+		if (n - m->nmaster > 1) {
+			/* only one client */
+			mx = (m->ww - mw) / 2;
+			tw = (m->ww - mw) / 2;
+		}
+	}
+
+	oty = 0;
+	ety = 0;
+	for (i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	if (i < m->nmaster) {
+		/* nmaster clients are stacked vertically, in the center
+		 * of the screen */
+		h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+		resize(c, m->wx + mx, m->wy + my, mw - (2*c->bw),
+		       h - (2*c->bw), 0);
+		my += HEIGHT(c);
+	} else {
+		/* stack clients are stacked vertically */
+		if ((i - m->nmaster) % 2 ) {
+			h = (m->wh - ety) / ( (1 + n - i) / 2);
+			resize(c, m->wx, m->wy + ety, tw - (2*c->bw),
+			       h - (2*c->bw), 0);
+			ety += HEIGHT(c);
+		} else {
+			h = (m->wh - oty) / ((1 + n - i) / 2);
+			resize(c, m->wx + mx + mw, m->wy + oty,
+			       tw - (2*c->bw), h - (2*c->bw), 0);
+			oty += HEIGHT(c);
+		}
+	}
+}
+
+void
+centeredfloatingmaster(Monitor *m)
+{
+	unsigned int i, n, w, mh, mw, mx, mxo, my, myo, tx;
+	Client *c;
+
+	/* count number of clients in the selected monitor */
+	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if (n == 0)
+		return;
+
+	/* initialize nmaster area */
+	if (n > m->nmaster) {
+		/* go mfact box in the center if more than nmaster clients */
+		if (m->ww > m->wh) {
+			mw = m->nmaster ? m->ww * m->mfact : 0;
+			mh = m->nmaster ? m->wh * 0.9 : 0;
+		} else {
+			mh = m->nmaster ? m->wh * m->mfact : 0;
+			mw = m->nmaster ? m->ww * 0.9 : 0;
+		}
+		mx = mxo = (m->ww - mw) / 2;
+		my = myo = (m->wh - mh) / 2;
+	} else {
+		/* go fullscreen if all clients are in the master area */
+		mh = m->wh;
+		mw = m->ww;
+		mx = mxo = 0;
+		my = myo = 0;
+	}
+
+	for(i = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+	if (i < m->nmaster) {
+		/* nmaster clients are stacked horizontally, in the center
+		 * of the screen */
+		w = (mw + mxo - mx) / (MIN(n, m->nmaster) - i);
+		resize(c, m->wx + mx, m->wy + my, w - (2*c->bw),
+		       mh - (2*c->bw), 0);
+		mx += WIDTH(c);
+	} else {
+		/* stack clients are stacked horizontally */
+		w = (m->ww - tx) / (n - i);
+		resize(c, m->wx + tx, m->wy, w - (2*c->bw),
+		       m->wh - (2*c->bw), 0);
+		tx += WIDTH(c);
+	}
 }

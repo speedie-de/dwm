@@ -1,7 +1,6 @@
-#!/bin/bash
-# Sorry, have to use bash because whoever wrote this script didn't make it POSIX compliant.
-
-. /usr/bin/dwm-applications
+#!/bin/sh
+# This script is from the suckless.org website.
+# I'm not sure who made it initially but I made it POSIX compliant.
 
 windows=$(wmctrl -xl | tr -s '[:blank:]' | cut -d ' ' -f 3-3,5- | sed 's/^[a-zA-Z0-9-]*\.//' | sort | uniq)
 
@@ -15,8 +14,8 @@ windows=$(echo "$windows" | \
                     $1 = ""; printf "%s\n", $0}')
 
 
-target=$(echo "$windows" | $DMENU $BOTTOM -l 10 -p "switch:" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
+target=$(echo "$windows" | dmenu -b -l 10 -p "switch:" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
 
-if [[ -n $target ]]; then
+if [ -n $target ]; then
     wmctrl -a "$target"
 fi

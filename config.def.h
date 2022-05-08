@@ -11,28 +11,67 @@
  * To install libXft-bgra on Gentoo Linux, type 'make gentoo-libxftfix'
  * To install libXft-bgra on other GNU/Linux distributions, type 'make libxftfix' */
 
-#define VARIABLES                             ". /usr/bin/dwm-applications;" /* Source variables from this file */
+/* Include */
+#include <X11/XF86keysym.h> /* Enable multimedia button support */
+#include "layouts.c" /* Enable patched layouts */
+
+/* Define
+ * You may wanna change a few of these.
+ *************************************/
 #define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
-#define SCREENSHOT                            "maim -suB | xclip -selection clipboard -t image/png"
-#define SCREENSHOT_FULL                       "maim -uB | xclip -selection clipboard -t image/png"
-#define SCREENSHOT                            "maim -suB | xclip -selection clipboard -t image/png"
-#define SCREENSHOT_FULL                       "maim -uB | xclip -selection clipboard -t image/png"
-#include <X11/XF86keysym.h> /* Enable multimedia button support */
+#define TERMINAL                              "st -e " /* Terminal to use */
+#define TERMINAL_CLASS                        "St" /* Terminal to use for rules */
+#define BROWSER                               "tabbed -c vimb -e" /* Web browser to use */
+#define BROWSER_CLASS                         "vimb" /* Web browser to use for rules */
+#define SYSTEMSTAT                            "htop" /* System stat viewer to use */
+#define RSS                                   "newsboat" /* RSS reader to use */
+#define PDF                                   "zathura" /* PDF reader to use */
+#define PDF_CLASS                             "Zathura" /* PDF reader to use for rules */
+#define MIXER                                 "alsamixer" /* Audio mixer to use */
+#define MUSIC                                 "mocp" /* Music player to use */
+#define EMAIL                                 "neomutt" /* Email client to use */
+#define EDITOR                                "vim" /* Text editor to use */
+#define RUN                                   "dmenu_run -l 1 -p Run: -b"
+#define SCREENSHOT                            "maim -suB | xclip -selection clipboard -t image/png" /* How to take screenshots (Selection) */
+#define SCREENSHOT_FULL                       "maim -uB | xclip -selection clipboard -t image/png" /* How to take screenshots (Full screen) */
+#define FILEMANAGER                           "~/.config/vifm/vifmrun || vifm" /* File manager that will be used */
+#define FILEMANAGER_CLASS                     "/home/speedie/.config/vifm/vifmrun" /* File manager that will be used for rules */
+#define LOCKER                                "slock" /* Screen locker that will be used */
+#define OPENSCRIPT                            "vim ~/Scripts/$(ls -Apf1 ~/Scripts | dmenu -p 'Which script do you want to edit?' -l 50)"
+#define OPENDOC                               "zathura ~/Documents/$(ls -Apf1 ~/Scripts/*.pdf | dmenu -p 'Which pdf do you wanna view?' -l 50)"
+#define KILLMUSIC                             "pkill mocp"
+#define VOL_DOWN                              "amixer -c 0 set Master 7%-" /* Command to run when decreasing volume */
+#define VOL_UP                                "amixer -c 0 set Master 7%+" /* Command to run when increasing volume */
+#define VOL_MUTE                              "amixer -c 0 set Master 100%-" /* Command to run when muting volume */
+#define VOL_OUTPUT_SPEAKER_ON                 "amixer -c 0 sset 'Auto-Mute Mode' Enabled" /* Command to run when enabling speakers */
+#define VOL_OUTPUT_SPEAKER_OFF                "amixer -c 0 sset 'Auto-Mute Mode' Disabled" /* Command to run when disabling speakers */
+#define LIVERELOAD                            "xrdb -merge ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
+#define MODKEY Mod1Mask
+#define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
+#define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
+
+/* Options
+ *
+ * If you're going to be using .Xresources then you don't need to change any of these.
+ * Otherwise, you can carefully edit them.
+ ****************************************/
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 32;
 static unsigned int gappx                     = 5; /* How big should your gaps be? 0 = No gaps */
-static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
-static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
 static char font[]                            = { "Terminus:size=8" }; /* What font should we use? */
 static char font2[]                           = { "JoyPixels:size=8" }; /* Second font */
 static char font3[]                           = { "Siji:size=8" }; /* Third font */
 static const char *fonts[]                    = { font, font2, font3 };
-static char shell[]                           = "/bin/sh"; /* shell to use */
+static char shell[]                           = "/bin/sh"; /* shell to use */ 
 static char status[]                          = "xshbar"; /* status bar to use, dwmblocks for dwmblocks, slstatus for slstatus, etc. */
 static int sizeicon                           = 16; /* size of the icon */
 static int spacingicon                        = 5; /* spacing between the title and icon */
+static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
+static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
+static int vertpad                            = 0; /* How much padding to have vertically */
+static int sidepad                            = 0; /* How much padding to have horizontally */
 static char col_background[]                  = "#222222"; /* dwm dark bg & slstatus bg */
 static char col_backgroundmid[]               = "#222222"; /* dwm middle background */
 static char col_textnorm[]                    = "#bbbbbb"; /* application title bar/font for norm */
@@ -57,7 +96,7 @@ static char col_tag8[]                        = "#333333"; /* tag 8 background *
 static char col_tag8_text[]                   = "#eeeeee"; /* tag 8 text (fg) */
 static char col_tag9[]                        = "#333333"; /* tag 9 background */
 static char col_tag9_text[]                   = "#eeeeee"; /* tag 9 text (fg) */
-static char *scratchpadcmd[]                  = {"s", VARIABLES "$TERMINAL", "-t", "scratchpad", NULL};
+static char *scratchpadcmd[]                  = {"s", TERMINAL, "-t", "scratchpad", NULL};
 static float mfact                            = 0.50;
 static const unsigned int baralpha            = 0xd0;
 static const unsigned int borderalpha         = OPAQUE;
@@ -69,27 +108,32 @@ static int startontag                         = 0; /* Start on a tag or not? 1 =
 static int swallowfloating                    = 0; /* Swallow floating windows by default */
 static char dmenumon[2]                       = "0";
 static const char *dmenucmd[]                 = { NULL };
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-static const char *alttags[] = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
-static char *colors[][3]      = {
-	[SchemeNorm] = { col_textnorm, col_background,    col_windowbordernorm },
-	[SchemeSel]  = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
-/*                       text         background         window border */
+static const char *tags[]                     = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
+static char *colors[][3]                      = {
+	[SchemeNorm]                              = { col_textnorm, col_background,    col_windowbordernorm },
+	[SchemeSel]                               = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
+/*                                                text          background         window border */
 };
 
-static const char *const autostart[] = {
+/* Anything in here will automatically start before dwm
+ * You probably won't find this useful unless you use a display manager.
+ * I use it to start my status bar, though.
+ *****************************************/
+static const char *const autostart[]          = {
    shell, "-c", STATUSBAR,
-   shell, "-c", "dwm-autostart.sh",
    NULL
 };
 
-static const unsigned int alphas[][3]      = {
-       /*               fg      bg        border     */
-       [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-       [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+/* Colors to use for alpha */
+static const unsigned int alphas[][3]         = {
+       /*                                         fg      bg        border     */
+       [SchemeNorm]                           = { OPAQUE, baralpha, borderalpha },
+       [SchemeSel]                            = { OPAQUE, baralpha, borderalpha },
 };
 
-static char *tagsel[][2] = {
+/* Colors to use for tags */
+static char *tagsel[][2]                      = {
 	{ col_tag1_text, col_tag1 }, 
 	{ col_tag2_text, col_tag2 },
 	{ col_tag3_text, col_tag3 },
@@ -102,43 +146,53 @@ static char *tagsel[][2] = {
 	/* Text       Background */
 };
 
-static const unsigned int tagalpha[] = { OPAQUE, baralpha };
-static const Rule rules[] = {
-    	/* class         instance    title       tags mask     isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
-        { "St",          NULL,       NULL,       3 << 9,       0,            1,           0,          0,             -1,         0  },
-        { "alacritty",   NULL,       NULL,       3 << 9,       0,            1,           0,          0,             -1,         0  },
-        { "kitty",       NULL,       NULL,       3 << 9,       0,            1,           0,          0,             -1,         0  },
-	    { "qutebrowser", NULL,       NULL,       2 << 9,       0,            0,           1,          0,             -1,         0  },
-	    { "vimb",        NULL,       NULL,       2 << 9,       0,            0,           1,          1,             -1,         0  },
-		{ "Chromium",    NULL,       NULL,       2 << 9,       0,            0,           1,          0,             -1,         0  },
-	    { "Firefox",     NULL,       NULL,       2 << 9,       0,            0,           1,          0,             -1,         0  },
-		{ "Librewolf",   NULL,       NULL,       2 << 9,       0,            0,           1,          0,             -1,         0  },
-		{ "urxvt",       NULL,       NULL,       3 << 9,       0,            0,           0,          0,             -1,         0  },
-        { "surf",        NULL,       NULL,       2 << 9,       1,            0,           1,          0,             -1,         0  },
-        { "tabbed",      NULL,       NULL,       2 << 9,       0,            0,           0,          0,             -1,         0  },
-		{ NULL,          NULL,     "scratchpad", 0,            0,            0,                                      -1,        's' },
-/* You can add more, I just added some popular software. */
+/* Alpha for tags */
+static const unsigned int tagalpha[]          = { OPAQUE, baralpha };
+
+/* Rules
+ * Any applications defined here must follow the rules specified.
+ ***************************************************************/
+static const Rule rules[]                     = {
+    	/* class          instance    title              tags mask   isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
+        { TERMINAL_CLASS, NULL,       NULL,              NULL,       0,            1,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       FILEMANAGER_CLASS, NULL,       1,            1,           0,          0,             -1,         0  },
+        { "mpv",          NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
+        { PDF_CLASS,      NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       EDITOR,            NULL,       0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       MUSIC,             NULL,       1,            0,           0,          1,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       MIXER,             NULL,       1,            0,           1,          1,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       "cordless",        NULL,       0,            0,           0,          1,             -1,         0  },
+	    { BROWSER_CLASS,  NULL,       NULL,              NULL,       0,            0,           1,          1,             -1,         0  },
+        { "tabbed",       NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
+		{ NULL,           NULL,       "scratchpad",      0,          0,            0,                                      -1,        's' },
 };
 
-#include "layouts.c"
-static const Layout layouts[] = {
+/* These are all available layouts
+ * You can add more although I suggest
+ * adding them to layouts.c. */
+static const Layout layouts[]                 = {
     { "",          tile },
 	{ "",          NULL },
 	{ "",          monocle },
 	{ "",          grid },
     { "",          deck },
-    { NULL,        NULL },
+    { "",          centeredmaster },
+	{ "",          centeredfloatingmaster },
+	{ "",          spiral },
+	{ "",          dwindle },
+	{ "",          tcl },
+	{ "",          bstack },
+	{ "",          bstackhoriz },
+	{ "",          horizgrid },
+	{ "",          tatami },
+	{ NULL,        NULL },
 };
-
-#define MODKEY Mod1Mask
-#define TAGKEYS(KEY,TAG) \
-	{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
 
 /*
 * Xresources preferences to load at startup
 * You can add more if you know what you're doing.
 */
-ResourcePref resources[] = {
+ResourcePref resources[]                      = {
        { "font",                 STRING,  &font },
        { "font2",                STRING,  &font2 },
 	   { "font3",                STRING,  &font3 },
@@ -166,7 +220,34 @@ ResourcePref resources[] = {
 	   { "col_tag8_text",        STRING,  &col_tag8_text },
 	   { "col_tag9",             STRING,  &col_tag9 },
 	   { "col_tag9_text",        STRING,  &col_tag9_text },
-       { "shell",                STRING,  &shell },
+
+       /* pywal support */
+	   { "color0",               STRING,  &col_background },
+	   { "color4",               STRING,  &col_backgroundmid },
+	   { "color4",               STRING,  &col_textnorm },
+	   { "color0",               STRING,  &col_windowbordersel },
+	   { "color8",               STRING,  &col_windowbordernorm },
+	   { "color0",               STRING,  &col_textsel },
+	   { "color1",               STRING,  &col_tag1 },
+	   { "color0",               STRING,  &col_tag1_text },
+       { "color2",               STRING,  &col_tag2 },
+	   { "color0",               STRING,  &col_tag2_text },
+	   { "color3",               STRING,  &col_tag3 },
+	   { "color0",               STRING,  &col_tag3_text },
+	   { "color4",               STRING,  &col_tag4 },
+	   { "color0",               STRING,  &col_tag4_text },
+	   { "color5",               STRING,  &col_tag5 },
+       { "color0",               STRING,  &col_tag5_text },
+	   { "color6",               STRING,  &col_tag6 },
+       { "color0",               STRING,  &col_tag6_text },
+       { "color7",               STRING,  &col_tag7 },
+	   { "color0",               STRING,  &col_tag7_text },
+	   { "color8",               STRING,  &col_tag8 },
+	   { "color0",               STRING,  &col_tag8_text },
+	   { "color9",               STRING,  &col_tag9 },
+	   { "color0",               STRING,  &col_tag9_text },
+
+	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
        { "lockfullscreen",       INTEGER, &lockfullscreen },
 	   { "borderpx",             INTEGER, &borderpx }, 
@@ -180,90 +261,108 @@ ResourcePref resources[] = {
        { "sizeicon",             INTEGER, &sizeicon },
 	   { "decorhints",           INTEGER, &decorhints },
        { "swallowfloating",      INTEGER, &swallowfloating },
+	   { "vertpad",              INTEGER, &vertpad },
+	   { "sidepad",              INTEGER, &sidepad },
 	   { "mfact",                FLOAT,   &mfact },
+/*       value in .Xresources    type     value in dwm */
 };
 
-#define SHCMD(cmd) { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
-
-/* These are your keybinds. Unless you wanna add more you won't need to recompile.
- * Instead just edit ~/.config/dwm-applications
- *
+/* These are your keybinds.
  * If you have any questions read the man page. */
 
 static Key keys[] = {
-	/* modifier                     key            function        argument */
-	{ MODKEY|ShiftMask,             XK_semicolon,  spawn,          SHCMD(VARIABLES "$DMENU_RUN -l 1 -p Run: $BOTTOM") },
-	{ MODKEY|ShiftMask,             XK_Return,     spawn,          SHCMD(VARIABLES "$TERMINAL") },
-	{ MODKEY|ShiftMask,             XK_s,          spawn,          SHCMD(VARIABLES SCREENSHOT) },
-	{ ControlMask|MODKEY,           XK_s,          spawn,          SHCMD(VARIABLES SCREENSHOT_FULL) },
-	{ MODKEY|ShiftMask,             XK_f,          spawn,          SHCMD(VARIABLES "$TERMINAL $FILEMANAGER") },
-	{ MODKEY|ShiftMask,             XK_w,          spawn,          SHCMD(VARIABLES "$BROWSER") },
-	{ MODKEY|ShiftMask,             XK_o,          spawn,          SHCMD(VARIABLES "dfmpeg || ~/Scripts/dfmpeg") },
-	{ MODKEY|ShiftMask,             XK_p,          spawn,          SHCMD(VARIABLES "genpkg || ~/Scripts/genpkg") },
-	{ MODKEY|ShiftMask,             XK_c,          spawn,          SHCMD(VARIABLES "copyout || ~/Scripts/copyout") },
-	{ MODKEY|ShiftMask,             XK_v,          spawn,          SHCMD(VARIABLES "dsearch || ~/Scripts/dsearch") },
-	{ MODKEY|ShiftMask,             XK_j,          spawn,          SHCMD(VARIABLES "cfgedit || ~/Scripts/cfgedit") }, 
-	{ MODKEY|ShiftMask,             XK_e,          spawn,          SHCMD(VARIABLES "emojilist || ~/Scripts/emojilist") },
-	{ ControlMask|ShiftMask,        XK_m,          spawn,          SHCMD(VARIABLES "$TERMINAL $EMAIL") },
-	{ MODKEY|ShiftMask,             XK_t,	       spawn,          SHCMD(VARIABLES "$TERMINAL $EDITOR") },
-    { MODKEY|ShiftMask,             XK_p,          spawn,          SHCMD(VARIABLES "pkill $BROWSER") },
-    { MODKEY|ControlMask,           XK_m,          spawn,          SHCMD(VARIABLES "pkill $PLAYER_BIN") },
-	{ ControlMask|MODKEY,           XK_u,          spawn,          SHCMD(VARIABLES "$TERMINAL $RSS") },
-	{ MODKEY|ShiftMask,             XK_a,          spawn,          SHCMD(VARIABLES "$TERMINAL $MIXER") },
-	{ MODKEY|ShiftMask,             XK_m,          spawn,          SHCMD(VARIABLES "$TERMINAL $PLAYER") }, 
-    { MODKEY|ShiftMask,             XK_x,          spawn,          SHCMD(VARIABLES "$TERMINAL $STAT") },
-	{ MODKEY|ControlMask,           XK_1,          spawn,          SHCMD(VARIABLES "amixer -c 0 set Master 100%-") },
-	{ MODKEY|ControlMask,           XK_2,          spawn,          SHCMD(VARIABLES "amixer -c 0 set Master 7%-") },
-	{ MODKEY|ControlMask,           XK_3,          spawn,          SHCMD(VARIABLES "amixer -c 0 set Master 7%+") },
-	{ ShiftMask|ControlMask,        XK_k,          spawn,          SHCMD(VARIABLES "amixer -c 0 sset 'Auto-Mute Mode' Enabled") },
-	{ ShiftMask|ControlMask,        XK_k,          spawn,          SHCMD(VARIABLES "amixer -c 0 sset 'Auto-Mute Mode' Disabled") },
-	{ MODKEY|ShiftMask,             XK_k,          spawn,          SHCMD(VARIABLES "$TERMINAL $EDITOR $SCRIPTDIR/$(ls -Apf1 $SCRIPTDIR | $DMENU)") },
-	{ MODKEY|ShiftMask,             XK_Tab,        spawn,          SHCMD(VARIABLES "switch") },
-	{ ControlMask|ShiftMask,        XK_Tab,        spawn,          SHCMD(VARIABLES "wal_dwm.sh && xrdb -merge ~/.cache/wal/colors.Xresources") },
-	{ MODKEY|ShiftMask,             XK_Escape,     spawn,          SHCMD(VARIABLES "shutdown.sh") },
-	{ ControlMask|ShiftMask,        XK_a,          cyclelayout,    {.i = -1 } },
-	{ ControlMask|ShiftMask,        XK_d,          cyclelayout,    {.i = +1 } },
-	{ ControlMask|ShiftMask,        XK_s,          togglesticky,   {0} },
-	{ MODKEY,                       XK_minus,      scratchpad_show, {0} },
-	{ MODKEY|ShiftMask,             XK_minus,      scratchpad_hide, {0} },
-	{ MODKEY,                       XK_equal,      scratchpad_remove, {0} },
-	{ MODKEY|ShiftMask,             XK_equal,      togglescratch,   {.v = scratchpadcmd } },
-	{ MODKEY,                       XK_f,          togglefullscr,  {0} },
-	{ MODKEY,                       XK_b,          togglebar,      {0} },
-	{ MODKEY,                       XK_j,          focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,          focusstack,     {.i = -1 } }, 
-	{ MODKEY,                       XK_a,          setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_d,          setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_Return,     zoom,           {0} },
-	{ MODKEY|ShiftMask,             XK_q,          killclient,     {0} },
-	{ MODKEY,                       XK_space,      setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,      togglefloating, {0} },
-    { MODKEY|ControlMask,           XK_y,          setlayout,      {.v = &layouts[4]} },
-	{ MODKEY|ControlMask,           XK_e,          setlayout,      {.v = &layouts[3]} },
-	{ MODKEY|ControlMask,           XK_r,          setlayout,      {.v = &layouts[1]} },
-	{ MODKEY|ControlMask,           XK_t,          setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ControlMask,           XK_0,          view,           {.ui = ~0 } },
-	{ MODKEY,                       XK_d,          focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period,     focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_d,          tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period,     tagmon,         {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_Tab,        livereloadxrdb, {0} },
-	{ MODKEY,                       XK_Down,       moveresize,     {.v = "0x 25y 0w 0h" } },
-	{ MODKEY,                       XK_Up,         moveresize,     {.v = "0x -25y 0w 0h" } },
-	{ MODKEY,                       XK_Right,      moveresize,     {.v = "25x 0y 0w 0h" } },
-	{ MODKEY,                       XK_Left,       moveresize,     {.v = "-25x 0y 0w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Down,       moveresize,     {.v = "0x 0y 0w 25h" } },
-	{ MODKEY|ShiftMask,             XK_Up,         moveresize,     {.v = "0x 0y 0w -25h" } },
-	{ MODKEY|ShiftMask,             XK_Right,      moveresize,     {.v = "0x 0y 25w 0h" } },
-	{ MODKEY|ShiftMask,             XK_Left,       moveresize,     {.v = "0x 0y -25w 0h" } },
-	{ MODKEY|ControlMask,           XK_Up,         moveresizeedge, {.v = "t"} },
-	{ MODKEY|ControlMask,           XK_Down,       moveresizeedge, {.v = "b"} },
-	{ MODKEY|ControlMask,           XK_Left,       moveresizeedge, {.v = "l"} },
-	{ MODKEY|ControlMask,           XK_Right,      moveresizeedge, {.v = "r"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Up,         moveresizeedge, {.v = "T"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Down,       moveresizeedge, {.v = "B"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Left,       moveresizeedge, {.v = "L"} },
-	{ MODKEY|ControlMask|ShiftMask, XK_Right,      moveresizeedge, {.v = "R"} },
+	/* modifier                     key            function              argument */
+
+	/* Application keybinds */
+	{ MODKEY|ShiftMask,             XK_semicolon,  spawn,                SHCMD(RUN) },
+	{ MODKEY|ShiftMask,             XK_Return,     spawn,                SHCMD(TERMINAL) },
+	{ MODKEY|ShiftMask,             XK_s,          spawn,                SHCMD(SCREENSHOT) },
+	{ MODKEY|ShiftMask,             XK_f,          spawn,                SHCMD(TERMINAL FILEMANAGER) },
+	{ MODKEY|ShiftMask,             XK_w,          spawn,                SHCMD(BROWSER) },
+	{ MODKEY|ShiftMask,             XK_d,          spawn,                SHCMD(TERMINAL "cordless") },
+	{ MODKEY|ShiftMask,             XK_o,          spawn,                SHCMD("dfmpeg") },
+	{ MODKEY|ShiftMask,             XK_p,          spawn,                SHCMD("genpkg") },
+	{ MODKEY|ShiftMask,             XK_c,          spawn,                SHCMD("copyout") },
+	{ MODKEY|ShiftMask,             XK_v,          spawn,                SHCMD("dsearch") },
+	{ MODKEY|ShiftMask,             XK_j,          spawn,                SHCMD("cfgedit") }, 
+	{ MODKEY|ShiftMask,             XK_e,          spawn,                SHCMD("emojilist") },
+	{ MODKEY|ShiftMask,             XK_comma,      spawn,                SHCMD("dscratchpad") },
+	{ MODKEY|ShiftMask,             XK_t,	       spawn,                SHCMD(TERMINAL EDITOR) },
+	{ MODKEY|ShiftMask,             XK_a,          spawn,                SHCMD(TERMINAL MIXER) },
+	{ MODKEY|ShiftMask,             XK_m,          spawn,                SHCMD(TERMINAL MUSIC) }, 
+	{ MODKEY|ShiftMask,             XK_Tab,        spawn,                SHCMD("switch") },
+    { MODKEY|ShiftMask,             XK_x,          spawn,                SHCMD(TERMINAL SYSTEMSTAT) },
+	{ MODKEY|ShiftMask,             XK_k,          spawn,                SHCMD(TERMINAL OPENSCRIPT) },
+	{ MODKEY|ShiftMask,             XK_i,          spawn,                SHCMD(TERMINAL OPENDOC) },
+	{ MODKEY|ShiftMask,             XK_Tab,        spawn,                SHCMD("switch") },
+	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("shutdown.sh") },
+	{ ControlMask|MODKEY,           XK_comma,      spawn,                SHCMD("via") },
+	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
+    { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
+	{ ControlMask|MODKEY,           XK_u,          spawn,                SHCMD(TERMINAL RSS) },
+    { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
+	{ ControlMask|MODKEY,           XK_1,          spawn,                SHCMD(VOL_MUTE) },
+	{ ControlMask|MODKEY,           XK_2,          spawn,                SHCMD(VOL_DOWN) },
+	{ ControlMask|MODKEY,           XK_3,          spawn,                SHCMD(VOL_UP) },
+	{ ControlMask|ShiftMask,        XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
+	{ ControlMask|ShiftMask,        XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_ON) },
+	{ ControlMask|ShiftMask,        XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_OFF) },
+	{ ControlMask|ShiftMask,        XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
+
+	/* Layout keybinds */
+	{ ControlMask|ShiftMask,        XK_a,          cyclelayout,          {.i = -1 } },
+	{ ControlMask|ShiftMask,        XK_d,          cyclelayout,          {.i = +1 } },
+    { MODKEY|ControlMask,           XK_y,          setlayout,            {.v = &layouts[4]} },
+	{ MODKEY|ControlMask,           XK_e,          setlayout,            {.v = &layouts[3]} },
+	{ MODKEY|ControlMask,           XK_r,          setlayout,            {.v = &layouts[1]} },
+	{ MODKEY|ControlMask,           XK_t,          setlayout,            {.v = &layouts[0]} },
+	{ MODKEY,                       XK_space,      setlayout,            {0} },
+
+	/* Sticky keybinds */
+	{ ControlMask|ShiftMask,        XK_s,          togglesticky,         {0} },
+
+	/* Scratchpad keybinds */
+	{ MODKEY,                       XK_minus,      scratchpad_show,      {0} },
+	{ MODKEY|ShiftMask,             XK_minus,      scratchpad_hide,      {0} },
+	{ MODKEY,                       XK_equal,      scratchpad_remove,    {0} },
+	{ MODKEY|ShiftMask,             XK_equal,      togglescratch,        {.v = scratchpadcmd } },
+
+	/* dwm general binds */
+	{ MODKEY,                       XK_f,          togglefullscr,        {0} },
+	{ MODKEY,                       XK_b,          togglebar,            {0} },
+	{ MODKEY,                       XK_j,          focusstack,           {.i = +1 } },
+	{ MODKEY,                       XK_k,          focusstack,           {.i = -1 } }, 
+	{ MODKEY,                       XK_a,          setmfact,             {.f = -0.05} },
+	{ MODKEY,                       XK_d,          setmfact,             {.f = +0.05} },
+	{ MODKEY,                       XK_Return,     zoom,                 {0} },
+	{ MODKEY|ShiftMask,             XK_q,          killclient,           {0} },
+	{ MODKEY|ShiftMask,             XK_space,      togglefloating,       {0} },
+	{ MODKEY|ControlMask,           XK_0,          view,                 {.ui = ~0 } },
+	{ MODKEY,                       XK_d,          focusmon,             {.i = -1 } },
+	{ MODKEY,                       XK_period,     focusmon,             {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_d,          tagmon,               {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period,     tagmon,               {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Tab,        livereloadxrdb,       {0} },
+
+	/* Floating mode keybinds */
+	{ MODKEY,                       XK_Down,       moveresize,           {.v = "0x 25y 0w 0h" } },
+	{ MODKEY,                       XK_Up,         moveresize,           {.v = "0x -25y 0w 0h" } },
+	{ MODKEY,                       XK_Right,      moveresize,           {.v = "25x 0y 0w 0h" } },
+	{ MODKEY,                       XK_Left,       moveresize,           {.v = "-25x 0y 0w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Down,       moveresize,           {.v = "0x 0y 0w 25h" } },
+	{ MODKEY|ShiftMask,             XK_Up,         moveresize,           {.v = "0x 0y 0w -25h" } },
+	{ MODKEY|ShiftMask,             XK_Right,      moveresize,           {.v = "0x 0y 25w 0h" } },
+	{ MODKEY|ShiftMask,             XK_Left,       moveresize,           {.v = "0x 0y -25w 0h" } },
+	{ MODKEY|ControlMask,           XK_Up,         moveresizeedge,       {.v = "t"} },
+	{ MODKEY|ControlMask,           XK_Down,       moveresizeedge,       {.v = "b"} },
+	{ MODKEY|ControlMask,           XK_Left,       moveresizeedge,       {.v = "l"} },
+	{ MODKEY|ControlMask,           XK_Right,      moveresizeedge,       {.v = "r"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Up,         moveresizeedge,       {.v = "T"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Down,       moveresizeedge,       {.v = "B"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Left,       moveresizeedge,       {.v = "L"} },
+	{ MODKEY|ControlMask|ShiftMask, XK_Right,      moveresizeedge,       {.v = "R"} },
+
+	/* Tag keybinds */
 	TAGKEYS(                        XK_1,          0)
 	TAGKEYS(                        XK_2,          1)
 	TAGKEYS(                        XK_3,          2)
@@ -273,13 +372,15 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,          6)
 	TAGKEYS(                        XK_8,          7)
 	TAGKEYS(                        XK_9,          8)
-	{ 0, XF86XK_AudioMute,		    spawn,		                   SHCMD("amixer -c 0 set Master 100%-") },    
-    { 0, XF86XK_AudioRaiseVolume,	spawn,		                   SHCMD("amixer -c 0 set Master 7%+") },    
-    { 0, XF86XK_AudioLowerVolume,	spawn,		                   SHCMD("amixer -c 0 set Master 7%-") },    
-	{ 0, XF86XK_AudioStop,          spawn,                         SHCMD(VARIABLES "pkill $PLAYER_BIN") },
-    { 0, XF86XK_WWW,	            spawn,		                   SHCMD(VARIABLES "$BROWSER") },    
+	
+	/* Media buttons */
+	{ 0, XF86XK_AudioMute,		    spawn,		                   SHCMD(VOL_MUTE) },    
+    { 0, XF86XK_AudioRaiseVolume,	spawn,		                   SHCMD(VOL_UP) },    
+    { 0, XF86XK_AudioLowerVolume,	spawn,		                   SHCMD(VOL_DOWN) },    
+	{ 0, XF86XK_AudioStop,          spawn,                         SHCMD(KILLMUSIC) },
+    { 0, XF86XK_WWW,	            spawn,		                   SHCMD(BROWSER) },    
     { 0, XF86XK_PowerOff,           spawn,                         SHCMD("shutdown.sh") },
-	{ 0, XF86XK_Sleep,              spawn,                         SHCMD(VARIABLES "$LOCKER") },
-	{ 0, XF86XK_Mail,               spawn,                         SHCMD(VARIABLES "$TERMINAL $EMAIL") },
-	{ 0, XF86XK_TaskPane,           spawn,                         SHCMD(VARIABLES "$TERMINAL $STAT") },
+	{ 0, XF86XK_Sleep,              spawn,                         SHCMD(LOCKER) },
+	{ 0, XF86XK_Mail,               spawn,                         SHCMD(TERMINAL EMAIL) },
+	{ 0, XF86XK_TaskPane,           spawn,                         SHCMD(TERMINAL SYSTEMSTAT) },
 };

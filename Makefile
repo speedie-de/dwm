@@ -30,7 +30,7 @@ clean:
 
 dist: clean
 	mkdir -p dwm-spde-${VERSION}
-	cp -R config.def.h config.mk docs drw.c drw.h dwm-applications dwm-autostart.sh dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch transient.c util.c util.h wal.sh dwm-spde-${VERSION}
+	cp -R config.def.h config.mk docs drw.c drw.h dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch transient.c util.c util.h dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
 	rm -rf dwm-spde-${VERSION}
@@ -43,9 +43,6 @@ install: all
 	mkdir -p ${DESTDIR}${MANPREFIX}/man1
 	sed "s/VERSION/${VERSION}/g" < docs/dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	cp -f dwm-applications ${DESTDIR}${PREFIX}/bin
-	cp -f wal.sh ${DESTDIR}${PREFIX}/bin/wal_dwm.sh ; chmod +x ${DESTDIR}${PREFIX}/bin/wal_dwm.sh
-	cp -f dwm-autostart.sh ${DESTDIR}${PREFIX}/bin/dwm-autostart.sh ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-autostart.sh
 	cp -f docs/bindlist ${DESTDIR}${PREFIX}/bin
 	cp -f dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
 	cp -f shutdown.sh ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown.sh
@@ -78,6 +75,6 @@ gentoo-libxftfix:
 arch-libxftfix:
 	git clone https://aur.archlinux.org/libxft-bgra
 	cd libxft-bgra
-	makepkg -si
+	makepkg -i
 
 .PHONY: all options clean dist install uninstall help libxftfix gentoo-libxftfix arch-libxftfix
