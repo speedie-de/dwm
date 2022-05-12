@@ -8,7 +8,15 @@ It features many different patches which enhances the user experience and has ke
 
 I recommend using my builds of [st](https://github.com/speedie-de/st) and [dmenu](https://github.com/speedie-de/dmenu) with this as they provide more features which can work together with this build of dwm such as copying the output of a command. It is not strictly necessary though
 
+### Dependencies
+This build of dwm has the following dependencies:
+- libXft-bgra (See Installing libXft-bgra)
+- libXinerama (Can be disabled if you don't need multiple monitors)
+- imlib2
+- dmenu (Any build should work, can be replaced with rofi with some effort)
+
 ### Installation
+- See dependencies
 - Install dev-vcs/git using your favorite package manager
 - git clone <this-url>
 - cd dwm
@@ -202,8 +210,8 @@ NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do t
 #### Extras (These will only work if your keyboard has special multimedia buttons)
 
 - Mute button       | Mutes your audio
-- + Volume button   | Increases your volume
-- - Volume button   | Decreases your volume
+- Up Volume button  | Increases your volume
+- Down Volume button| Decreases your volume
 - Stop button       | Stops your defined music player
 - Browser button    | Opens your defined web browser
 - Power button      | Ask if you wanna shut down, restart or lock your computer.
