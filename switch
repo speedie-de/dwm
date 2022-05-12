@@ -15,7 +15,4 @@ windows=$(echo "$windows" | \
 
 
 target=$(echo "$windows" | dmenu -b -l 10 -p "switch:" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
-
-if [ -n $target ]; then
-    wmctrl -a "$target"
-fi
+wmctrl -a "$target"

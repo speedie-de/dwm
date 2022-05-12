@@ -36,8 +36,8 @@
 #define RUN                                   "dmenu_run -l 1 -p Run: -b"
 #define SCREENSHOT                            "maim -suB | xclip -selection clipboard -t image/png" /* How to take screenshots (Selection) */
 #define SCREENSHOT_FULL                       "maim -uB | xclip -selection clipboard -t image/png" /* How to take screenshots (Full screen) */
-#define FILEMANAGER                           "~/.config/vifm/vifmrun || vifm" /* File manager that will be used */
-#define FILEMANAGER_CLASS                     "/home/speedie/.config/vifm/vifmrun" /* File manager that will be used for rules */
+#define FILEMANAGER                           "vifmrun || vifm" /* File manager that will be used */
+#define FILEMANAGER_CLASS                     "vifmrun" /* File manager that will be used for rules */
 #define LOCKER                                "slock" /* Screen locker that will be used */
 #define OPENSCRIPT                            "vim ~/Scripts/$(ls -Apf1 ~/Scripts | dmenu -p 'Which script do you want to edit?' -l 50)"
 #define OPENDOC                               "zathura ~/Documents/$(ls -Apf1 ~/Scripts/*.pdf | dmenu -p 'Which pdf do you wanna view?' -l 50)"
@@ -154,16 +154,16 @@ static const unsigned int tagalpha[]          = { OPAQUE, baralpha };
  ***************************************************************/
 static const Rule rules[]                     = {
     	/* class          instance    title              tags mask   isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
-        { TERMINAL_CLASS, NULL,       NULL,              NULL,       0,            1,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       FILEMANAGER_CLASS, NULL,       1,            1,           0,          0,             -1,         0  },
-        { "mpv",          NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
-        { PDF_CLASS,      NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       EDITOR,            NULL,       0,            0,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       MUSIC,             NULL,       1,            0,           0,          1,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       MIXER,             NULL,       1,            0,           1,          1,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       "cordless",        NULL,       0,            0,           0,          1,             -1,         0  },
-	    { BROWSER_CLASS,  NULL,       NULL,              NULL,       0,            0,           1,          1,             -1,         0  },
-        { "tabbed",       NULL,       NULL,              NULL,       0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       NULL,              0,          0,            1,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       FILEMANAGER_CLASS, 0,          0,            1,           0,          1,             -1,         0  },
+        { "mpv",          NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
+        { PDF_CLASS,      NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       EDITOR,            0,          0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       MUSIC,             0,          1,            0,           0,          1,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       MIXER,             0,          1,            0,           1,          1,             -1,         0  },
+        { TERMINAL_CLASS, NULL,       "cordless",        0,          0,            0,           0,          1,             -1,         0  },
+	    { BROWSER_CLASS,  NULL,       NULL,              0,          0,            0,           1,          1,             -1,         0  },
+        { "tabbed",       NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
 		{ NULL,           NULL,       "scratchpad",      0,          0,            0,                                      -1,        's' },
 };
 
@@ -272,7 +272,6 @@ ResourcePref resources[]                      = {
 
 static Key keys[] = {
 	/* modifier                     key            function              argument */
-
 	/* Application keybinds */
 	{ MODKEY|ShiftMask,             XK_semicolon,  spawn,                SHCMD(RUN) },
 	{ MODKEY|ShiftMask,             XK_Return,     spawn,                SHCMD(TERMINAL) },
@@ -296,6 +295,8 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_i,          spawn,                SHCMD(TERMINAL OPENDOC) },
 	{ MODKEY|ShiftMask,             XK_Tab,        spawn,                SHCMD("switch") },
 	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("shutdown.sh") },
+	{ ControlMask|MODKEY,           XK_Tab,        spawn,                SHCMD("dwmutils -layout") },
+	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwmutils") },
 	{ ControlMask|MODKEY,           XK_comma,      spawn,                SHCMD("via") },
 	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
     { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
@@ -383,4 +384,33 @@ static Key keys[] = {
 	{ 0, XF86XK_Sleep,              spawn,                         SHCMD(LOCKER) },
 	{ 0, XF86XK_Mail,               spawn,                         SHCMD(TERMINAL EMAIL) },
 	{ 0, XF86XK_TaskPane,           spawn,                         SHCMD(TERMINAL SYSTEMSTAT) },
+};
+
+/* signal definitions */
+/* signum must be greater than 0 */
+/* trigger signals using `xsetroot -name "fsignal:<signum>"` */
+static Signal signals[] = {
+	/* signum       function        argument  */
+	{ 1,            setlayout,      {.v = &layouts[0]} },
+	{ 2,            setlayout,      {.v = &layouts[1]} },
+	{ 3,            setlayout,      {.v = &layouts[2]} },
+	{ 4,            setlayout,      {.v = &layouts[3]} },
+	{ 5,            setlayout,      {.v = &layouts[4]} },
+	{ 6,            setlayout,      {.v = &layouts[5]} },
+	{ 7,            setlayout,      {.v = &layouts[6]} },
+	{ 8,            setlayout,      {.v = &layouts[7]} },
+	{ 9,            setlayout,      {.v = &layouts[8]} },
+	{ 10,           setlayout,      {.v = &layouts[9]} },
+	{ 11,           setlayout,      {.v = &layouts[10]} },
+	{ 12,           setlayout,      {.v = &layouts[11]} },
+	{ 13,           setlayout,      {.v = &layouts[12]} },
+	{ 14,           setlayout,      {.v = &layouts[13]} },
+	{ 15,           setlayout,      {.v = &layouts[14]} },
+	{ 16,           cyclelayout,    {.i = -1 } },
+	{ 17,           cyclelayout,    {.i = +1 } },
+	{ 18,           livereloadxrdb, {0} },
+	{ 19,           setmfact,       {.f = -0.05} },
+	{ 20,           setmfact,       {.f = +0.05} },
+	{ 21,           togglescratch,  {.v = scratchpadcmd } },
+	{ 22,           togglesticky,   {0} },          
 };

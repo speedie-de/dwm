@@ -30,7 +30,7 @@ clean:
 
 dist: clean
 	mkdir -p dwm-spde-${VERSION}
-	cp -R config.def.h config.mk docs drw.c drw.h dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch transient.c util.c util.h dwm-spde-${VERSION}
+	cp -R config.def.h config.mk docs drw.c drw.h dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch dwmutils transient.c util.c util.h dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
 	rm -rf dwm-spde-${VERSION}
@@ -47,7 +47,8 @@ install: all
 	cp -f dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
 	cp -f shutdown.sh ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown.sh
 	cp -f switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
-	rm config.h drw.o dwm.o util.o ; chmod +x wal.sh ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
+	cp -f dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
+	rm config.h drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\

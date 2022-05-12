@@ -74,6 +74,7 @@ This build of dwm has been patched pretty heavily with the following patches
 - dwm-rulerefresher
 - dwm-alpha-monocle
 - dwm-tatami
+- dwm-fsignal
 
 This build of dwm has full compatibility with .Xresources and allows defining these options
 - dwm.nmaster:              1
@@ -132,7 +133,7 @@ Or if you're using a display manager, add it to the autostart function in config
 ### Keybinds
 NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do the same thing.
 
-- Applications
+#### Applications
 - Alt+Shift+Enter   | Opens a terminal
 - Alt+Shift+Colon   | Opens a dmenu prompt
 - Alt+Shift+d       | Opens 'cordless' in a terminal
@@ -154,8 +155,9 @@ NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do t
 - Alt+Shift+x       | Opens the defined system process viewer in your terminal
 - Control+Shift+m   | Opens the defined email client
 - Control+Alt+u     | Opens the defined RSS reader
-- 
-- Navigation
+
+#### Navigation
+
 - Alt+f             | Full-screen the selected window
 - Alt+b             | Show/hide the dwm bar
 - Alt+j/k           | Move focus between windows
@@ -186,16 +188,19 @@ NOTE: These are case-sensitive. This means "s" and "S" for example will NOT do t
 - Control+Alt+r     | Switch to layout 1 (Monocle)
 - Control+Alt+t     | Switch to layout 0 (Master & stack)
 - Control+Alt+y     | Switch to layout 4 (Deck)
-- NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D
+- NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D or Ctrl+Alt+Escape
 - Control+Alt+0     | Set all windows to use the same tag
 - Control+Alt+Arrow | Moves a window to any corner of your screen
-- Control+Alt+comma | Run via if present.
+- Control+Alt+Comma | Run via if present.
+- Control+Alt+Tab   | Open a dmenu prompt asking the user what layout to switch to
 - Control+Shift+a/d | Move between available layouts
 - Control+Shift+Tab | Read .Xresources again without reloading dwm
 - Control+Shift+s   | Make the current selected window sticky
-- Control+Alt+Shift+Arrow | Resize the window to the screen size.
-- 
-- Extras (These will only work if your keyboard has special multimedia buttons)
+- Control+Alt+Shift+Escape | Open dwmutils (Main menu)
+- Control+Alt+Shift+Arrow  | Resize the window to the screen size.
+
+#### Extras (These will only work if your keyboard has special multimedia buttons)
+
 - Mute button       | Mutes your audio
 - + Volume button   | Increases your volume
 - - Volume button   | Decreases your volume
@@ -213,6 +218,32 @@ As for status bars, this build of dwm has been patched with extrabar and therefo
 - [slstatus](https://tools.suckless.org/slstatus)
 - [dwmbar](https://github.com/joestandring/dwm-bar)
 - [candybar](https://github.com/jornmann/candybar)
+
+### Fsignal
+This build of dwm has been patched with fsignal meaning you can control dwm using shell commands. There's a shell script included that I wrote (dwmutils) which allows you to control many features of dwm through dmenu.
+
+- xsetroot -name "fsignal:1"  | Tiling
+- xsetroot -name "fsignal:2"  | Floating
+- xsetroot -name "fsignal:3"  | Monocle
+- xsetroot -name "fsignal:4"  | Grid
+- xsetroot -name "fsignal:5"  | Deck
+- xsetroot -name "fsignal:6"  | Centered Master
+- xsetroot -name "fsignal:7"  | Centered Floating Master
+- xsetroot -name "fsignal:8"  | Fibonacci Spiral
+- xsetroot -name "fsignal:9"  | Fibonacci Dwindle
+- xsetroot -name "fsignal:10" | Three Column
+- xsetroot -name "fsignal:11" | Bottom Stack Vertical
+- xsetroot -name "fsignal:12" | Bottom Stack Horizontal
+- xsetroot -name "fsignal:13" | Horizontal Grid
+- xsetroot -name "fsignal:14" | Tatami
+- xsetroot -name "fsignal:15" | To be added
+- xsetroot -name "fsignal:16" | Cycle layout (Previous)
+- xsetroot -name "fsignal:17" | Cycle layout (Next)
+- xsetroot -name "fsignal:18" | Reload colors from .Xresources (livereloadxrdb)
+- xsetroot -name "fsignal:19" | Set mfact (-0.05)
+- xsetroot -name "fsignal:20" | Set mfact (+0.05)
+- xsetroot -name "fsignal:21" | Toggle Scratchpad
+- xsetroot -name "fsignal:22" | Toggle Sticky
 
 ### Expanding
 You can easily expand this build of dwm by simply adding keybinds or patching it. That's the nice thing about suckless software.
