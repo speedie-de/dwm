@@ -55,10 +55,12 @@ Control+Alt+y     | Switch to layout 4 (Deck)
 NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D
 Control+Alt+0     | Set all windows to use the same tag
 Control+Alt+Arrow | Moves a window to any corner of your screen
-Control+Alt+comma | Run via if present.
+Control+Alt+Comma | Run via if present.
+Control+Alt+Tab   | Open a dmenu prompt asking the user what layout to switch to
 Control+Shift+a/d | Move between available layouts
 Control+Shift+Tab | Read .Xresources again without reloading dwm
 Control+Shift+s   | Make the current selected window sticky
+Control+Alt+Shift+Esc   | Open dwmutils (Main menu)
 Control+Alt+Shift+Arrow | Resize the window to the screen size.
 
 Extras (These will only work if your keyboard has special multimedia buttons)
