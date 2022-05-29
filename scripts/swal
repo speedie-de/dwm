@@ -1,0 +1,93 @@
+#!/bin/sh
+
+SWAL_DEFAULT_CONFIG()
+{
+  SWAL_WALLPAPERDIR=~/Wallpapers
+  SWAL_DMENUDIR=/usr/bin/dmenu
+  SWAL_OPT=xwallpaper
+  SWAL_BINDIR=/usr/bin
+  SWAL_EXPORTDIR=~/.config/swal
+}
+
+SWAL_MKCONFIG() {
+  mkdir -p $SWAL_EXPORTDIR
+  touch $SWAL_EXPORTDIR/config
+  SWAL_WALLPAPERDIR_NEW=$(printf "Your wallpaper directory" | dmenu -g 1 -p "Where are all your wallpapers stored?" -l 1)
+  printf "SWAL_WALLPAPERDIR=$SWAL_WALLPAPERDIR_NEW" > $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_DMENUDIR=$SWAL_DMENUDIR" >> $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_OPT=$SWAL_OPT" >> $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_BINDIR=$SWAL_BINDIR" >> $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_EXPORTDIR=$SWAL_EXPORTDIR" >> $SWAL_EXPORTDIR/config
+
+}
+
+# Source things
+SWAL_SOURCE()
+{
+  SWAL_DEFAULT_CONFIG
+  ls $SWAL_EXPORTDIR/config || SWAL_MKCONFIG
+  . $SWAL_EXPORTDIR/config
+}
+
+SWAL_CHECK()
+{
+  ls $SWAL_BINDIR/xwallpaper || SWAL_DIE
+  ls $SWAL_DMENUDIR || SWAL_DIE
+}
+
+SWAL_DIE()
+{
+  SWAL_EXIT=1 && exit 1
+}
+
+SWAL_SELWALLPAPER()
+{
+  SWAL_SELWALLPAPER="$(printf "$(ls $SWAL_WALLPAPERDIR)\nChange Wallpaper Directory" | $SWAL_DMENUDIR -g 1 -p "What wallpaper would you like to set?" -l 20)"
+}
+
+SWAL_SETTYPE()
+{
+  case "$SWAL_SELWALLPAPER" in
+  "Change Wallpaper Directory") SWAL_MKCONFIG && $0 && exit 0 ;;
+  esac
+
+  SWAL_TYPE=$(printf "center\ntile\nzoom\nstretch" | $SWAL_DMENUDIR -p "How should we set it?" -g 1 -l 4) && SWAL_TYPE="--$SWAL_TYPE"
+  SWAL_USE_WAL=$(printf "Yes\nNo" | $SWAL_DMENUDIR -g 1 -p "Do you want to use Wal/Pywal?" -l 2)
+}
+
+SWAL_SETWALLPAPER()
+{
+  $SWAL_OPT $SWAL_TYPE $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER
+}
+
+SWAL_EXPORT_SCRIPT()
+{
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" > $SWAL_EXPORTDIR/swal_wm
+  chmod +x $SWAL_EXPORTDIR/swal_wm
+}
+
+SWAL_EXPORT_SCRIPT_WAL()
+{
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER\nwal -R\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:18'" > $SWAL_EXPORTDIR/swal_wm
+  chmod +x $SWAL_EXPORTDIR/swal_wm
+  wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:18" # Compatibility with speedie's dwm
+}
+
+SWAL_XRESOURCES()
+{
+  xrdb -query | grep "swal" | sed "s|: |=|" | sed "s|swal.|swal_|" > /tmp/swal
+  . /tmp/swal
+}
+
+SWAL_SOURCE || SWAL_DIE
+SWAL_XRESOURCES
+SWAL_CHECK || SWAL_DIE
+SWAL_SELWALLPAPER || SWAL_DIE
+SWAL_SETTYPE || SWAL_DIE
+SWAL_SETWALLPAPER || SWAL_DIE
+
+# Pywal
+case "$SWAL_USE_WAL" in
+"Yes") SWAL_EXPORT_SCRIPT_WAL || SWAL_DIE ;;
+"No") SWAL_EXPORT_SCRIPT || SWAL_DIE ;;
+esac
