@@ -30,7 +30,7 @@ clean:
 
 dist: clean
 	mkdir -p dwm-spde-${VERSION}
-	cp -R config.def.h config.mk docs drw.c drw.h dwm.c dwm-keybinds layouts.c LICENSE Makefile shutdown.sh switch dwmutils transient.c util.c util.h dwm-spde-${VERSION}
+	cp -R config.def.h config.mk docs drw.c drw.h dwm.c layouts.c LICENSE Makefile scripts transient.c util.c util.h dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
 	rm -rf dwm-spde-${VERSION}
@@ -44,15 +44,20 @@ install: all
 	sed "s/VERSION/${VERSION}/g" < docs/dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
 	cp -f docs/bindlist ${DESTDIR}${PREFIX}/bin
-	cp -f dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
-	cp -f shutdown.sh ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown.sh
-	cp -f switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
-	cp -f dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
+	cp -f scripts/dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
+	cp -f scripts/shutdown ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown
+	cp -f scripts/switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
+	cp -f scripts/dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
+	cp -f scripts/swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/swal
 	rm config.h drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
-		${DESTDIR}${MANPREFIX}/man1/dwm.1
+		${DESTDIR}${MANPREFIX}/man1/dwm.1 \
+		${DESTDIR}${PREFIX}/bin/dwmutils \
+		${DESTDIR}${PREFIX}/bin/switch \
+		${DESTDIR}${PREFIX}/bin/shutdown \
+		${DESTDIR}${PREFIX}/bin/swal \
 
 help:
 	@echo install: Installs dwm. You may need to run this as root.

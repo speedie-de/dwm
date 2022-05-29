@@ -1,15 +1,24 @@
 /* speedie's dynamic window manager configuration
- * https://github.com/speedie-de/dwm
+ * https://speedie.gq/dwm.html
+ * 
+ * Report issues here: https://github.com/speedie-de/dwm
  *
  * You can set most of these options in your .Xresources.
  * Check the 'man' page if you're unsure how it's supposed to be used. 
  *
- * WARNING: Requires libXft-bgra to work properly. Otherwise this will CRASH when viewing a color emoji. 
+ * Before using, please read the readme file (not .md) and install the dependencies
+ * Some aren't necessary. If they're not, you can change them by changing the defined values below and recompiling.
+ *
+ * WARNING: Requires libXft-bgra to work properly. Otherwise this will crash when viewing a color emoji. 
  * Since I hate this problem just as much as you do, I edited the Makefile so you can easily install it.
  *
  * To install libXft-bgra on Arch Linux, type 'make arch-libxftfix'
  * To install libXft-bgra on Gentoo Linux, type 'make gentoo-libxftfix'
- * To install libXft-bgra on other GNU/Linux distributions, type 'make libxftfix' */
+ *
+ * You can also 'emerge' it on Gentoo if you add my overlay.
+ * Add here: https://github.com/spoverlay/splay
+ *
+ * To install libXft-bgra on other Linux distributions, type 'make libxftfix' */
 
 /* Include */
 #include <X11/XF86keysym.h> /* Enable multimedia button support */
@@ -18,9 +27,6 @@
 /* Define
  * You may wanna change a few of these.
  *************************************/
-#define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
-#define ICONSIZE                              sizeicon /* Icon size */
-#define ICONSPACING                           spacingicon  /* Space between icon and title */
 #define TERMINAL                              "st -e " /* Terminal to use */
 #define TERMINAL_CLASS                        "St" /* Terminal to use for rules */
 #define BROWSER                               "tabbed -c vimb -e" /* Web browser to use */
@@ -33,24 +39,32 @@
 #define MUSIC                                 "mocp" /* Music player to use */
 #define EMAIL                                 "neomutt" /* Email client to use */
 #define EDITOR                                "vim" /* Text editor to use */
-#define RUN                                   "dmenu_run -l 1 -p Run: -b"
+#define RUN                                   "dmenu_run -l 1 -p Run:"
 #define SCREENSHOT                            "maim -suB | xclip -selection clipboard -t image/png" /* How to take screenshots (Selection) */
 #define SCREENSHOT_FULL                       "maim -uB | xclip -selection clipboard -t image/png" /* How to take screenshots (Full screen) */
 #define FILEMANAGER                           "vifmrun || vifm" /* File manager that will be used */
 #define FILEMANAGER_CLASS                     "vifmrun" /* File manager that will be used for rules */
 #define LOCKER                                "slock" /* Screen locker that will be used */
-#define OPENSCRIPT                            "vim ~/Scripts/$(ls -Apf1 ~/Scripts | dmenu -p 'Which script do you want to edit?' -l 50)"
-#define OPENDOC                               "zathura ~/Documents/$(ls -Apf1 ~/Scripts/*.pdf | dmenu -p 'Which pdf do you wanna view?' -l 50)"
+#define OPENSCRIPT                            "vim /home/$(logname)/Scripts/$(ls -Apf1 /home/$(logname)/Scripts | dmenu -p 'Which script do you want to edit?' -l 50)"
+#define OPENDOC                               "zathura /home/$(logname)/Documents/$(ls -Apf1 /home/$(logname)/Documents/*.pdf | dmenu -p 'Which pdf do you wanna view?' -l 50)"
 #define KILLMUSIC                             "pkill mocp"
+#define IRC                                   "tmux -c weechat"
 #define VOL_DOWN                              "amixer -c 0 set Master 7%-" /* Command to run when decreasing volume */
 #define VOL_UP                                "amixer -c 0 set Master 7%+" /* Command to run when increasing volume */
 #define VOL_MUTE                              "amixer -c 0 set Master 100%-" /* Command to run when muting volume */
 #define VOL_OUTPUT_SPEAKER_ON                 "amixer -c 0 sset 'Auto-Mute Mode' Enabled" /* Command to run when enabling speakers */
 #define VOL_OUTPUT_SPEAKER_OFF                "amixer -c 0 sset 'Auto-Mute Mode' Disabled" /* Command to run when disabling speakers */
-#define LIVERELOAD                            "xrdb -merge ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
-#define MODKEY Mod1Mask
+#define LIVERELOAD                            "xrdb ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
+#define MODKEY Mod4Mask
+#define SMODKEY Mod1Mask
+#define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
+#define ICONSIZE                              sizeicon /* Icon size */
+#define ICONSPACING                           spacingicon  /* Space between icon and title */
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
 #define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
+
+#define CLIPBOARD                             "xclip" /* Clipboard to use */
+#define COMPOSITOR                            "picom" /* Compositor to use */
 
 /* Options
  *
@@ -117,11 +131,35 @@ static char *colors[][3]                      = {
 };
 
 /* Anything in here will automatically start before dwm
- * You probably won't find this useful unless you use a display manager.
- * I use it to start my status bar, though.
+ * I use it to start my status bar and some other stuff, though.
  *****************************************/
 static const char *const autostart[]          = {
-   shell, "-c", STATUSBAR,
+   /* Run the status bar defined */
+   shell, "-c", STATUSBAR, NULL,
+
+   /* Set the wallpaper using bundled script */
+   shell, "-c", "/home/$(logname)/.config/swal/swal_wm", NULL,
+
+   /* Set colors from .Xresources if present */
+   shell, "-c", "xrdb /home/$(logname)/.Xresources", NULL,
+   shell, "-c", "xrdb /home/$(logname)/.config/.Xresources", NULL,
+
+   /* Bind Right Super+hjkl to arrow keys */
+   shell, "-c", "xmodmap -e 'keycode 134 = Mode_switch'", NULL,
+   shell, "-c", "xmodmap -e 'keycode 43 = h H Left H'", NULL,
+   shell, "-c", "xmodmap -e 'keycode 44 = j J Down J'", NULL,
+   shell, "-c", "xmodmap -e 'keycode 45 = k K Up K", NULL,
+   shell, "-c", "xmodmap -e 'keycode 46 = l L Right L", NULL,
+
+   /* Caps Lock = Escape */
+   shell, "-c", "xmodmap -e 'clear Lock'", NULL,
+   shell, "-c", "xmodmap -e 'keycode 66 = Escape NoSymbol Escape'", NULL,
+
+   /* Run the defined clipboard manager */
+   shell, "-c", CLIPBOARD "&", NULL,
+
+   /* Run the defined compositor */
+   shell, "-c", COMPOSITOR "&", NULL,
    NULL
 };
 
@@ -153,18 +191,22 @@ static const unsigned int tagalpha[]          = { OPAQUE, baralpha };
  * Any applications defined here must follow the rules specified.
  ***************************************************************/
 static const Rule rules[]                     = {
-    	/* class          instance    title              tags mask   isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
-        { TERMINAL_CLASS, NULL,       NULL,              0,          0,            1,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       FILEMANAGER_CLASS, 0,          0,            1,           0,          1,             -1,         0  },
-        { "mpv",          NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
-        { PDF_CLASS,      NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       EDITOR,            0,          0,            0,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       MUSIC,             0,          1,            0,           0,          1,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       MIXER,             0,          1,            0,           1,          1,             -1,         0  },
-        { TERMINAL_CLASS, NULL,       "cordless",        0,          0,            0,           0,          1,             -1,         0  },
-	    { BROWSER_CLASS,  NULL,       NULL,              0,          0,            0,           1,          1,             -1,         0  },
-        { "tabbed",       NULL,       NULL,              0,          0,            0,           0,          0,             -1,         0  },
-		{ NULL,           NULL,       "scratchpad",      0,          0,            0,                                      -1,        's' },
+    	/* class                instance    title                             tags mask   isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
+        { TERMINAL_CLASS,       NULL,       NULL,                             0,          0,            1,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       FILEMANAGER_CLASS,                0,          0,            1,           0,          1,             -1,         0  },
+        { PDF_CLASS,            NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       EDITOR,                           0,          0,            0,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       MUSIC,                            0,          1,            0,           0,          1,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       MIXER,                            0,          1,            0,           1,          1,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       "cordless",                       0,          0,            0,           0,          1,             -1,         0  },
+	    { BROWSER_CLASS,        NULL,       NULL,                             0,          0,            0,           1,          1,             -1,         0  },
+        { "mpv",                NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
+        { "tabbed",             NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
+		{ NULL,                 NULL,       "CustomizeMii 3.11 by Leathl",    0,          1,            0,           1,          1,             -1,         0  },
+	    { NULL,                 NULL,       "Picture-in-Picture",             0,          1,            0,           1,          0,             -1,         0  },
+        { NULL,                 NULL,       "dwm",                            0,          1,            0,           0,          1,             -1,         0  },
+		{ NULL,                 NULL,       "tmux",                           0,          1,            0,           1,          1,             -1,         0  },
+		{ NULL,                 NULL,       "scratchpad",                     0,          0,            0,                                      -1,        's' },
 };
 
 /* These are all available layouts
@@ -278,7 +320,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_s,          spawn,                SHCMD(SCREENSHOT) },
 	{ MODKEY|ShiftMask,             XK_f,          spawn,                SHCMD(TERMINAL FILEMANAGER) },
 	{ MODKEY|ShiftMask,             XK_w,          spawn,                SHCMD(BROWSER) },
-	{ MODKEY|ShiftMask,             XK_d,          spawn,                SHCMD(TERMINAL "cordless") },
+	{ MODKEY|ShiftMask,             XK_d,          spawn,                SHCMD(TERMINAL IRC) },
 	{ MODKEY|ShiftMask,             XK_o,          spawn,                SHCMD("dfmpeg") },
 	{ MODKEY|ShiftMask,             XK_p,          spawn,                SHCMD("genpkg") },
 	{ MODKEY|ShiftMask,             XK_c,          spawn,                SHCMD("copyout") },
@@ -289,15 +331,14 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,	       spawn,                SHCMD(TERMINAL EDITOR) },
 	{ MODKEY|ShiftMask,             XK_a,          spawn,                SHCMD(TERMINAL MIXER) },
 	{ MODKEY|ShiftMask,             XK_m,          spawn,                SHCMD(TERMINAL MUSIC) }, 
-	{ MODKEY|ShiftMask,             XK_Tab,        spawn,                SHCMD("switch") },
+	{ SMODKEY,                     XK_Tab,        spawn,                SHCMD("switch") },
     { MODKEY|ShiftMask,             XK_x,          spawn,                SHCMD(TERMINAL SYSTEMSTAT) },
 	{ MODKEY|ShiftMask,             XK_k,          spawn,                SHCMD(TERMINAL OPENSCRIPT) },
 	{ MODKEY|ShiftMask,             XK_i,          spawn,                SHCMD(TERMINAL OPENDOC) },
-	{ MODKEY|ShiftMask,             XK_Tab,        spawn,                SHCMD("switch") },
-	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("shutdown.sh") },
+	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("shutdown") },
 	{ ControlMask|MODKEY,           XK_Tab,        spawn,                SHCMD("dwmutils -layout") },
-	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwmutils") },
 	{ ControlMask|MODKEY,           XK_comma,      spawn,                SHCMD("via") },
+	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-keybinds") },
 	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
     { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
 	{ ControlMask|MODKEY,           XK_u,          spawn,                SHCMD(TERMINAL RSS) },
@@ -305,14 +346,16 @@ static Key keys[] = {
 	{ ControlMask|MODKEY,           XK_1,          spawn,                SHCMD(VOL_MUTE) },
 	{ ControlMask|MODKEY,           XK_2,          spawn,                SHCMD(VOL_DOWN) },
 	{ ControlMask|MODKEY,           XK_3,          spawn,                SHCMD(VOL_UP) },
-	{ ControlMask|ShiftMask,        XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
-	{ ControlMask|ShiftMask,        XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_ON) },
-	{ ControlMask|ShiftMask,        XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_OFF) },
-	{ ControlMask|ShiftMask,        XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
+	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_ON) },
+	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_OFF) },
+	{ ControlMask|MODKEY|ShiftMask, XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
+	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwmutils") },
+	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("swal") },
+	{ ControlMask|MODKEY|ShiftMask, XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
 
 	/* Layout keybinds */
-	{ ControlMask|ShiftMask,        XK_a,          cyclelayout,          {.i = -1 } },
-	{ ControlMask|ShiftMask,        XK_d,          cyclelayout,          {.i = +1 } },
+	{ ControlMask|MODKEY|ShiftMask, XK_a,          cyclelayout,          {.i = -1 } },
+	{ ControlMask|MODKEY|ShiftMask, XK_d,          cyclelayout,          {.i = +1 } },
     { MODKEY|ControlMask,           XK_y,          setlayout,            {.v = &layouts[4]} },
 	{ MODKEY|ControlMask,           XK_e,          setlayout,            {.v = &layouts[3]} },
 	{ MODKEY|ControlMask,           XK_r,          setlayout,            {.v = &layouts[1]} },
@@ -320,7 +363,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_space,      setlayout,            {0} },
 
 	/* Sticky keybinds */
-	{ ControlMask|ShiftMask,        XK_s,          togglesticky,         {0} },
+	{ ControlMask|MODKEY|ShiftMask, XK_s,          togglesticky,         {0} },
 
 	/* Scratchpad keybinds */
 	{ MODKEY,                       XK_minus,      scratchpad_show,      {0} },
@@ -413,4 +456,6 @@ static Signal signals[] = {
 	{ 20,           setmfact,       {.f = +0.05} },
 	{ 21,           togglescratch,  {.v = scratchpadcmd } },
 	{ 22,           togglesticky,   {0} },          
+	{ 23,           togglebar,      {0} },
+	{ 24,           togglefullscr,  {0} },
 };
