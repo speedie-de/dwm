@@ -22,3 +22,5 @@ xsetroot -name "fsignal:19" | Set mfact (-0.05)
 xsetroot -name "fsignal:20" | Set mfact (+0.05)
 xsetroot -name "fsignal:21" | Toggle Scratchpad
 xsetroot -name "fsignal:22" | Toggle Sticky
+xsetroot -name "fsignal:23" | Toggle Bar
+xsetroot -name "fsignal:24" | Toggle Fullscreen

@@ -1,74 +1,76 @@
-Applications
-Alt+Shift+Enter   | Opens a terminal
-Alt+Shift+Colon   | Opens a dmenu prompt
-Alt+Shift+d       | Opens 'cordless' in a terminal
-Alt+Shift+s       | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
-Alt+Shift+f       | Opens the defined file manager
-Alt+Shift+w       | Opens the defined web browser
-Alt+Shift+o       | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-Alt+Shift+p       | Opens the genpkg dmenu script in dmenu which can look up ebuilds
-Alt+Shift+c       | Opens the copyout dmenu script in dmenu which can copy the output of a command.
-Alt+Shift+v       | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
-Alt+Shift+j       | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
-Alt+Shift+e       | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
-Alt+Shift+comma   | Opens the dscratchpad dmenu script
-Alt+Shift+t       | Opens the defined editor in your terminal
-Alt+Shift+p       | pkills the defined web browser
-Alt+Shift+m       | pkills the defined music player
-Alt+Shift+a       | Opens the defined mixer in your terminal
-Alt+Shift+m       | Opens the defined music player
-Alt+Shift+x       | Opens the defined system process viewer in your terminal
-Control+Shift+m   | Opens the defined email client
-Control+Alt+u     | Opens the defined RSS reader
+dynamic window manager help
+-- Applications --
+Super+Shift+Enter         | Opens a terminal
+Super+Shift+Colon         | Opens a dmenu prompt
+Super+Shift+s             | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
+Super+Shift+f             | Opens the defined file manager
+Super+Shift+w             | Opens the defined web browser
+Super+Shift+o             | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
+Super+Shift+p             | Opens the genpkg dmenu script in dmenu which can look up ebuilds
+Super+Shift+c             | Opens the copyout dmenu script in dmenu which can copy the output of a command.
+Super+Shift+v             | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
+Super+Shift+j             | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
+Super+Shift+e             | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
+Super+Shift+comma         | Opens the dscratchpad dmenu script
+Super+Shift+t             | Opens the defined editor in your terminal
+Super+Shift+p             | pkills the defined web browser
+Super+Shift+m             | pkills the defined music player
+Super+Shift+a             | Opens the defined mixer in your terminal
+Super+Shift+m             | Opens the defined music player
+Super+Shift+x             | Opens the defined system process viewer in your terminal
+Super+Control+Shift+m     | Opens the defined email client
+Super+Control+u           | Opens the defined RSS reader
 
-Navigation
-Alt+f             | Full-screen the selected window
-Alt+b             | Show/hide the dwm bar
-Alt+j/k           | Move focus between windows
-Alt+a/d           | Increase/decrease size of each window
-Alt+Minus         | Show the scratchpad
-Alt+Equal         | Remove the scratchpad
-Alt+Enter         | Switch order of windows
-Alt+Shift+q       | Close the current window
-Alt+Space         | Set layout
-Alt+Shift+Equal   | Toggle scratchpads
-Alt+Shift+Minus   | Hide the scratchpad
-Alt+Shift+Space   | Unfloat floating windows
-Alt+Shift+Arrow   | Resizes a window in floating mode
-Alt+Shift+Tab     | Switch windows quickly and easily
-Alt+Shift+1       | Move to tag 1
-Alt+Shift+2       | Move to tag 2
-Alt+Shift+3       | Move to tag 3
-Alt+Shift+4       | Move to tag 4
-Alt+Shift+5       | Move to tag 5
-Alt+Shift+6       | Move to tag 6
-Alt+Shift+7       | Move to tag 7
-Alt+Shift+8       | Move to tag 8
-Alt+Shift+9       | Move to tag 9
-Alt+Shift+Escape  | Ask the user if they want to shutdown or reboot or nothing
-Alt+Shift+i       | Open a dmenu prompt and open the file the user picks in Zathura
-Alt+Shift+k       | Open a dmenu prompt and open the file the user picks in Vim
-Control+Alt+e     | Switch to layout 3 (Grid)
-Control+Alt+r     | Switch to layout 1 (Monocle)
-Control+Alt+t     | Switch to layout 0 (Master & stack)
-Control+Alt+y     | Switch to layout 4 (Deck)
-NOTE: The rest of the layouts can be used using Ctrl+Shift+A/D
-Control+Alt+0     | Set all windows to use the same tag
-Control+Alt+Arrow | Moves a window to any corner of your screen
-Control+Alt+Comma | Run via if present.
-Control+Alt+Tab   | Open a dmenu prompt asking the user what layout to switch to
-Control+Shift+a/d | Move between available layouts
-Control+Shift+Tab | Read .Xresources again without reloading dwm
-Control+Shift+s   | Make the current selected window sticky
-Control+Alt+Shift+Esc   | Open dwmutils (Main menu)
-Control+Alt+Shift+Arrow | Resize the window to the screen size.
+-- Navigation --
+Super+f                   |  Full-screen the selected window
+Super+b                   |  Show/hide the dwm bar
+Super+j/k                 |  Move focus between windows
+Super+a/d                 |  Increase/decrease size of each window
+Super+Minus               |  Show the scratchpad
+Super+Equal               |  Remove the scratchpad
+Super+Enter               |  Switch order of windows
+Super+Shift+q             |  Close the current window
+Super+Space               |  Set layout
+Super+Shift+Equal         |  Toggle scratchpads
+Super+Shift+Minus         |  Hide the scratchpad
+Super+Shift+Space         |  Unfloat floating windows
+Super+Shift+Arrow         |  Resizes a window in floating mode
+Super+Shift+1             |  Move to tag 1
+Super+Shift+2             |  Move to tag 2
+Super+Shift+3             |  Move to tag 3
+Super+Shift+4             |  Move to tag 4
+Super+Shift+5             |  Move to tag 5
+Super+Shift+6             |  Move to tag 6
+Super+Shift+7             |  Move to tag 7
+Super+Shift+8             |  Move to tag 8
+Super+Shift+9             |  Move to tag 9
+Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
+Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
+Super+Shift+k             |  Open a dmenu prompt and open the file the user picks in Vim
+Super+Control+e           |  Switch to layout 3 (Grid)
+Super+Control+r           |  Switch to layout 1 (Monocle)
+Super+Control+t           |  Switch to layout 0 (Master & stack)
+Super+Control+y           |  Switch to layout 4 (Deck)
+Super+Control+0           |  Set all windows to use the same tag
+Super+Control+Arrow       |  Moves a window to any corner of your screen
+Super+Control+Comma       |  Run via if present.
+Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
+Super+Control+h           |  Open a list of all keybinds in your terminal using less
+Super+Control+Shift+a/d   | Move between available layouts
+Super+Control+Shift+Tab   | Read .Xresources again without reloading dwm
+Super+Control+Shift+s     | Make the current selected window sticky
+Super+Control+Shift+Esc   | Open dwmutils (Main menu)
+Super+Control+Shift+Arrow | Resize the window to the screen size.
+Super+Control+Shift+s     | Set a wallpaper
+Alt+Tab                   |  Switch windows quickly and easily
 
-Extras (These will only work if your keyboard has special multimedia buttons)
-Mute button       | Mutes your audio
-+ Volume button   | Increases your volume
-- Volume button   | Decreases your volume
-Stop button       | Stops your defined music player
-Browser button    | Opens your defined web browser
-Power button      | Ask if you wanna shut down, restart or lock your computer.
-Email button      | Open your defined email client
-System button     | Open your defined status viewer in a terminal
+-- Extras --
+(These will only work if your keyboard has special multimedia buttons)
+Mute button               | Mutes your audio
++ Volume button           | Increases your volume
+- Volume button           | Decreases your volume
+Stop button               | Stops your defined music player
+Browser button            | Opens your defined web browser
+Power button              | Ask if you wanna shut down, restart or lock your computer.
+Email button              | Open your defined email client
+System button             | Open your defined status viewer in a terminal

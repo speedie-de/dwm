@@ -1,0 +1,34 @@
+-- Dependencies --
+These are absolutely necessary, dwm will NOT compile without them
+- libxft-bgra (Can be installed through 'make <distro>-libxftfix')
+- libXinerama
+- imlib2
+
+-- Features --
+These are dependencies if you wanna use certain features
+- dmenu (Any build should do but only tested with mine, might work with rofi and other compatible run launchers)
+- picom (For transparency, you DO NOT need to add it to .xinitrc, it will start automatically)
+- xclip (Required for clipboard support by a few scripts, will start automatically)
+- xwallpaper (Required to set wallpapers automatically)
+- xmodmap (Install if you want Escape instead of Caps Lock and Right Super+hjkl for arrow keys)
+- xrdb (Install if you want .Xresources support)
+- pywal (Install if you want pywal support. Requires swal aka the default way to set wallpapers)
+
+-- Software --
+This build of dwm comes with binds for software. These must be installed by default but you can change the binds through changing the defines at the top.
+- st (Terminal)
+- tabbed (Tabs for the web browser)
+- vimb (Web browser)
+- htop (Status monitor)
+- newsboat (RSS reader)
+- zathura (PDF reader)
+- alsa-utils (Required for audio controls)
+- mocp (Default music player)
+- vim (Text editor)
+- neomutt (Email client)
+- maim (Screenshot tool, automatically copies to clipboard using xclip)
+- vifm (File manager)
+- slock (Lock screen)
+- weechat (IRC client)
+- tmux (Recommended if you're using weechat)
+
