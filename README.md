@@ -13,7 +13,8 @@ This build of dwm has the following dependencies:
 - libXft-bgra (See Installing libXft-bgra)
 - libXinerama (Can be disabled if you don't need multiple monitors)
 - imlib2
-- dmenu (Any build should work, can be replaced with rofi with some effort)
+- xsetroot (Sometimes also named xorg-xsetroot)
+The rest are not mandatory but are very much recommended since they provide additional features.
 
 ### Installation
 - See dependencies
