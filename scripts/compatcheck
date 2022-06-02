@@ -1,0 +1,9 @@
+#!/bin/sh
+
+ls /usr/bin/xrdb || printf "\nWARNING: xrdb was not found. .Xresources and Pywal support will not work."
+ls /usr/bin/wmctrl || printf "\nWARNING: wmctrl was not found. Window management using 'Alt+Tab' will not work."
+ls /usr/bin/xsetroot || printf "\nWARNING: xsetroot was not found. This means most status bars and bundled scripts won't work. Highly recommend installing this (sort of) optional dependency!"
+ls /usr/bin/xwallpaper || printf "\nWARNING: xwallpaper was not found. This means setting your wallpaper and Pywal support won't work."
+dmenu -v > /dev/null || printf "\nWARNING: dmenu was not found. This means running applications will potentially be very inconvenient. It also means most bundled scripts will NOT work unless modified to work with rofi."
+slock -v > /dev/null || printf "\nWARNING: slock was not found. This means the shutdown menu can't lock your screen."
+ls /usr/bin/xmodmap || printf "\nWARNING: xmodmap was not found. This means Caps Lock will NOT be remapped to Escape (For Vim users)."
