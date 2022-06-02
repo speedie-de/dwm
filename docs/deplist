@@ -13,6 +13,9 @@ These are dependencies if you wanna use certain features
 - xmodmap (Install if you want Escape instead of Caps Lock and Right Super+hjkl for arrow keys)
 - xrdb (Install if you want .Xresources support)
 - pywal (Install if you want pywal support. Requires swal aka the default way to set wallpapers)
+- wmctrl (Needed for proper window managemet
+- xsetroot (Needed for most scripts including Pywal support)
+- slock (Required for screen locking)
 
 -- Software --
 This build of dwm comes with binds for software. These must be installed by default but you can change the binds through changing the defines at the top.
