@@ -327,7 +327,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,          spawn,                SHCMD("copyout") },
 	{ MODKEY|ShiftMask,             XK_v,          spawn,                SHCMD("dsearch") },
 	{ MODKEY|ShiftMask,             XK_j,          spawn,                SHCMD("cfgedit") }, 
-	{ MODKEY|ShiftMask,             XK_e,          spawn,                SHCMD("emojilist") },
+	{ MODKEY|ShiftMask,             XK_e,          spawn,                SHCMD("dboard || emojilist") },
 	{ MODKEY|ShiftMask,             XK_comma,      spawn,                SHCMD("dscratchpad") },
 	{ MODKEY|ShiftMask,             XK_t,	       spawn,                SHCMD(TERMINAL EDITOR) },
 	{ MODKEY|ShiftMask,             XK_a,          spawn,                SHCMD(TERMINAL MIXER) },
