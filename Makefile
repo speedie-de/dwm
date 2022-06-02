@@ -33,7 +33,7 @@ dist: clean
 	cp -R config.def.h config.mk docs drw.c drw.h dwm.c layouts.c LICENSE Makefile scripts transient.c util.c util.h dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
-	rm -rf dwm-spde-${VERSION}
+	rm -rf dwm-spde-${VERSION} dwm
 
 install: all
 	touch config.h drw.o dwm.o util.o
@@ -49,6 +49,8 @@ install: all
 	cp -f scripts/switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
 	cp -f scripts/dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
 	cp -f scripts/swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/swal
+	chmod +x ./scripts/compatcheck
+	./scripts/compatcheck
 	rm config.h drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:

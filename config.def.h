@@ -192,20 +192,21 @@ static const unsigned int tagalpha[]          = { OPAQUE, baralpha };
  ***************************************************************/
 static const Rule rules[]                     = {
     	/* class                instance    title                             tags mask   isfloating    isterminal   noswallow   CenterFirst    monitor     scratch key */
-        { TERMINAL_CLASS,       NULL,       NULL,                             0,          0,            1,           0,          0,             -1,         0  },
+		{ TERMINAL_CLASS,       NULL,       NULL,                             0,          0,            1,           0,          0,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       "sxiv",                           0,          0,            0,           1,          0,             -1,         0  },
         { TERMINAL_CLASS,       NULL,       FILEMANAGER_CLASS,                0,          0,            1,           0,          1,             -1,         0  },
         { PDF_CLASS,            NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
         { TERMINAL_CLASS,       NULL,       EDITOR,                           0,          0,            0,           0,          0,             -1,         0  },
-        { TERMINAL_CLASS,       NULL,       MUSIC,                            0,          1,            0,           0,          1,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       MUSIC,                            0,          1,            0,           1,          0,             -1,         0  },
+        { TERMINAL_CLASS,       NULL,       "dwm",                            0,          1,            0,           1,          0,             -1,         0  },
         { TERMINAL_CLASS,       NULL,       MIXER,                            0,          1,            0,           1,          1,             -1,         0  },
         { TERMINAL_CLASS,       NULL,       "cordless",                       0,          0,            0,           0,          1,             -1,         0  },
 	    { BROWSER_CLASS,        NULL,       NULL,                             0,          0,            0,           1,          1,             -1,         0  },
+		{ "dolphin-emu",        NULL,       NULL,                             0,          1,            1,           0,          1,             -1,         0  },
         { "mpv",                NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
         { "tabbed",             NULL,       NULL,                             0,          0,            0,           0,          0,             -1,         0  },
 		{ NULL,                 NULL,       "CustomizeMii 3.11 by Leathl",    0,          1,            0,           1,          1,             -1,         0  },
 	    { NULL,                 NULL,       "Picture-in-Picture",             0,          1,            0,           1,          0,             -1,         0  },
-        { NULL,                 NULL,       "dwm",                            0,          1,            0,           0,          1,             -1,         0  },
-		{ NULL,                 NULL,       "tmux",                           0,          1,            0,           1,          1,             -1,         0  },
 		{ NULL,                 NULL,       "scratchpad",                     0,          0,            0,                                      -1,        's' },
 };
 
@@ -423,7 +424,7 @@ static Key keys[] = {
     { 0, XF86XK_AudioLowerVolume,	spawn,		                   SHCMD(VOL_DOWN) },    
 	{ 0, XF86XK_AudioStop,          spawn,                         SHCMD(KILLMUSIC) },
     { 0, XF86XK_WWW,	            spawn,		                   SHCMD(BROWSER) },    
-    { 0, XF86XK_PowerOff,           spawn,                         SHCMD("shutdown.sh") },
+    { 0, XF86XK_PowerOff,           spawn,                         SHCMD("shutdown") },
 	{ 0, XF86XK_Sleep,              spawn,                         SHCMD(LOCKER) },
 	{ 0, XF86XK_Mail,               spawn,                         SHCMD(TERMINAL EMAIL) },
 	{ 0, XF86XK_TaskPane,           spawn,                         SHCMD(TERMINAL SYSTEMSTAT) },
