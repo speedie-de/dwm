@@ -1,0 +1,41 @@
+#!/bin/sh
+# copyout
+# dmenu script to copy the output of a command to your clipboard
+# Licensed under GPLv3.
+# Inspired by Luke Smith's copyout patch for st, fully rewritten.
+
+# Import configuration
+COPYOUT_IMPORT()
+{
+  . ~/.config/copyout/copyoutrc || COPYOUT_DEFAULT_CONFIGURATION
+}
+
+COPYOUT_DEFAULT_CONFIGURATION()
+{
+  COPYOUT_BIN_DIR=/usr/bin
+  COPYOUT_DOTDIR=~/.config/copyout
+  COPYOUT_DMENU=dmenu
+  COPYOUT_HISTORY_FILE=$HISTFILE
+  COPYOUT_SHELL="/bin/sh -c"
+  COPYOUT_CLIPBOARD_COMMAND="xclip -selection clipboard"
+}
+
+COPYOUT_DIE()
+{
+  echo "Exiting (1)" && exit 1
+}
+
+COPYOUT_IMPORT # Import configuration file from either variable or predefined directory
+
+COPYOUT_GETHISTORY()
+{
+  cat $COPYOUT_HISTORY_FILE
+}
+
+COPYOUT_SEND_DMENU()
+{
+  COPYOUT_GETHISTORY | $COPYOUT_DMENU -p 'What command would you like to copy the output of?' -l 1
+}
+
+COPYOUT_OUTPUT=$($COPYOUT_SHELL $(COPYOUT_SEND_DMENU))
+echo $COPYOUT_OUTPUT | $COPYOUT_CLIPBOARD_COMMAND
