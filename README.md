@@ -132,7 +132,7 @@ This build of dwm has full compatibility with .Xresources and allows defining th
 - dwm.sidepad:              0  
 
 I know that seems like a lot but if you're unsure, there's an example file.
-To use a .Xresources file, simply install xrdb and add xrdb /path/to/.Xresources to .xinitrc
+To use a .Xresources file, simply put it in ~ or ~/.config and restart dwm.
 Or if you're using a display manager, add it to the autostart function in config.def.h.
 
 ### Important
@@ -140,82 +140,8 @@ Or if you're using a display manager, add it to the autostart function in config
 - This build REQUIRES libXft-bgra. If you don't know what that is, it's a patched build of libXft which fixes a bug which causes dmenu to crash when displaying certain characters. That can be installed through make <distro>-libxftfix
   
 ### Keybinds
-#### Applications
-- Super+Shift+Enter         |  Opens a terminal
-- Super+Shift+Colon         |  Opens a dmenu prompt
-- Super+Shift+s             |  Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
-- Super+Shift+f             |  Opens the defined file manager
-- Super+Shift+w             |  Opens the defined web browser
-- Super+Shift+o             |  Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-- Super+Shift+p             |  Opens the genpkg dmenu script in dmenu which can look up ebuilds
-- Super+Shift+c             |  Opens the copyout dmenu script in dmenu which can copy the output of a command.
-- Super+Shift+v             |  Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
-- Super+Shift+j             |  Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
-- Super+Shift+e             |  Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
-- Super+Shift+comma         |  Opens the dscratchpad dmenu script
-- Super+Shift+t             |  Opens the defined editor in your terminal
-- Super+Shift+p             |  pkills the defined web browser
-- Super+Shift+m             |  pkills the defined music player
-- Super+Shift+a             |  Opens the defined mixer in your terminal
-- Super+Shift+m             |  Opens the defined music player
-- Super+Shift+x             |  Opens the defined system process viewer in your terminal
-- Super+Control+Shift+m     |  Opens the defined email client
-- Super+Control+u           |  Opens the defined RSS reader
-
-#### Navigation
-- Super+f                   |  Full-screen the selected window
-- Super+b                   |  Show/hide the dwm bar
-- Super+j/k                 |  Move focus between windows
-- Super+a/d                 |  Increase/decrease size of each window
-- Super+Minus               |  Show the scratchpad
-- Super+Equal               |  Remove the scratchpad
-- Super+Enter               |  Switch order of windows
-- Super+Shift+q             |  Close the current window
-- Super+Space               |  Set layout
-- Super+Shift+Equal         |  Toggle scratchpads
-- Super+Shift+Minus         |  Hide the scratchpad
-- Super+Shift+Space         |  Unfloat floating windows
-- Super+Shift+Arrow         |  Resizes a window in floating mode
-- Super+Shift+1             |  Move to tag 1
-- Super+Shift+2             |  Move to tag 2
-- Super+Shift+3             |  Move to tag 3
-- Super+Shift+4             |  Move to tag 4
-- Super+Shift+5             |  Move to tag 5
-- Super+Shift+6             |  Move to tag 6
-- Super+Shift+7             |  Move to tag 7
-- Super+Shift+8             |  Move to tag 8
-- Super+Shift+9             |  Move to tag 9
-- Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
-- Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
-- Super+Shift+k             |  Open a dmenu prompt and open the file the user picks in Vim
-- Super+Control+e           |  Switch to layout 3 (Grid)
-- Super+Control+r           |  Switch to layout 1 (Monocle)
-- Super+Control+t           |  Switch to layout 0 (Master & stack)
-- Super+Control+y           |  Switch to layout 4 (Deck)
-- Super+Control+0           |  Set all windows to use the same tag
-- Super+Control+Arrow       |  Moves a window to any corner of your screen
-- Super+Control+Comma       |  Run via if present.
-- Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
-- Super+Control+h           |  Open a list of all keybinds in your terminal using less
-- Super+Control+Shift+a/d   |  Move between available layouts
-- Super+Control+Shift+Tab   |  Read .Xresources again without reloading dwm
-- Super+Control+Shift+s     |  Make the current selected window sticky
-- Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
-- Super+Control+Shift+Arrow |  Resize the window to the screen size.
-- Super+Control+Shift+s     |  Set a wallpaper
-- Alt+Tab                   |  Switch windows quickly and easily
-
-#### Extras
-(These will only work if your keyboard has special multimedia buttons)
-- Mute button               | Mutes your audio
-- + Volume button           | Increases your volume
-- - Volume button           | Decreases your volume
-- Stop button               | Stops your defined music player
-- Browser button            | Opens your defined web browser
-- Power button              | Ask if you wanna shut down, restart or lock your computer.
-- Email button              | Open your defined email client
-- System button             | Open your defined status viewer in a terminal
-
+Press Super+Control+h to see a list of all keybinds.
+  
 ### Status bars
 As for status bars, this build of dwm has been patched with extrabar and therefore supports dwmblocks. Here are a few status bars I use or have used in the past!
 To use these, install one, rice it, edit #define STATUSBAR in config.def.h and recompile dwm.
