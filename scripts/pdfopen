@@ -2,4 +2,4 @@
 
 cd $1
 SELPDF=$(ls -Ap1 *.pdf | dmenu -g 1 -l 50 -p "What PDF do you want to open?")
-$2 "$DOCDIR/$SELPDF"
+$2 "$1/$SELPDF"
