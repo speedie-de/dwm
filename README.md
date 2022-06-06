@@ -40,7 +40,8 @@ This has to be done because this build of dwm supports Color emojis. Now the onl
 - For other GNU/Linux distributions: make libxftfix
 
 ### Features
-This build of dwm has been patched pretty heavily with the following patches
+This build of dwm has been patched pretty heavily.
+
 See docs/patchlist if you want to know what patches are included.
 
 ### .Xresources
