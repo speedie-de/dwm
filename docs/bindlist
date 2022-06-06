@@ -6,12 +6,8 @@ Super+Shift+s             | Opens 'maim' to take a screenshot and copies it to t
 Super+Shift+f             | Opens the defined file manager
 Super+Shift+w             | Opens the defined web browser
 Super+Shift+o             | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-Super+Shift+p             | Opens the genpkg dmenu script in dmenu which can look up ebuilds
 Super+Shift+c             | Opens the copyout dmenu script in dmenu which can copy the output of a command.
-Super+Shift+v             | Opens the dsearch dmenu script in dmenu which can search the web using many different search engines using dmenu and open the results in the defined web browser
-Super+Shift+j             | Opens the cfgedit dmenu script in dmenu which can open configuration files in your editor
-Super+Shift+e             | Opens the emoji picker dmenu script in dmenu which can copy an emoji to your clipboard
-Super+Shift+comma         | Opens the dscratchpad dmenu script
+Super+Shift+e             | Opens the dboard dmenu script in dmenu which can copy text to your clipboard
 Super+Shift+t             | Opens the defined editor in your terminal
 Super+Shift+p             | pkills the defined web browser
 Super+Shift+m             | pkills the defined music player
@@ -58,7 +54,7 @@ Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to 
 Super+Control+h           |  Open a list of all keybinds in your terminal using less
 Super+Control+Shift+a/d   | Move between available layouts
 Super+Control+Shift+Tab   | Read .Xresources again without reloading dwm
-Super+Control+Shift+s     | Make the current selected window sticky
+Super+Alt+s               | Make the current selected window sticky
 Super+Control+Shift+Esc   | Open dwmutils (Main menu)
 Super+Control+Shift+Arrow | Resize the window to the screen size.
 Super+Control+Shift+s     | Set a wallpaper
