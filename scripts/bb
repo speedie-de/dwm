@@ -1,0 +1,24 @@
+#!/bin/sh
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
+if [ "$1" = "-f" ]; then
+		maim -uB > /tmp/screenshot || exit 0 
+else
+		maim -suB > /tmp/screenshot || exit 0
+fi
+
+if [ -e "/tmp/screenshot" ]; then
+		U_INPUT="$(printf "Image\nURL" | $RUNLAUNCHER -l 2 -p "Copy to clipboard as an: ")"
+else
+		exit 0
+fi
+
+case "$U_INPUT" in
+"Image") cat /tmp/screenshot | xclip -selection clipboard -t image/png ;;
+"URL") curl -s -F source=@"/tmp/screenshot" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard ;;
+esac
+
+rm /tmp/screenshot

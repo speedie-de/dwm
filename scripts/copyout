@@ -14,7 +14,9 @@ COPYOUT_DEFAULT_CONFIGURATION()
 {
   COPYOUT_BIN_DIR=/usr/bin
   COPYOUT_DOTDIR=~/.config/copyout
-  COPYOUT_DMENU=dmenu
+  case "$RUNLAUNCHER" in
+  "") RUNLAUNCHER=dmenu ;;
+  esac
   COPYOUT_HISTORY_FILE=$HISTFILE
   COPYOUT_SHELL="/bin/sh -c"
   COPYOUT_CLIPBOARD_COMMAND="xclip -selection clipboard"
@@ -34,7 +36,7 @@ COPYOUT_GETHISTORY()
 
 COPYOUT_SEND_DMENU()
 {
-  COPYOUT_GETHISTORY | $COPYOUT_DMENU -p 'What command would you like to copy the output of?' -l 1
+  COPYOUT_GETHISTORY | $RUNLAUNCHER -p 'What command would you like to copy the output of?' -l 1
 }
 
 COPYOUT_OUTPUT=$($COPYOUT_SHELL $(COPYOUT_SEND_DMENU))

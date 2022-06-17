@@ -1,7 +1,11 @@
 #!/bin/sh
 # dkeyboard by speedie
 # Licensed under GNU GPLv3
- 
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
 EMOJILIST()
 {
 printf "🙂 Slightly smiling face
@@ -2062,43 +2066,43 @@ printf "ă
 
 JAPANESECOPY()
 {
-  JAPANESE_LETTER_CHOICE="$(printf "$(JAPANESE_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
+  JAPANESE_LETTER_CHOICE="$(printf "$(JAPANESE_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
   printf "$JAPANESE_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$JAPANESE_LETTER_CHOICE copied to clipboard."
 }
 
 ARABICCOPY()
 {
-  ARABIC_LETTER_CHOICE="$(printf "$(ARABIC_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
+  ARABIC_LETTER_CHOICE="$(printf "$(ARABIC_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ' | awk '{ print $1 }')"
   printf "$ARABIC_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$ARABIC_LETTER_CHOICE copied to clipboard."
 }
 
 BAYBAINCOPY()
 {
-  BAYBAIN_LETTER_CHOICE="$(printf "$(BAYBAIN_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  BAYBAIN_LETTER_CHOICE="$(printf "$(BAYBAIN_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ')"
   printf "$BAYBAIN_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$BAYBAIN_LETTER_CHOICE copied to clipboard."
 }
 
 SPANISHCOPY()
 {
-  SPANISH_LETTER_CHOICE="$(printf "$(SPANISH_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  SPANISH_LETTER_CHOICE="$(printf "$(SPANISH_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ')"
   printf "$SPANISH_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$SPANISH_LETTER_CHOICE copied to clipboard."
 }
 
 CHINESECOPY()
 {
-  CHINESE_LETTER_CHOICE="$(printf "$(CHINESE_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+  CHINESE_LETTER_CHOICE="$(printf "$(CHINESE_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ')"
   printf "$CHINESE_LETTER_CHOICE" | awk '{ print $1 }' | xclip -selection clipboard && notify-send "$(printf "$CHINESE_LETTER_CHOICE" | awk '{ print $1 }') copied to clipboard."
 }
 
 SWEDISHFINNISHCOPY()
 { 
-   SWEDISH_LETTER_CHOICE="$(printf "$(SWEDISH_FINNISH_CHARACTERS_LIST)" | dmenu -l 5 -p 'Pick a character: ')"
+   SWEDISH_LETTER_CHOICE="$(printf "$(SWEDISH_FINNISH_CHARACTERS_LIST)" | $RUNLAUNCHER -l 5 -p 'Pick a character: ')"
    printf "$SWEDISH_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$SWEDISH_LETTER_CHOICE copied to clipboard."
 } 
 
 ROMANIANCOPY()
 {
-   ROMANIAN_LETTER_CHOICE="$(printf "$(ROMANIAN_CHARACTERS_LIST)" | dmenu  -l 5 -p 'Pick a character: ')"
+   ROMANIAN_LETTER_CHOICE="$(printf "$(ROMANIAN_CHARACTERS_LIST)" | $RUNLAUNCHER  -l 5 -p 'Pick a character: ')"
    printf "$ROMANIAN_LETTER_CHOICE" | xclip -selection clipboard && notify-send "$ROMANIAN_LETTER_CHOICE copied to clipboard."
 }
  
@@ -2112,13 +2116,13 @@ Stop using the term 'Open Source'. By supporting 'open source', you're not suppo
  
 COPYPASTACOPY()
 { 
-  COPYPASTASEL="$(printf "$(COPYPASTALIST)" | dmenu -l 5 -p 'Pick a copypasta: ')"
+  COPYPASTASEL="$(printf "$(COPYPASTALIST)" | $RUNLAUNCHER -l 5 -p 'Pick a copypasta: ')"
   printf "$COPYPASTASEL" | xclip -selection clipboard && notify-send "$COPYPASTASEL copied to clipboard."
 } 
  
 EMOJICOPY()
 { 
-  EMOJISEL="$(printf "$(EMOJILIST)" | dmenu -l 5 -p 'Pick an emoji: ' | awk '{ print $1 }')"
+  EMOJISEL="$(printf "$(EMOJILIST)" | $RUNLAUNCHER -l 5 -p 'Pick an emoji: ' | awk '{ print $1 }')"
   printf $EMOJISEL | xclip -selection clipboard && notify-send "$EMOJISEL copied to clipboard."
 } 
 
@@ -2135,7 +2139,7 @@ DBOARD_ABOUT()
 ###########################################################
  
 # Ask the user what they wanna do
-ACTION=$(printf "Emoji\nCopypasta\nSwedish/Finnish letters\nSpanish letters\nChinese letters\nJapanese letters\nBaybain letters\nArabic letters\nRomanian letters\nCredits\nAbout\nExit" | dmenu -p 'What would you like to copy?' -l 20)
+ACTION=$(printf "Emoji\nCopypasta\nSwedish/Finnish letters\nSpanish letters\nChinese letters\nJapanese letters\nBaybain letters\nArabic letters\nRomanian letters\nCredits\nAbout\nExit" | $RUNLAUNCHER -p 'What would you like to copy?' -l 20)
  
 if [ "$ACTION" = "Emoji" ]; then
 EMOJICOPY
@@ -2156,7 +2160,7 @@ ARABICCOPY
 elif [ "$ACTION" = "Romanian letters" ]; then
 ROMANIANCOPY
 elif [ "$ACTION" = "Credits" ]; then
-CREDIT_SEL=$(printf "$(DBOARD_CREDITS)" | dmenu -p 'dboard was created with the help of and by: ' -l 20 -g 1)
+CREDIT_SEL=$(printf "$(DBOARD_CREDITS)" | $RUNLAUNCHER -p 'dboard was created with the help of and by: ' -l 20 -g 1)
 case "$CREDIT_SEL" in
 "speedie - Wrote the script & Swedish characters") $BROWSER 'https://speedie.gq' ;;
 "jornmann - Helped out with some code") $BROWSER 'https://donut.gq' ;;
@@ -2168,7 +2172,7 @@ esac
 elif [ "$ACTION" = "Exit" ]; then
 exit 0
 elif [ "$ACTION" = "About" ]; then
-printf "$(DBOARD_ABOUT)" | dmenu -p 'About dboard: ' -l 20 -g 1
+printf "$(DBOARD_ABOUT)" | $RUNLAUNCHER -p 'About dboard: ' -l 20 -g 1
 fi
  
 exit 0

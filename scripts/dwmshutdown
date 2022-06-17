@@ -1,0 +1,42 @@
+#!/bin/sh
+# This simple script uses $RUNLAUNCHER to ask the user what they wanna do.
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
+
+MOREOPTS() {
+
+USER_OPT3=$(printf "Restart dwm\nEnd task\ndwm command\n.." | $RUNLAUNCHER -l 4 -g 1 -p "What do you wanna do?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff")
+
+case "$USER_OPT3" in
+"") exit 0 ;;
+"Restart dwm") xsetroot -name "fsignal:25" && exit 0 ;;
+"End task") ENDTASK=$(printf "\n" | $RUNLAUNCHER -l 1 -p "What task to end?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff") && pkill $ENDTASK && exit 0 ;;
+"dwm command") dwmutils && exit 0 ;;
+"..") $0 && exit 0 ;;
+esac
+}
+
+ls /usr/bin/sudo && PERM=sudo
+ls /usr/bin/doas && PERM=doas
+ls /usr/bin/rootdo && PERM=rootdo
+
+USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nMore" | $RUNLAUNCHER -l 5 -p "What do you wanna do?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff")
+
+case "$USER_OPT1" in
+"Shutdown") CMD="$PERM poweroff" ;;
+"Reboot") CMD="$PERM reboot" ;;
+"Exit") exit 0 ;;
+"Lock") CMD="slock -m "$(printf "Hello $(whoami).\n\n$(date +%T)")"" ;;
+"More") MOREOPTS ;;
+"") exit 0 ;;
+esac
+
+USER_OPT2=$(printf "Yes\nNo" | $RUNLAUNCHER -l 2 -p "Are you sure?" -nb "#DC143C" -sb "#8b0000" -nf "#ffffff" -sf "#000000")
+case "$USER_OPT2" in
+"Yes") $CMD ;;
+"No") exit 0 ;;
+"") exit 0 ;;
+esac

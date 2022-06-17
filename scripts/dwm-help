@@ -1,0 +1,22 @@
+#!/bin/sh
+COL2="$(printf '\033[0;35m')"
+COL1="$(printf '\033[0m')"
+O=$1
+
+echo "${0}. Run '$0 -h' to see a list of arguments or to jump to a specific section.\n$(cat /usr/share/dwm-about /usr/share/dwm-patchlist /usr/share/dwm-about-2 /usr/share/dwm-bindlist /usr/share/dwm-deplist /usr/share/dwm-about-3 /usr/share/dwm-xresources /usr/share/dwm-about-4 /usr/share/dwm-fsignal /usr/share/dwm-about-5)" > /tmp/dwm-doc
+
+case "$O" in
+"-w") cat /tmp/dwm-doc > ../readme ;;
+"-h") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n"; exit 0 ;;
+"-1") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | head -n 10 | less ;;
+"-2") cat /usr/share/dwm-about /usr/share/dwm-patchlist | sed "s|--|${COL2}--${COL1}|g" | tail -n 45 | less ;;
+"-3") cat /usr/share/dwm-about-2 /usr/share/dwm-bindlist | sed "s|--|${COL2}--${COL1}|g" | less ;;
+"-4") cat /usr/share/dwm-deplist | sed "s|--|${COL2}--${COL1}|g" | less ;;
+"-5") cat /usr/share/dwm-about-3 /usr/share/dwm-xresources | tail -n 59 | sed "s|--|${COL2}--${COL1}|g" | less ;;
+"-6") cat /usr/share/dwm-about-4 /usr/share/dwm-fsignal | sed "s|--|${COL2}--${COL1}|g" | less ;;
+"-7") cat /usr/share/dwm-about-5 | sed "s|--|${COL2}--${COL1}|g" | less ;;
+"-8") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | head -n 22 | tail -n 11 | less ;;
+"-9") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | tail -n 22 | head -n 19 | less ;;
+"-10") cat /usr/share/dwm-about-3 | sed "s|--|${COL2}--${COL1}|g" | head -n 24 | less ;;
+"") cat /tmp/dwm-doc | sed "s|--|${COL2}--${COL1}|g" | less ;;
+esac

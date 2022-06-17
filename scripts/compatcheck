@@ -1,9 +1,49 @@
 #!/bin/sh
 
-ls /usr/bin/xrdb || printf "\nWARNING: xrdb was not found. .Xresources and Pywal support will not work."
-ls /usr/bin/wmctrl || printf "\nWARNING: wmctrl was not found. Window management using 'Alt+Tab' will not work."
-ls /usr/bin/xsetroot || printf "\nWARNING: xsetroot was not found. This means most status bars and bundled scripts won't work. Highly recommend installing this (sort of) optional dependency!"
-ls /usr/bin/xwallpaper || printf "\nWARNING: xwallpaper was not found. This means setting your wallpaper and Pywal support won't work."
-dmenu -v > /dev/null || printf "\nWARNING: dmenu was not found. This means running applications will potentially be very inconvenient. It also means most bundled scripts will NOT work unless modified to work with rofi."
+# Check if xrdb exists
+if [ -e "/usr/bin/xrdb" ]; then
+		xrdb_exists=true
+else
+		printf "\nWARNING: xrdb was not found. .Xresources and Pywal support will not work."
+fi
+
+# Check if wmctrl exists
+if [ -e "/usr/bin/wmctrl" ]; then
+		wmctrl_exists=true
+else
+		printf "\nWARNING: wmctrl was not found. Window management using 'Alt+Tab' will not work."
+fi
+
+# Check if xsetroot exists
+if [ -e "/usr/bin/xsetroot" ]; then
+		xsetroot_exists=true
+else
+		printf "\nWARNING: xsetroot was not found. This means most status bars and bundled scripts won't work. Highly recommend installing this (sort of) optional dependency!"
+fi
+
+# Check if xwallpaper exists
+if [ -e "/usr/bin/xwallpaper" ]; then
+		xwallpaper_exists=true
+else
+		printf "\nWARNING: xwallpaper was not found. This means setting your wallpaper and Pywal support won't work."
+fi
+
+# Check if xmodmap exists
+if [ -e "/usr/bin/xmodmap" ]; then
+		xmodmap_exists=true
+else
+		printf "\nWARNING: xmodmap was not found. This means the Alt+Tab script will not be able to remap Alt+hjkl temporarily."
+fi
+
+# Check if dmenu exists
+dmenu -v > /dev/null || printf "\nWARNING: dmenu was not found. This means running applications will potentially be very inconvenient. It also means most bundled scripts will NOT work unless modified to work with rofi. See help for more information"
+
+# Check if slock exists
 slock -v > /dev/null || printf "\nWARNING: slock was not found. This means the shutdown menu can't lock your screen."
-ls /usr/bin/xmodmap || printf "\nWARNING: xmodmap was not found. This means Caps Lock will NOT be remapped to Escape (For Vim users)."
+
+result="$(echo "$xrdb_exists$wmctrl_exists$xsetroot_exists$xwallpaper_exists$xmodmap_exists")"
+
+case "$result" in
+"truetruetruetruetrue") printf "\nAll dependencies were found.\n\n" ;;
+"") printf "\nWTF NO DEPENDENCIES" ;;
+esac

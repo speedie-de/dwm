@@ -1,7 +1,12 @@
 #!/bin/sh
 
 cd $1
-SELPDF=$(ls -Ap1 *.pdf | dmenu -g 1 -l 50 -p "What PDF do you want to open?")
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
+SELPDF=$(ls -Ap1 *.pdf | $RUNLAUNCHER -g 1 -l 50 -p "What PDF do you want to open?")
 
 case "$SELPDF" in
 "") exit 0 ;;

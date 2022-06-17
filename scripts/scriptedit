@@ -1,6 +1,11 @@
 #!/bin/sh
 cd $1
-SELPDF=$(ls -Ap1 | dmenu -g 1 -l 50 -p "What script do you want to edit?")
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
+SELPDF=$(ls -Ap1 | $RUNLAUNCHER -g 1 -l 50 -p "What script do you want to edit?")
 
 case "$SELPDF" in
 "") exit 0 ;;

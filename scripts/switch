@@ -1,8 +1,20 @@
 #!/bin/sh
 # This script is from the suckless.org website.
 # I'm not sure who made it initially but I made it POSIX compliant.
+# I also added some xmodmap stuff so that it's nicer to use.
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
 
 wmctrl -xl || exit 1
+xmodmap -e "keycode 23 = Down"
+xmodmap -e "keycode 116 = Tab"
+
+# Vim
+xmodmap -e "keycode 44 = Down"
+xmodmap -e "keycode 45 = Up"
+
 windows=$(wmctrl -xl | tr -s '[:blank:]' | cut -d ' ' -f 3-3,5- | sed 's/^[a-zA-Z0-9-]*\.//' | sort | uniq)
 
 # Add spaces to align the WM_NAMEs of the windows
@@ -15,5 +27,12 @@ windows=$(echo "$windows" | \
                     $1 = ""; printf "%s\n", $0}')
 
 
-target=$(echo "$windows" | dmenu -b -l 10 -p "switch:" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
+target=$(echo "$windows" | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
 wmctrl -a "$target"
+
+xmodmap -e "keycode 23 = Tab"
+xmodmap -e "keycode 116 = Down"
+
+# Vim
+xmodmap -e "keycode 44 = j"
+xmodmap -e "keycode 45 = k"

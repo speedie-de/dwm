@@ -1,12 +1,16 @@
 #!/bin/sh
 
+# Default configuration, should be fine for most users.
 SWAL_DEFAULT_CONFIG()
 {
   SWAL_WALLPAPERDIR=~/Wallpapers
-  SWAL_DMENUDIR=/usr/bin/dmenu
+  case "$RUNLAUNCHER" in
+  "") RUNLAUNCHER=dmenu ;;
+  esac
   SWAL_OPT=xwallpaper
   SWAL_BINDIR=/usr/bin
   SWAL_EXPORTDIR=~/.config/swal
+  SWAL_FSIGNAL_RELOAD_XRESOURCES=18
 }
 
 SWAL_MKCONFIG() {
@@ -14,7 +18,7 @@ SWAL_MKCONFIG() {
   touch $SWAL_EXPORTDIR/config
   SWAL_WALLPAPERDIR_NEW=$(printf "Your wallpaper directory" | dmenu -g 1 -p "Where are all your wallpapers stored?" -l 1)
   printf "SWAL_WALLPAPERDIR=$SWAL_WALLPAPERDIR_NEW" > $SWAL_EXPORTDIR/config
-  printf "\n#SWAL_DMENUDIR=$SWAL_DMENUDIR" >> $SWAL_EXPORTDIR/config
+  printf "\n#RUNLAUNCHER=$RUNLAUNCHER" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_OPT=$SWAL_OPT" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_BINDIR=$SWAL_BINDIR" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_EXPORTDIR=$SWAL_EXPORTDIR" >> $SWAL_EXPORTDIR/config
@@ -24,7 +28,6 @@ SWAL_MKCONFIG() {
 # Source things
 SWAL_SOURCE()
 {
-  SWAL_DEFAULT_CONFIG
   ls $SWAL_EXPORTDIR/config || SWAL_MKCONFIG
   . $SWAL_EXPORTDIR/config
 }
@@ -32,7 +35,6 @@ SWAL_SOURCE()
 SWAL_CHECK()
 {
   ls $SWAL_BINDIR/xwallpaper || SWAL_DIE
-  ls $SWAL_DMENUDIR || SWAL_DIE
 }
 
 SWAL_DIE()
@@ -40,19 +42,64 @@ SWAL_DIE()
   SWAL_EXIT=1 && exit 1
 }
 
+SWAL_HELP() {
+  echo "swal is a minimal xwallpaper frontend for dmenu/rofi."
+  echo "-w /path/to/wallpaper.png | Set the wallpaper specified."
+  echo "-h | View this help screen." 
+  echo "-f X | fsignal signum to reload .Xresources (with reloadxresources, fsignal and .Xresources dwm patches)"
+}
+
 SWAL_SELWALLPAPER()
 {
-  SWAL_SELWALLPAPER="$(printf "$(ls $SWAL_WALLPAPERDIR)\nChange Wallpaper Directory" | $SWAL_DMENUDIR -g 1 -p "What wallpaper would you like to set?" -l 20)"
+  case "$NEW1" in
+  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls $SWAL_WALLPAPERDIR)\nChange Wallpaper Directory\n.." | $RUNLAUNCHER -g 1 -l 90 -p "What wallpaper would you like to set?" -l 20)" ;;
+  "-w") SWAL_SELWALLPAPER="$(basename $NEW2)" && touch /tmp/swal_cpath ;;
+  "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
+  "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES=$NEW2 ;;
+  esac
+  
+  case "$NEW3" in
+  "-w") SWAL_SELWALLPAPER="$(basename $NEW4)" && touch /tmp/swal_cpath ;;
+  "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
+  "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES=$NEW4 ;;
+  esac
+
+  case "$NEW5" in
+  "-w") SWAL_SELWALLPAPER="$(basename $NEW6)" && touch /tmp/swal_cpath ;;
+  "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
+  "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES=$NEW6 ;;
+  esac
 }
 
 SWAL_SETTYPE()
 {
   case "$SWAL_SELWALLPAPER" in
-  "Change Wallpaper Directory") SWAL_MKCONFIG && $0 && exit 0 ;;
+  "Change Wallpaper Directory") SWAL_MKCONFIG && $0 $1 $2 $3 && exit 0 ;;
+  "") exit 0 ;;
+  "..") cd $SWAL_WALLPAPERDIR/.. && SWAL_WALLPAPERDIR=$(pwd) && SWAL_SELWALLPAPER && SET && exit 0 ;;
   esac
 
-  SWAL_TYPE=$(printf "center\ntile\nzoom\nstretch" | $SWAL_DMENUDIR -p "How should we set it?" -g 1 -l 4) && SWAL_TYPE="--$SWAL_TYPE"
-  SWAL_USE_WAL=$(printf "Yes\nNo" | $SWAL_DMENUDIR -g 1 -p "Do you want to use Wal/Pywal?" -l 2)
+  # Check if it's a directory
+  if [ -d "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ]; then
+		cd $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER && SWAL_WALLPAPERDIR=$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER && SWAL_SELWALLPAPER && SET && exit 0
+  fi
+
+  SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch" | $RUNLAUNCHER -p "How should we set it?" -g 1 -l 4)
+  
+  case "$SWAL_TYPE" in
+  "Center") SWAL_TYPE=center ;;
+  "Tile") SWAL_TYPE=tile ;;
+  "Zoom") SWAL_TYPE=zoom ;;
+  "Stretch") SWAL_TYPE=stretch ;;
+  "") $0 && exit 0 ;;
+  esac
+
+  SWAL_TYPE="--$SWAL_TYPE"
+  if [ -e "/usr/bin/wal" ]; then
+		SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Wal/Pywal?" -l 2)
+  else
+		SWAL_USE_WAL="No"
+  fi
 }
 
 SWAL_SETWALLPAPER()
@@ -69,10 +116,11 @@ SWAL_EXPORT_SCRIPT()
 
 SWAL_EXPORT_SCRIPT_WAL()
 {
-  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER\nwal -R\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:18'" > $SWAL_EXPORTDIR/swal_wm
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER\nwal -i $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES'" > $SWAL_EXPORTDIR/swal_wm
   chmod +x $SWAL_EXPORTDIR/swal_wm
-  wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:18" # Compatibility with speedie's dwm
+  wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER ~/.config/swal/CurrentWallpaper
+  ${RUNLAUNCHER}_run -r
 }
 
 SWAL_XRESOURCES()
@@ -81,15 +129,31 @@ SWAL_XRESOURCES()
   . /tmp/swal
 }
 
+# Arguments
+NEW1=$1
+NEW2=$2
+NEW3=$3
+NEW4=$4
+NEW5=$5
+NEW6=$6
+
+rm -f /tmp/swal_cpath
+SWAL_DEFAULT_CONFIG
 SWAL_SOURCE || SWAL_DIE
 SWAL_XRESOURCES
 SWAL_CHECK || SWAL_DIE
 SWAL_SELWALLPAPER || SWAL_DIE
-SWAL_SETTYPE || SWAL_DIE
-SWAL_SETWALLPAPER || SWAL_DIE
 
-# Pywal
-case "$SWAL_USE_WAL" in
-"Yes") SWAL_EXPORT_SCRIPT_WAL || SWAL_DIE ;;
-"No") SWAL_EXPORT_SCRIPT || SWAL_DIE ;;
-esac
+SET() {
+  SWAL_SETTYPE || SWAL_DIE
+  SWAL_SETWALLPAPER || SWAL_DIE
+
+  # Pywal
+  case "$SWAL_USE_WAL" in
+  "Yes") SWAL_EXPORT_SCRIPT_WAL || SWAL_DIE ;;
+  "No") SWAL_EXPORT_SCRIPT || SWAL_DIE ;;
+  "") exit 0 ;;
+  esac
+}
+
+SET

@@ -1,0 +1,2 @@
+#!/bin/sh
+printf "[Desktop Entry]\nEncoding=UTF-8\nName=dwm\nComment=Dynamic window manager\nExec=dwm\nIcon=dwm\nType=XSession" > /usr/share/xsessions/dwm.desktop
