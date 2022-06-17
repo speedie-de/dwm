@@ -420,4 +420,3 @@ tatami(Monitor *m) {
 		}
 	}
 }
-

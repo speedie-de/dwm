@@ -17,50 +17,58 @@ options:
 .c.o:
 	${CC} -c ${CFLAGS} $<
 
-${OBJ}: config.h config.mk
-
-config.h:
-	cp config.def.h $@
+${OBJ}: config.mk
 
 dwm: ${OBJ}
-	${CC} -o $@ ${OBJ} ${LDFLAGS} ; rm -f config.h drw.o dwm.o util.o
+	${CC} -o $@ ${OBJ} ${LDFLAGS} ; rm -f drw.o dwm.o util.o
 
 clean:
 	rm -f dwm ${OBJ} dwm-${VERSION}.tar.gz && echo "Cleaned!"
 
 dist: clean
 	mkdir -p dwm-spde-${VERSION}
-	cp -R config.def.h config.mk docs drw.c drw.h dwm.c layouts.c LICENSE Makefile scripts transient.c util.c util.h dwm-spde-${VERSION}
+	cp -R config.mk docs drw.c xresources.h fsignal.h drw.h dwm.c keybinds.h options.h autostart.h colors.h rules.h layouts.h layouts.c status selfrestart.c LICENSE Makefile scripts transient.c util.c util.h dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
 	rm -rf dwm-spde-${VERSION} dwm
 
 install: all
-	touch config.h drw.o dwm.o util.o
+	touch drw.o dwm.o util.o
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f dwm ${DESTDIR}${PREFIX}/bin
 	chmod 755 ${DESTDIR}${PREFIX}/bin/dwm
-	mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	sed "s/VERSION/${VERSION}/g" < docs/dwm.1 > ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	chmod 644 ${DESTDIR}${MANPREFIX}/man1/dwm.1
-	cp -f docs/bindlist ${DESTDIR}${PREFIX}/bin
-	cp -f scripts/dwm-keybinds ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-keybinds
-	cp -f scripts/shutdown ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/shutdown
+	cp -f docs/bindlist ${DESTDIR}${PREFIX}/share/dwm-bindlist
+	cp -f docs/deplist ${DESTDIR}${PREFIX}/share/dwm-deplist
+	cp -f docs/about ${DESTDIR}${PREFIX}/share/dwm-about
+	cp -f docs/about2 ${DESTDIR}${PREFIX}/share/dwm-about-2
+	cp -f docs/about3 ${DESTDIR}${PREFIX}/share/dwm-about-3
+	cp -f docs/about4 ${DESTDIR}${PREFIX}/share/dwm-about-4
+	cp -f docs/about5 ${DESTDIR}${PREFIX}/share/dwm-about-5
+	cp -f docs/patchlist ${DESTDIR}${PREFIX}/share/dwm-patchlist
+	cp -f docs/example.Xresources ${DESTDIR}${PREFIX}/share/dwm-xresources
+	cp -f docs/example.fsignal ${DESTDIR}${PREFIX}/share/dwm-fsignal
+	cp -f scripts/dwm-help ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-help
+	cp -f scripts/dwmshutdown ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmshutdown
 	cp -f scripts/switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
 	cp -f scripts/dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
 	cp -f scripts/swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/swal
+	cp -f scripts/bb ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/bb
 	cp -f scripts/copyout ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/copyout
 	cp -f scripts/dboard ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dboard
+	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
+	cp -f scripts/scriptedit ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/scriptedit
+	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/compatcheck
+	chmod +x ./scripts/dwmdm
 	./scripts/compatcheck
-	rm config.h drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
+	./scripts/dwmdm
+	rm drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
-		${DESTDIR}${MANPREFIX}/man1/dwm.1 \
 		${DESTDIR}${PREFIX}/bin/dwmutils \
 		${DESTDIR}${PREFIX}/bin/switch \
-		${DESTDIR}${PREFIX}/bin/shutdown \
+		${DESTDIR}${PREFIX}/bin/dwmshutdown \
 		${DESTDIR}${PREFIX}/bin/swal \
 
 help:
