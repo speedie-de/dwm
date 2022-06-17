@@ -1,43 +1,44 @@
-dwm-actualfullscreen
-dwm-alpha
-dwm-alttags
-dwm-centeredtitle
-dwm-centerfirstwindow
-dwm-cool-autostart
-dwm-cyclelayouts
-dwm-emptyview
-dwm-fullgaps
-dwm-gridmode
-dwm-hide_vacant_tags
-dwm-no-mouse-support
-dwm-pertag
-dwm-rainbowtags
-dwm-statuscmd
-dwm-steam
-dwm-upgrade-6.3
-dwm-warp
-dwm-winicon
-dwm-xresources
-dwm-pywal
-dwm-moveresize
-dwm-autoresize
-dwm-deck
-dwm-deck-tilegap
-dwm-ewmhtags
-dwm-focusonnetactive
-dwm-sticky
-dwm-dynamicscratchpads
-dwm-namedscratchpads
-dwm-decorhints
-dwm-swallow
-dwm-fibonacci
-dwm-centeredmaster
-dwm-barpadding
-dwm-threecolumn
-dwm-bottomstack
-dwm-horizgrid
-dwm-alwayscenter
-dwm-rulerefresher
-dwm-alpha-monocle
-dwm-tatami
-dwm-fsignal
+  - dwm-actualfullscreen      | Add support for fullscreen applications
+  - dwm-alpha                 | Provides transparency to dwm
+  - dwm-alttags               | Adds different tags if a tag has a window open.
+  - dwm-centeredtitle         | Centers the window title
+  - dwm-centerfirstwindow     | Adds a rule that allows you to center the first window on a tag.
+  - dwm-cool-autostart        | Adds a function that allows you to autostart stuff.
+  - dwm-cyclelayouts          | Allows you to cycle between layouts using simple keybinds (or fsignal).
+  - dwm-emptyview             | Allows you to view dwm without a tag.
+  - dwm-fullgaps              | Adds gaps to dwm.
+  - dwm-gridmode              | Adds a grid mode layout to dwm.
+  - dwm-hide_vacant_tags      | Hides tags that don't have any windows open.
+  - dwm-no-mouse-support      | Removes mouse support (no clicking on tags)
+  - dwm-pertag                | Allows you to have different layouts for different tags.
+  - dwm-rainbowtags           | Allows you to define different colors for each tag
+  - dwm-statuscmd             | Allows you to use dwmblocks (if that's something you want to do)
+  - dwm-steam                 | Fixes a bug with Steam games.
+  - dwm-upgrade-6.3           | Patch upgrading dwm 6.2 to 6.3 (Used to upgrade to 6.3 as per https://speedie.gq/guide03)
+  - dwm-warp                  | "Warp" your mouse when switching between windows
+  - dwm-winicon               | Display the window icon next to the window title
+  - dwm-xresources            | Add .Xresources (and pywal support)
+  - dwm-moveresize            | Allows you to move around and resize windows in floating mode using keybinds.
+  - dwm-autoresize            | Move/Resize windows that are not visible
+  - dwm-deck                  | Adds a deck layout to dwm.
+  - dwm-deck-tilegap          | Adds gaps to the deck layout.
+  - dwm-ewmhtags              | Adds EWMH support.
+  - dwm-focusonnetactive      | Enables wmctrl support (Required for Alt+Tab script) 
+  - dwm-sticky                | Allows you to set a window as sticky (Follows you around tags)
+  - dwm-dynamicscratchpads    | Adds scratchpads (Windows that can be pulled up at any time on any tag)
+  - dwm-namedscratchpads      | Allows you to create named scratchpads (On top of other scratchpad patch)
+  - dwm-decorhints            | With this patch, dwm will respect decoration hints if enabled.
+  - dwm-swallow               | Add an option for dwm to swallow windows (Useful if you use.. for example mpv or sxiv)
+  - dwm-fibonacci             | Adds a fibonacci layout to dwm.
+  - dwm-centeredmaster        | Adds a centered master layout to dwm.
+  - dwm-barpadding            | Adds bar padding to dwm.
+  - dwm-threecolumn           | Adds a three column layout to dwm.
+  - dwm-bottomstack           | Adds a bottom stack layout to dwm.
+  - dwm-horizgrid             | Adds a horizontal grid layout to dwm.
+  - dwm-alwayscenter          | Always center floating windows.
+  - dwm-rulerefresher         | Refresh rules if window title/class changes.
+  - dwm-alpha-monocle         | Alpha for monocle layout.
+  - dwm-tatami                | Adds a tatami layout to dwm.
+  - dwm-fsignal               | Allows you to interact with dwm through shell scripts (such as included swal, dwmshutdown or dwmutils)
+  - dwm-selfrestart           | Allows dwm to restart without killing your X server.
+  - dwm-fancybar              | Display window title for all windows open on a tag.

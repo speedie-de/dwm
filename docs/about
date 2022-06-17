@@ -1,0 +1,44 @@
+-- speedie's fork of dynamic window manager --
+   https://speedie.gq/dwm
+  https://speedie./gq/donate
+
+-- What is dwm? --
+dwm or dynamic window manager is a window manager. It manages the user's open windows and tiles them according to a set layout (dynamic). 
+This fork has more features and keybinds.
+
+Tiling window managers (unlike floating window managers that you may be used to) tile windows based on a set layout making them easy to get productive on. 
+They also encourage the user to use their keyboard instead of the mouse so that the user doesn't have to move their hands much.
+
+-- Installation --
+In order to install this build of dwm, all dependencies must be installed.
+You can see (Dependencies) for a list of all dependencies required to use this fork.
+
+  - git clone https://github.com/speedie-de/dwm
+  - cd dwm
+  - make clean install
+    - If any warnings show up, fix it by installing the missing dependency.
+  - If a .xinitrc is used, add 'dwm' to the end.
+    - NOTE: Your .xinitrc should ONLY contain 'dwm'. dwm will automatically start everything else. If not, edit autostart.h and 'make clean install'. If a .xinitrc is not used then you don't need to worry. A .desktop file is automatically created when you run 'make clean install'.
+
+-- Layouts --
+This fork of dwm comes with the following layouts:
+
+  - Tile
+  - Monocle
+  - Grid
+  - Deck
+  - Centered Master
+  - Centered Floating Master
+  - Spiral
+  - Dwindle
+  - Three Column
+  - Bottom Stack
+  - Horizontal Bottom Stack
+  - Horizonal Grid
+  - Tatami
+
+They can be switched between using a little menu (See Keybinds for more information)
+The more commonly used layouts can be switched between using a quick keybind.
+
+-- Patches --
+My build of dwm has been patched with the following patches:

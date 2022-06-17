@@ -1,26 +1,26 @@
-# Layouts
+  - xsetroot -name "fsignal:1"  | Switch to the Tiling layout
+  - xsetroot -name "fsignal:2"  | Switch to the Floating layout
+  - xsetroot -name "fsignal:3"  | Switch to the Monocle layout
+  - xsetroot -name "fsignal:4"  | Switch to the Grid layout
+  - xsetroot -name "fsignal:5"  | Switch to the Deck layout
+  - xsetroot -name "fsignal:6"  | Switch to the Centered Master layout
+  - xsetroot -name "fsignal:7"  | Switch to the Centered Floating Master layout
+  - xsetroot -name "fsignal:8"  | Switch to the Fibonacci Spiral layout
+  - xsetroot -name "fsignal:9"  | Switch to the Fibonacci Dwindle layout
+  - xsetroot -name "fsignal:10" | Switch to the Three Column layout
+  - xsetroot -name "fsignal:11" | Switch to the Bottom Stack Vertical layout
+  - xsetroot -name "fsignal:12" | Switch to the Bottom Stack Horizontal layout
+  - xsetroot -name "fsignal:13" | Switch to the Horizontal Grid layout
+  - xsetroot -name "fsignal:14" | Switch to the Tatami layout
+  - xsetroot -name "fsignal:15" | To be added
+  - xsetroot -name "fsignal:16" | Cycle layout (Previous)
+  - xsetroot -name "fsignal:17" | Cycle layout (Next)
+  - xsetroot -name "fsignal:18" | Reload colors from .Xresources
+  - xsetroot -name "fsignal:19" | Set mfact (-0.05)
+  - xsetroot -name "fsignal:20" | Set mfact (+0.05)
+  - xsetroot -name "fsignal:21" | Toggle Scratchpad
+  - xsetroot -name "fsignal:22" | Toggle Sticky
+  - xsetroot -name "fsignal:23" | Toggle Bar
+  - xsetroot -name "fsignal:24" | Toggle Fullscreen
+  - xsetroot -name "fsignal:25" | Restart dwm keeping all your applications open.
 
-xsetroot -name "fsignal:1"  | Tiling
-xsetroot -name "fsignal:2"  | Floating
-xsetroot -name "fsignal:3"  | Monocle
-xsetroot -name "fsignal:4"  | Grid
-xsetroot -name "fsignal:5"  | Deck
-xsetroot -name "fsignal:6"  | Centered Master
-xsetroot -name "fsignal:7"  | Centered Floating Master
-xsetroot -name "fsignal:8"  | Fibonacci Spiral
-xsetroot -name "fsignal:9"  | Fibonacci Dwindle
-xsetroot -name "fsignal:10" | Three Column
-xsetroot -name "fsignal:11" | Bottom Stack Vertical
-xsetroot -name "fsignal:12" | Bottom Stack Horizontal
-xsetroot -name "fsignal:13" | Horizontal Grid
-xsetroot -name "fsignal:14" | Tatami
-xsetroot -name "fsignal:15" | To be added
-xsetroot -name "fsignal:16" | Cycle layout (Previous)
-xsetroot -name "fsignal:17" | Cycle layout (Next)
-xsetroot -name "fsignal:18" | Reload colors from .Xresources (livereloadxrdb)
-xsetroot -name "fsignal:19" | Set mfact (-0.05)
-xsetroot -name "fsignal:20" | Set mfact (+0.05)
-xsetroot -name "fsignal:21" | Toggle Scratchpad
-xsetroot -name "fsignal:22" | Toggle Sticky
-xsetroot -name "fsignal:23" | Toggle Bar
-xsetroot -name "fsignal:24" | Toggle Fullscreen

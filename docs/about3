@@ -1,0 +1,40 @@
+-- Important --
+If you're used to dwm, this build might be a little bit unfamiliar to you. This is because this build doesn't use config.h (or config.def.h).
+Instead, config.h is split into different parts to make it easier to edit. Instead of editing config.h you'll want to edit:
+
+  - autostart.h for starting stuff right before dwm (For example xclip, pywal, etc.)
+  - options.h for changing colors and applications to use with keybinds.
+  - fsignal.h for adding fake signals
+  - colors.h for changing alpha options, most users won't need to edit it.
+  - xresources.h for adding .Xresources options
+  - rules.h for adding rules
+  - keybinds.h for adding/removing keybinds.
+
+After you've edited one of the files, you need to run 'make clean install' to reinstall dwm.
+Remember that you can change colors through your .Xresources file (see .Xresources and Pywal) meaning you do not need to recompile dwm.
+
+Another important detail you must keep in mind is that this build comes with a status bar simply named 'status'.
+It can be found in the dwm source code directory. It is just a shell script which adds stuff to your status bar. It will automatically be started when dwm starts.
+
+You can edit the status bar simply by editing 'status' and running 'make clean install'.
+Please note that most status bars including the built in 'status' depends on xsetroot which must be installed.
+
+If you want to change status bar, edit options.h and set 'static char status' to your status bar binary (must be in $PATH).
+Alternatively, you can also set "dwm.status: <statusbar>" in .Xresources (See .Xresources and Pywal)
+
+
+-- .Xresources and Pywal --
+This fork of dwm has .Xresources support thanks to the .Xresources patch.
+It also has pywal support (tool which grabs colors based on your wallpaper).
+
+Colors reload automagically because of a reloadxresources function this build has combined with fsignal and a wallpaper script I wrote.
+Therefore, if you want colors to reload instantly, you're unfortunately forced to use the bundled wallpaper script.
+
+If you want to use another script, you can open up dwmutils and select 'Reload .Xresources' to reload .Xresources.
+Alternatively, you can write a script yourself (xsetroot -name "fsignal:18" reloads the colors)
+
+Below is a list of all .Xresources values you can define. The .Xresources file should be placed in ~ or ~/.config by the user.
+If it is not or you want it somewhere else, you can edit 'autostart.h' and 'make clean install'.
+
+Note that the 'xrdb' dependency is required for both pywal and .Xresources support and 'xsetroot' is required for automatic reloading of colors.
+
