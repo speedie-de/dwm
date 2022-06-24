@@ -30,7 +30,7 @@ CPPFLAGS = -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_POSIX_C_SOURCE=200809L -DVERSION=\
 
 # Compiling with -Ofast. If you're having issues (such as dwm crashing, change it to -O2. (That's not a zero)
 # This produces some warnings that are to my knowledge, harmless.
-CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -Ofast ${INCS} ${CPPFLAGS}
+CFLAGS   = -std=c99 -pedantic -Wall -Wno-deprecated-declarations -O2 ${INCS} ${CPPFLAGS}
 LDFLAGS  = ${LIBS}
 
 # Solaris support, uncomment if needed.

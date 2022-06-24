@@ -1,6 +1,15 @@
 /* These are all your keybinds.
+ *
+ * Modifiers
  * MODKEY is what you defined (in options.h, default is Super)
  * SMODKEY is what you defined (in options.h, default is Alt)
+ * ShiftMask is unless changed going to be your Shift key.
+ * ControlMask is unless changed going to be your Control key.
+ * 
+ * It is recommended that you avoid using 'SMODKEY' (Mod1Mask) by itself because it can break software defined shortcuts. 
+ *
+ * If you need help, see dwm-help.
+ * Once you're done with your edits, run 'make clean install'.
  */
 
 static Key keys[] = {
@@ -20,11 +29,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_m,          spawn,                SHCMD(TERMINAL MUSIC) },
 	{ SMODKEY,                      XK_Tab,        spawn,                SHCMD("switch") },
     { MODKEY|ShiftMask,             XK_x,          spawn,                SHCMD(TERMINAL SYSTEMSTAT) },
-	{ MODKEY|ShiftMask,             XK_k,          spawn,                SHCMD(TERMINAL OPENSCRIPT) },
+	{ MODKEY|ShiftMask,             XK_p,          spawn,                SHCMD(TERMINAL OPENSCRIPT) },
 	{ MODKEY|ShiftMask,             XK_i,          spawn,                SHCMD(OPENPDF) },
 	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("dwmshutdown") },
 	{ ControlMask|MODKEY,           XK_Tab,        spawn,                SHCMD("dwmutils -layout") },
-	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-help") },
+	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-help -a") },
 	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
     { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
 	{ ControlMask|MODKEY,           XK_u,          spawn,                SHCMD(TERMINAL RSS) },
@@ -32,8 +41,7 @@ static Key keys[] = {
 	{ ControlMask|MODKEY,           XK_1,          spawn,                SHCMD(VOL_MUTE) },
 	{ ControlMask|MODKEY,           XK_2,          spawn,                SHCMD(VOL_DOWN) },
 	{ ControlMask|MODKEY,           XK_3,          spawn,                SHCMD(VOL_UP) },
-	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_ON) },
-	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER_OFF) },
+	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER) },
 	{ ControlMask|MODKEY|ShiftMask, XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
 	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwmutils") },
 	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("swal") },
@@ -73,6 +81,11 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_d,          tagmon,               {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period,     tagmon,               {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_Tab,        livereloadxrdb,       {0} },
+	{ MODKEY|ShiftMask,             XK_j,          inplacerotate,        {.i = +1} },
+	{ MODKEY|ShiftMask,             XK_k,          inplacerotate,        {.i = -1} },
+	{ MODKEY|ShiftMask,             XK_h,          inplacerotate,        {.i = +2} },
+	{ MODKEY|ShiftMask,             XK_l,          inplacerotate,        {.i = -2} },
+
 
 	/* Floating mode keybinds */
 	{ MODKEY,                       XK_Down,       moveresize,           {.v = "0x 25y 0w 0h" } },

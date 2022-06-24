@@ -1,6 +1,8 @@
-/* signal definitions
-   signum must be greater than 0
-   trigger signals using `xsetroot -name "fsignal:<signum>"` */
+/* Signal definitions
+ * Signum must be greater than 0
+ * Trigger signals using `xsetroot -name "fsignal:<signum>"` 
+ * 
+ * Once you're done with your edits, run 'make clean install'. */
 static Signal signals[] = {
 	/* signum       function        argument  */
 	{ 1,            setlayout,      {.v = &layouts[0]} },

@@ -1,5 +1,9 @@
 /* Define
- * You may wanna change a few of these.
+ * This build comes with defines for common software such as your web browser or terminal.
+ * If you wish to use a different browser for example, simply change the values.
+ *
+ * You do not need to edit 'keybinds.h' or 'rules.h' because that's where these are used.
+ * Once you're done with your edits, run 'make clean install'.
  *************************************/
 #define TERMINAL                              "st -e " /* Terminal to use */
 #define TERMINAL_CLASS                        "St" /* Terminal to use for rules */
@@ -22,14 +26,13 @@
 #define OPENSCRIPT                            "scriptedit ~/Scripts || ~/Scripts/scriptedit ~/Scripts"
 #define OPENPDF                               "pdfopen ~/Documents zathura || ~/Scripts/pdfopen ~/Documents zathura"
 #define KILLMUSIC                             "pkill mocp"
-#define VOL_DOWN                              "amixer -c 0 set Master 7%-" /* Command to run when decreasing volume */
-#define VOL_UP                                "amixer -c 0 set Master 7%+" /* Command to run when increasing volume */
-#define VOL_MUTE                              "amixer -c 0 set Master 100%-" /* Command to run when muting volume */
-#define VOL_OUTPUT_SPEAKER_ON                 "amixer -c 0 sset 'Auto-Mute Mode' Enabled" /* Command to run when enabling speakers */
-#define VOL_OUTPUT_SPEAKER_OFF                "amixer -c 0 sset 'Auto-Mute Mode' Disabled" /* Command to run when disabling speakers */
+#define VOL_DOWN                              "audioctrl -lower" /* Command to run when decreasing volume */
+#define VOL_UP                                "audioctrl -raise" /* Command to run when increasing volume */
+#define VOL_MUTE                              "audioctrl -mute" /* Command to run when muting volume */
+#define VOL_OUTPUT_SPEAKER                    "audioctrl -switch" /* Command to run when enabling speakers */
 #define LIVERELOAD                            "xrdb ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
-#define MODKEY Mod4Mask
-#define SMODKEY Mod1Mask
+#define MODKEY Mod1Mask
+#define SMODKEY Mod4Mask
 #define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
@@ -43,28 +46,56 @@
  *
  * If you're going to be using .Xresources then you don't need to change any of these.
  * Otherwise, you can carefully edit them.
+ *
+ * Once you're done with your edits, run 'make clean install'.
  ****************************************/
+
+/* Window alignment options */
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 32;
 static unsigned int gappx                     = 5; /* How big should your gaps be? 0 = No gaps */
+static float mfact                            = 0.50;
+static int nmaster                            = 1;
+static int resizehints                        = 0;
+static int startontag                         = 1; /* Start on a tag or not? 1 = yes, 0 = no */
+static int decorhints                         = 1; /* Respect decoration hints */
+static int swallowfloating                    = 0; /* Swallow floating windows by default */
+
+/* Font options */
 static char font[]                            = { "Terminus:size=8" }; /* What font should we use? */
 static char font2[]                           = { "JoyPixels:size=8" }; /* Second font */
 static char font3[]                           = { "Siji:size=8" }; /* Third font */
 static const char *fonts[]                    = { font, font2, font3 };
+
+/* Misc */
 static char shell[]                           = "/bin/sh"; /* shell to use */ 
 static char status[]                          = "status"; /* status bar to use, dwmblocks for dwmblocks, slstatus for slstatus, etc. */
+static int lockfullscreen                     = 1;
+static char *scratchpadcmd[]                  = {"s", TERMINAL, "-t", "scratchpad", NULL};
+
+/* Icon options */
 static int sizeicon                           = 10; /* size of the icon */
 static int spacingicon                        = 5; /* spacing between the title and icon */
+
+/* Bar options */
 static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
+
+/* Bar colors */
 static char col_background[]                  = "#222222"; /* dwm dark bg & slstatus bg */
 static char col_backgroundmid[]               = "#005577"; /* dwm middle background */
+
+/* General text colors */
 static char col_textnorm[]                    = "#bbbbbb"; /* application title bar/font for norm */
 static char col_textsel[]                     = "#eeeeee"; /* dwm text/font for selected */
+
+/* Window border colors */
 static char col_windowbordernorm[]            = "#000000"; /* dwm norm window border */
 static char col_windowbordersel[]             = "#eeeeee"; /* dwm sel window border */
+
+/* Tag text/background colors */
 static char col_tag1[]                        = "#333333"; /* tag 1 background */
 static char col_tag1_text[]                   = "#eeeeee"; /* tag 1 text (fg) */
 static char col_tag2[]                        = "#333333"; /* tag 2 background */
@@ -83,22 +114,60 @@ static char col_tag8[]                        = "#333333"; /* tag 8 background *
 static char col_tag8_text[]                   = "#eeeeee"; /* tag 8 text (fg) */
 static char col_tag9[]                        = "#333333"; /* tag 9 background */
 static char col_tag9_text[]                   = "#eeeeee"; /* tag 9 text (fg) */
-static char *scratchpadcmd[]                  = {"s", TERMINAL, "-t", "scratchpad", NULL};
-static float mfact                            = 0.50;
+
+/* status2d colors */
+static char termcol0[]                        = "#000000";
+static char termcol1[]                        = "#ff0000";
+static char termcol2[]                        = "#33ff00";
+static char termcol3[]                        = "#ff0099";
+static char termcol4[]                        = "#0066ff";
+static char termcol5[]                        = "#cc00ff";
+static char termcol6[]                        = "#00ffff";
+static char termcol7[]                        = "#d0d0d0";
+static char termcol8[]                        = "#808080";
+static char termcol9[]                        = "#ff0000";
+static char termcol10[]                       = "#33ff00";
+static char termcol11[]                       = "#ff0099";
+static char termcol12[]                       = "#0066ff";
+static char termcol13[]                       = "#cc00ff";
+static char termcol14[]                       = "#00ffff";
+static char termcol15[]                       = "#ffffff";
+
+/* Alpha settings */
 static const unsigned int baralpha            = 0xcc;
 static const unsigned int borderalpha         = 0xcc;
-static int lockfullscreen                     = 1;
-static int decorhints                         = 1; /* Respect decoration hints */
-static int nmaster                            = 1;
-static int resizehints                        = 0;
-static int startontag                         = 1; /* Start on a tag or not? 1 = yes, 0 = no */
-static int swallowfloating                    = 0; /* Swallow floating windows by default */
+
+/* dmenu options */
 static char dmenumon[2]                       = "0";
 static const char *dmenucmd[]                 = { NULL };
+
+/* Tag text options */
 static const char *tags[]                     = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
+
+/* Misc color options */
 static char *colors[][3]                      = {
 	[SchemeNorm]                              = { col_textnorm, col_background,    col_windowbordernorm },
 	[SchemeSel]                               = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
 /*                                                text          background         window border */
+};
+
+/* Colors for the status bar (.Xresources) */
+static char *termcolor[]                      = {
+  termcol0,
+  termcol1,
+  termcol2,
+  termcol3,
+  termcol4,
+  termcol5,
+  termcol6,
+  termcol7,
+  termcol8,
+  termcol9,
+  termcol10,
+  termcol11,
+  termcol12,
+  termcol13,
+  termcol14,
+  termcol15,
 };

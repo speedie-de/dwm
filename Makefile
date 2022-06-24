@@ -53,10 +53,11 @@ install: all
 	cp -f scripts/dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
 	cp -f scripts/swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/swal
 	cp -f scripts/bb ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/bb
-	cp -f scripts/copyout ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/copyout
 	cp -f scripts/dboard ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dboard
 	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
 	cp -f scripts/scriptedit ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/scriptedit
+	cp -f scripts/audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/audioctrl
+	cp -f scripts/dwm_run ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm_run
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/compatcheck
 	chmod +x ./scripts/dwmdm

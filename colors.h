@@ -1,3 +1,8 @@
+/* Color/Alpha settings
+ * You probably don't need to change these unless you want special alpha settings.
+ *
+ * Once you're done with your edits, run 'make clean install'. */
+
 /* Colors to use for alpha */
 static const unsigned int alphas[][3]         = {
        /*                                         fg      bg        border     */
@@ -20,4 +25,4 @@ static char *tagsel[][2]                      = {
 };
 
 /* Alpha for tags */
-static const unsigned int tagalpha[]          = { OPAQUE, baralpha };
+static const unsigned int tagalpha[]          = { baralpha, baralpha };

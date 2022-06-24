@@ -8,17 +8,9 @@
  * "shell" is automatically defined as your shell.
  *
  * If you need help, run dwm-keybinds.
+ * Once you're done with your edits, run 'make clean install'.
  *************************************************************/
 static const char *const autostart[]          = {
-   /* Run the status bar defined */
-   shell, "-c", STATUSBAR, NULL,
-
-   /* Set the wallpaper using bundled script */
-   shell, "-c", "/home/$(logname)/.config/swal/swal_wm", NULL,
-
-   /* Set colors from .Xresources if present */
-   shell, "-c", "xrdb /home/$(logname)/.Xresources", NULL,
-   shell, "-c", "xrdb /home/$(logname)/.config/.Xresources", NULL,
 
    /* Bind Right Super+hjkl to arrow keys */
    shell, "-c", "xmodmap -e 'keycode 134 = Mode_switch'", NULL,
@@ -36,6 +28,9 @@ static const char *const autostart[]          = {
 
    /* Run the defined compositor */
    shell, "-c", COMPOSITOR "&", NULL,
+
+   /* Run the status bar defined */
+   shell, "-c", STATUSBAR, NULL,
 
    /* zsh */
    shell, "-c", "zsh", NULL,

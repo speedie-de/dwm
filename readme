@@ -18,7 +18,7 @@ You can see (Dependencies) for a list of all dependencies required to use this f
   - make clean install
     - If any warnings show up, fix it by installing the missing dependency.
   - If a .xinitrc is used, add 'dwm' to the end.
-    - NOTE: Your .xinitrc should ONLY contain 'dwm'. dwm will automatically start everything else. If not, edit autostart.h and 'make clean install'.
+    - NOTE: Your .xinitrc should ONLY contain 'dwm'. dwm will automatically start everything else. If not, edit autostart.h and 'make clean install'. If a .xinitrc is not used then you don't need to worry. A .desktop file is automatically created when you run 'make clean install'.
 
 -- Layouts --
 This fork of dwm comes with the following layouts:
@@ -85,29 +85,31 @@ My build of dwm has been patched with the following patches:
   - dwm-tatami                | Adds a tatami layout to dwm.
   - dwm-fsignal               | Allows you to interact with dwm through shell scripts (such as included swal, dwmshutdown or dwmutils)
   - dwm-selfrestart           | Allows dwm to restart without killing your X server.
+  - dwm-fancybar              | Display window title for all windows open on a tag.
+  - dwm-inplacerotate         | Allows you to 'rotate' windows.
+  - dwm-ignore-transient      | This patch adds an option to ignore transient windows, fixing issues with certain applications.
 
 -- Keybinds --
 Below is a list of all dwm keybinds.
 
   -- Applications --
   Keybinds for regular applications
-  - Super+Shift+Enter         | Opens a terminal
-  - Super+Shift+Colon         | Opens a dmenu prompt
-  - Super+Shift+s             | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
-  - Super+Shift+f             | Opens the defined file manager
-  - Super+Shift+w             | Opens the defined web browser
-  - Super+Shift+o             | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-  - Super+Shift+c             | Opens the copyout dmenu script in dmenu which can copy the output of a command.
-  - Super+Shift+e             | Opens the dboard dmenu script in dmenu which can copy text to your clipboard
-  - Super+Shift+t             | Opens the defined editor in your terminal
-  - Super+Shift+p             | pkills the defined web browser
-  - Super+Shift+m             | pkills the defined music player
-  - Super+Shift+a             | Opens the defined mixer in your terminal
-  - Super+Shift+m             | Opens the defined music player
-  - Super+Shift+x             | Opens the defined system process viewer in your terminal
-  - Super+Shift+d             | Opens rchat
-  - Super+Control+Shift+m     | Opens the defined email client
-  - Super+Control+u           | Opens the defined RSS reader
+  - Super+Shift+Enter         |  Opens a terminal
+  - Super+Shift+Colon         |  Opens a dmenu prompt
+  - Super+Shift+s             |  Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
+  - Super+Shift+f             |  Opens the defined file manager
+  - Super+Shift+w             |  Opens the defined web browser
+  - Super+Shift+o             |  Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
+  - Super+Shift+c             |  Opens the copyout dmenu script in dmenu which can copy the output of a command.
+  - Super+Shift+e             |  Opens the dboard dmenu script in dmenu which can copy text to your clipboard
+  - Super+Shift+t             |  Opens the defined editor in your terminal
+  - Super+Shift+p             |  pkills the defined web browser
+  - Super+Shift+m             |  pkills the defined music player
+  - Super+Shift+a             |  Opens the defined mixer in your terminal
+  - Super+Shift+m             |  Opens the defined music player
+  - Super+Shift+x             |  Opens the defined system process viewer in your terminal
+  - Super+Control+Shift+m     |  Opens the defined email client
+  - Super+Control+u           |  Opens the defined RSS reader
 
   -- Navigation --
   These keybinds are for navigating dwm
@@ -133,9 +135,10 @@ Below is a list of all dwm keybinds.
   - Super+Shift+7             |  Move to tag 7
   - Super+Shift+8             |  Move to tag 8
   - Super+Shift+9             |  Move to tag 9
+  - Super+Shift+h/j/k/l       |  Rotates a stack.
   - Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
   - Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
-  - Super+Shift+k             |  Open a dmenu prompt and open the file the user picks in Vim
+  - Super+Shift+p             |  Open a dmenu prompt and open the file the user picks in Vim
   - Super+Control+e           |  Switch to layout 3 (Grid)
   - Super+Control+r           |  Switch to layout 1 (Monocle)
   - Super+Control+t           |  Switch to layout 0 (Master & stack)
@@ -144,24 +147,24 @@ Below is a list of all dwm keybinds.
   - Super+Control+Arrow       |  Moves a window to any corner of your screen
   - Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
   - Super+Control+h           |  Open a list of all keybinds in your terminal using less
-  - Super+Control+Shift+a/d   | Move between available layouts
-  - Super+Control+Shift+Tab   | Read .Xresources again without reloading dwm
-  - Super+Alt+s               | Make the current selected window sticky
-  - Super+Control+Shift+Esc   | Open dwmutils (Main menu)
-  - Super+Control+Shift+Arrow | Resize the window to the screen size.
-  - Super+Control+Shift+s     | Set a wallpaper
+  - Super+Control+Shift+a/d   |  Move between available layouts
+  - Super+Control+Shift+Tab   |  Read .Xresources again without reloading dwm
+  - Super+Alt+s               |  Make the current selected window sticky
+  - Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
+  - Super+Control+Shift+Arrow |  Resize the window to the screen size.
+  - Super+Control+Shift+s     |  Set a wallpaper
   - Alt+Tab                   |  Switch windows quickly and easily 
   
   -- Extras --
   These will only work if your keyboard has special multimedia buttons.
-  - Mute button               | Mutes your audio
-  - + Volume button           | Increases your volume
-  - - Volume button           | Decreases your volume
-  - Stop button               | Stops your defined music player
-  - Browser button            | Opens your defined web browser
-  - Power button              | Ask if you wanna shut down, restart or lock your computer.
-  - Email button              | Open your defined email client
-  - System button             | Open your defined status viewer in a terminal
+  - Mute button               |  Mutes your audio
+  - + Volume button           |  Increases your volume
+  - - Volume button           |  Decreases your volume
+  - Stop button               |  Stops your defined music player
+  - Browser button            |  Opens your defined web browser
+  - Power button              |  Ask if you wanna shut down, restart or lock your computer.
+  - Email button              |  Open your defined email client
+  - System button             |  Open your defined status viewer in a terminal
 
 -- Dependencies --
   These are absolutely necessary, dwm will NOT compile without them
@@ -187,6 +190,7 @@ Below is a list of all dwm keybinds.
   - wmctrl (Needed for proper window management)
   - xsetroot (Needed for most scripts including Pywal support)
   - slock (Required for screen locking)
+  - maim (Required for built in 'bb' script)
   
   -- Software --
   This build of dwm comes with binds for software. 

@@ -5,51 +5,157 @@
 
 # NOTE: Anything in the DISPLAY function will be printed to your status bar.
 # This means the output of a command will be printed as well.
-DISPLAY() {
-  echo "\
-<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B) \
-<  $(date +%H:%M) \
-<  $(date +%d/%m/%Y) \
-<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%) \
-<  $(echo $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/')) \
-<  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/')" \
+# Once you're done editing, run 'make clean install'.
 
+SETCOLORS() {
+  COLOR1=#ffffff
+  COLOR2=#ffffff
+  COLOR3=#ffffff
+  COLOR4=#ffffff
+  COLOR5=#ffffff
+  COLOR6=#ffffff
+  COLOR7=#ffffff
+  COLOR8=#ffffff
+  COLOR9=#ffffff
+  COLOR10=#ffffff
+  COLOR11=#ffffff
+  COLOR12=#ffffff
+  COLOR13=#ffffff
+  COLOR14=#ffffff
+  COLOR15=#ffffff
+}
+
+SETCOLORS_CMD() {
+  SETCOLORCMD1="^c${COLOR1}^"
+  SETCOLORCMD2="^c${COLOR2}^"
+  SETCOLORCMD3="^c${COLOR3}^"
+  SETCOLORCMD4="^c${COLOR4}^"
+  SETCOLORCMD5="^c${COLOR5}^"
+  SETCOLORCMD6="^c${COLOR6}^"
+  SETCOLORCMD7="^c${COLOR7}^"
+  SETCOLORCMD8="^c${COLOR8}^"
+  SETCOLORCMD9="^c${COLOR9}^"
+  SETCOLORCMD10="^c${COLOR10}^"
+  SETCOLORCMD11="^c${COLOR11}^"
+  SETCOLORCMD12="^c${COLOR12}^"
+  SETCOLORCMD13="^c${COLOR13}^"
+  SETCOLORCMD14="^c${COLOR14}^"
+  SETCOLORCMD15="^c${COLOR15}^"
+}
+
+SETCOLORS_WAL() {
+  COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
+  COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
+  COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
+  COLOR4=$(sed -n 4,4p $HOME/.cache/wal/colors)
+  COLOR5=$(sed -n 5,5p $HOME/.cache/wal/colors)
+  COLOR6=$(sed -n 6,6p $HOME/.cache/wal/colors)
+  COLOR7=$(sed -n 7,7p $HOME/.cache/wal/colors)
+  COLOR8=$(sed -n 8,8p $HOME/.cache/wal/colors)
+  COLOR9=$(sed -n 9,9p $HOME/.cache/wal/colors)
+  COLOR10=$(sed -n 10,10p $HOME/.cache/wal/colors)
+  COLOR11=$(sed -n 11,11p $HOME/.cache/wal/colors)
+  COLOR12=$(sed -n 12,12p $HOME/.cache/wal/colors)
+  COLOR13=$(sed -n 13,13p $HOME/.cache/wal/colors)
+  COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
+  COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
+  USINGWAL=true
+}
+
+
+ITEM1() {
+  echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
+}
+
+ITEM2() {
+  echo "<  $(date +%H:%M)"
+}
+
+ITEM3() {
+  echo "<  $(date +%d/%m/%Y)"
+}
+
+ITEM4() {
+  echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+}
+
+ITEM5() {
+  echo "<  $(echo $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+}
+
+ITEM6() {
+  echo "<  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/' | sed "s|B|B/s |")"
+}
+
+ITEM7() {
 # Check if we're recording with dfmpeg or not
 if [ -e "/tmp/dfmpeg-recording" ]; then
-		echo " <  Recording"
+		echo "<  Recording"
 fi
+}
 
+ITEM8() {
 # CPU temp
 if [ -e "/usr/bin/sensors" ]; then
-		echo " <  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g')"
+		echo "<  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
 fi
+}
 
+ITEM9() {
 # Music
-if [ "$(echo $(mocp -Q %file))" = "" ]; then
-		a=$a
-else
-		echo " <  $(mocp -Q %file | awk -F/ '$0=$NF' | sed "s|[.]...||")"
+if [ -e "/usr/bin/mocp" ]; then
+		if [ "$(echo $(mocp -Q %file))" = "" ]; then
+				a=$a
+		else
+				echo "<  $(mocp -Q %file | awk -F/ '$0=$NF' | sed "s|[.]...||")"
+		fi
 fi
+}
 
+ITEM10() {
 # RSS
 if [ -e "/usr/bin/newsboat" ]; then
 		if [[ "$(newsboat -x print-unread)" =~ "Error" ]]; then
 				cat /tmp/newsboat
 		else
-				echo " <  $(newsboat -x print-unread | sed "s| unread articles||") unread!" > /tmp/newsboat && cat /tmp/newsboat
+				echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!" > /tmp/newsboat && cat /tmp/newsboat
 		fi
 fi
+}
 
+ITEM11() {
+  if [ -e "/sys/class/power_supply/BAT0/capacity" ]; then
+		echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
+  fi
 }
 
 BASE() {
-  SLEEPTIME=5
+  SLEEPTIME=6
 }
 
 PRINT() {
-  xsetroot -name "$(DISPLAY)"
+  xsetroot -name "$SETCOLORCMD11$(ITEM1) $SETCOLORCMD10$(ITEM2) $SETCOLORCMD9$(ITEM3) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM5) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM9) $SETCOLORCMD2$(ITEM10) $SETCOLORCMD13$(ITEM11)"
+
+  if [ "$USINGWAL" = "true" ]; then
+		if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
+				a=$a
+		else
+				SETCOLORS_WAL && SETCOLORS_CMD
+		fi
+  fi
+
+  sleep $SLEEPTIME
+  PRINT
 }
 
 BASE
 
-PRINT && sleep $SLEEPTIME && $0 && exit 0
+SETCOLORS
+
+if [[ "$(cat ~/.config/swal/swal_wm)" =~ "xsetroot" ]]; then
+		SETCOLORS_WAL
+fi
+
+SETCOLORS_CMD
+
+PRINT

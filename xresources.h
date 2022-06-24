@@ -1,7 +1,10 @@
 /*
 * Xresources preferences to load at startup
 * You can add more if you know what you're doing.
-*/
+* 
+* When you're done with your edits, run 'make clean install'.
+* 
+*      Value in .Xresources      Type     Value in dwm */         
 ResourcePref resources[]                      = {
        { "font",                 STRING,  &font },
        { "font2",                STRING,  &font2 },
@@ -30,6 +33,22 @@ ResourcePref resources[]                      = {
 	   { "col_tag8_text",        STRING,  &col_tag8_text },
 	   { "col_tag9",             STRING,  &col_tag9 },
 	   { "col_tag9_text",        STRING,  &col_tag9_text },
+	   { "col_status0",          STRING,  &termcol0 },
+	   { "col_status1",          STRING,  &termcol1 },
+	   { "col_status2",          STRING,  &termcol2 },
+	   { "col_status3",          STRING,  &termcol3 },
+	   { "col_status4",          STRING,  &termcol4 },
+	   { "col_status5",          STRING,  &termcol5 },
+	   { "col_status6",          STRING,  &termcol6 },
+	   { "col_status7",          STRING,  &termcol7 },
+	   { "col_status8",          STRING,  &termcol8 },
+	   { "col_status9",          STRING,  &termcol9 },
+	   { "col_status10",         STRING,  &termcol10 },
+	   { "col_status11",         STRING,  &termcol11 },
+	   { "col_status12",         STRING,  &termcol12 },
+	   { "col_status13",         STRING,  &termcol13 },
+	   { "col_status14",         STRING,  &termcol14 },
+	   { "col_status15",         STRING,  &termcol15 },
 
        /* pywal support */
 	   { "color0",               STRING,  &col_background },
@@ -56,6 +75,22 @@ ResourcePref resources[]                      = {
 	   { "color0",               STRING,  &col_tag8_text },
 	   { "color9",               STRING,  &col_tag9 },
 	   { "color0",               STRING,  &col_tag9_text },
+	   { "color0",               STRING,  &termcol0 },
+	   { "color1",               STRING,  &termcol1 },
+	   { "color2",               STRING,  &termcol2 },
+	   { "color3",               STRING,  &termcol3 },
+	   { "color4",               STRING,  &termcol4 },
+	   { "color5",               STRING,  &termcol5 },
+	   { "color6",               STRING,  &termcol6 },
+	   { "color7",               STRING,  &termcol7 },
+	   { "color8",               STRING,  &termcol8 },
+	   { "color9",               STRING,  &termcol9 },
+	   { "color10",              STRING,  &termcol10 },
+	   { "color11",              STRING,  &termcol11 },
+	   { "color12",              STRING,  &termcol12 },
+	   { "color13",              STRING,  &termcol13 },
+	   { "color14",              STRING,  &termcol14 },
+	   { "color15",              STRING,  &termcol15 },
 
 	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
