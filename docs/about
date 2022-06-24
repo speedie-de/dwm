@@ -17,8 +17,8 @@ You can see (Dependencies) for a list of all dependencies required to use this f
   - cd dwm
   - make clean install
     - If any warnings show up, fix it by installing the missing dependency.
-  - If a .xinitrc is used, add 'dwm' to the end.
-    - NOTE: Your .xinitrc should ONLY contain 'dwm'. dwm will automatically start everything else. If not, edit autostart.h and 'make clean install'. If a .xinitrc is not used then you don't need to worry. A .desktop file is automatically created when you run 'make clean install'.
+  - If a .xinitrc is used, add 'dwm_run' to the end.
+    - NOTE: Your .xinitrc should ONLY contain 'dwm_run'. dwm will automatically start everything else. If not, edit autostart.h and 'make clean install'. If a .xinitrc is not used then you don't need to worry. A .desktop file is automatically created when you run 'make clean install'.
 
 -- Layouts --
 This fork of dwm comes with the following layouts:

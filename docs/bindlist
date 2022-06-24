@@ -6,7 +6,6 @@
   - Super+Shift+f             |  Opens the defined file manager
   - Super+Shift+w             |  Opens the defined web browser
   - Super+Shift+o             |  Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-  - Super+Shift+c             |  Opens the copyout dmenu script in dmenu which can copy the output of a command.
   - Super+Shift+e             |  Opens the dboard dmenu script in dmenu which can copy text to your clipboard
   - Super+Shift+t             |  Opens the defined editor in your terminal
   - Super+Shift+p             |  pkills the defined web browser
@@ -41,9 +40,10 @@
   - Super+Shift+7             |  Move to tag 7
   - Super+Shift+8             |  Move to tag 8
   - Super+Shift+9             |  Move to tag 9
+  - Super+Shift+h/j/k/l       |  Rotates a stack.
   - Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
   - Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
-  - Super+Shift+k             |  Open a dmenu prompt and open the file the user picks in Vim
+  - Super+Shift+p             |  Open a dmenu prompt and open the file the user picks in Vim
   - Super+Control+e           |  Switch to layout 3 (Grid)
   - Super+Control+r           |  Switch to layout 1 (Monocle)
   - Super+Control+t           |  Switch to layout 0 (Master & stack)

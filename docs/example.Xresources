@@ -26,6 +26,22 @@
   - dwm.col_tag8_text:        #eeeeee
   - dwm.col_tag9:             #333333
   - dwm.col_tag9_text:        #eeeeee
+  - dwm.col_status0:          #000000
+  - dwm.col_status1:          #ff0000
+  - dwm.col_status2:          #33ff00
+  - dwm.col_status3:          #ff0099
+  - dwm.col_status4:          #0066ff
+  - dwm.col_status5:          #cc00ff
+  - dwm.col_status6:          #00ffff
+  - dwm.col_status7:          #d0d0d0
+  - dwm.col_status8:          #808080
+  - dwm.col_status9:          #ff0000
+  - dwm.col_status10:         #33ff00
+  - dwm.col_status11:         #ff0099
+  - dwm.col_status12:         #0066ff
+  - dwm.col_status13:         #cc00ff
+  - dwm.col_status14:         #00ffff
+  - dwm.col_status15:         #ffffff
   - dwm.borderpx:             1
   - dwm.snap:                 32
   - dwm.showbar:              1
