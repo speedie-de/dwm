@@ -33,6 +33,7 @@ SIGNAL_21=21       # General: Toggle Scratchpad
 SIGNAL_22=22       # General: Toggle Sticky
 SIGNAL_23=23       # General: Toggle Bar
 SIGNAL_24=24       # General: Toggle Fullscreen
+SIGNAL_25=25       # General: Restart dwm
 
 GENERAL() {
 GENERALOPTS=$(printf "mfact +\nmfact -\nToggle Scratchpad\nToggle Sticky\nToggle Bar\nToggle Fullscreen" | $RUNLAUNCHER -l 20 -p 'What do you wanna do?')

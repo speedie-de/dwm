@@ -121,6 +121,7 @@ SWAL_EXPORT_SCRIPT_WAL()
   wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER ~/.config/swal/CurrentWallpaper
   ${RUNLAUNCHER}_run -r
+  dwm_run
 }
 
 SWAL_XRESOURCES()

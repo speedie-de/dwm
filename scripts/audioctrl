@@ -1,0 +1,66 @@
+#!/bin/sh
+# audioctrl
+
+MUTE() {
+  # Mute for pulseaudio/pipewire
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				pulsemixer --toggle-mute
+		fi
+  else
+        # Mute for alsa
+		amixer sset Master toggle
+  fi
+}
+
+RAISE() {
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				pulsemixer --change-volume +7
+		fi
+  else
+		amixer -c 0 set Master 7%+
+  fi
+}
+
+LOWER() {
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				pulsemixer --change-volume -7
+		fi
+  else
+		amixer -c 0 set Master 7%-
+  fi
+}
+
+SWITCH() {
+  ls $HOME/.local/share/audioctrl-status || echo "0" > $HOME/.local/share/audioctrl-status
+  if [ "$(cat $HOME/.local/share/audioctrl-status)" = "0" ]; then
+		amixer -c 0 sset 'Auto-Mute Mode' Enabled ; echo "1" > $HOME/.local/share/audioctrl-status
+  else
+		amixer -c 0 sset 'Auto-Mute Mode' Disabled ; echo "0" > $HOME/.local/share/audioctrl-status
+  fi
+}
+
+AUDIO=alsa
+
+if [ -e "$HOME/.local/share/audioctrl-sound" ]; then
+		if [ "$(cat $HOME/.local/share/audioctrl-sound)" = "" ]; then
+				AUDIO=alsa
+		else
+				AUDIO=pulseaudio
+		fi
+else
+		pgrep -x pulseaudio > $HOME/.local/share/audioctrl-pulseaudio
+		pgrep -x pipewire > $HOME/.local/share/audioctrl-pipewire
+		cat $HOME/.local/share/audioctrl-pipewire $HOME/.local/share/audioctrl-pulseaudio > $HOME/.local/share/audioctrl-sound
+fi
+
+printf "\nAudio = $AUDIO\n"
+
+case "$1" in
+"-mute") MUTE ;;
+"-raise") RAISE ;;
+"-lower") LOWER ;;
+"-switch") SWITCH ;;
+esac

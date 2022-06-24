@@ -1,24 +1,63 @@
 #!/bin/sh
 
+rm -f /tmp/screenshot
+
 case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
+if [ "$1" = "-t" ]; then
+		sleep $2 && maim -suB > /tmp/screenshot || exit 0
+fi
+
+if [ "$1" = "-o" ]; then
+		cat $2 > /tmp/screenshot
+fi
+
 if [ "$1" = "-f" ]; then
-		maim -uB > /tmp/screenshot || exit 0 
+		if [ -e "/tmp/screenshot" ]; then
+				exists=true
+		else
+				maim -uB > /tmp/screenshot || exit 0 
+		fi
 else
-		maim -suB > /tmp/screenshot || exit 0
+		if [ -e "/tmp/screenshot" ]; then
+				exists=true
+		else
+				maim -suB > /tmp/screenshot || exit 0
+		fi
 fi
 
 if [ -e "/tmp/screenshot" ]; then
-		U_INPUT="$(printf "Image\nURL" | $RUNLAUNCHER -l 2 -p "Copy to clipboard as an: ")"
+		U_INPUT="$(printf "Image\nURL\nSave" | $RUNLAUNCHER -l 3 -p "Copy to clipboard as an: ")"
 else
 		exit 0
 fi
 
+# Send notification for URL
+SENDNOTIF_URL() {
+  if [ -e "/usr/bin/notify-send" ]; then
+		notify-send "Screenshot copied to clipboard."
+  fi
+}
+
+# Send notifcation for local image save
+SENDNOTIF_SAVE() {
+  if [ -e "/usr/bin/notify-send" ]; then
+		notify-send "Screenshot saved to $SAVEDIR."
+  fi
+}
+
+SENDNOTIF_IMG() {
+  if [ -e "/usr/bin/notify-send" ]; then
+		notify-send "Screenshot copied to clipboard."
+  fi
+}
+
 case "$U_INPUT" in
-"Image") cat /tmp/screenshot | xclip -selection clipboard -t image/png ;;
-"URL") curl -s -F source=@"/tmp/screenshot" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard ;;
+"Image") cat /tmp/screenshot | xclip -selection clipboard -t image/png && SENDNOTIF_IMG ;;
+"URL") curl -s -F source=@"/tmp/screenshot" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard && SENDNOTIF_URL ;;
+"Save") SAVEDIR=$(printf "$HOME/Screenshot.png" | $RUNLAUNCHER -l 1 -g 1 -p "Where do you want to save it? (Including filename)") && cat /tmp/screenshot > $SAVEDIR && SENDNOTIF_SAVE ;;
 esac
 
-rm /tmp/screenshot
+rm -f /tmp/screenshot

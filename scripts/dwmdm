@@ -1,2 +1,5 @@
 #!/bin/sh
-printf "[Desktop Entry]\nEncoding=UTF-8\nName=dwm\nComment=Dynamic window manager\nExec=dwm\nIcon=dwm\nType=XSession" > /usr/share/xsessions/dwm.desktop
+# Create a .desktop file for people who use display managers.
+
+mkdir -p /usr/share/xsessions
+printf "[Desktop Entry]\nEncoding=UTF-8\nName=dwm\nComment=Dynamic window manager\nExec=dwm_run\nIcon=dwm\nType=XSession" > /usr/share/xsessions/dwm.desktop

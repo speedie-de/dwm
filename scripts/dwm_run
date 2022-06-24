@@ -1,0 +1,11 @@
+#!/bin/sh
+ls $HOME/.Xresources && xrdb $HOME/.Xresources
+ls $HOME/.config/.Xresources && xrdb $HOME/.config/.Xresources
+
+$HOME/.config/swal/swal_wm
+
+xsetroot -name "fsignal:25"
+
+while true; do
+dwm > /tmp/dwm-log
+done
