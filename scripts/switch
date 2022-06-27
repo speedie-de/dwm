@@ -1,7 +1,10 @@
 #!/bin/sh
 # This script is from the suckless.org website.
-# I'm not sure who made it initially but I made it POSIX compliant.
-# I also added some xmodmap stuff so that it's nicer to use.
+# I made the following changes to it:
+# - POSIX compliant
+# - Tab goes down, j/k to navigate
+# - Removed class from $windows making it look nicer
+# - Other small improvements.
 
 RESTORE() {
   xmodmap -e "keycode 23 = Tab"
@@ -30,6 +33,7 @@ SET() {
 SET
 
 windows=$(wmctrl -xl | tr -s '[:blank:]' | cut -d ' ' -f 3-3,5- | sed 's/^[a-zA-Z0-9-]*\.//' | sort | uniq)
+windows_class=$(echo $windows | awk '{ print $1 }')
 
 # If only one window is open, don't display the menu.
 case "$(printf "$windows" | wc -l)" in
@@ -46,7 +50,12 @@ windows=$(echo "$windows" | \
                     $1 = ""; printf "%s\n", $0}')
 
 
-target=$(echo "$windows" | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
+target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
+
+case "$target" in
+"") exit 0 ;;
+esac
+
 wmctrl -a "$target"
 
 RESTORE

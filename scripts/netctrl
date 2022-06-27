@@ -1,0 +1,60 @@
+#!/bin/sh
+# iwctlmenu
+# dmenu interface for iwd
+
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
+
+ls /usr/bin/iwctl || exit 0
+
+# Get the device used to connect.
+getdevice() {
+  seldevice=$1
+  if [ -e "$HOME/.local/share/seldevice" ]; then
+		  seldevice=$(cat $HOME/.local/share/seldevice)
+  else
+		  case "$1" in
+		  "") devices="$(printf "\n$(ip link)" | awk '{ print $2 }' | awk 'NR%2==0' | sed "s/://g")"
+		  seldevice=$(echo $devices | sed 's/ /\n/g' | $RUNLAUNCHER -p "What device do you want to connect with?" -l 10 -g 1) && echo $seldevice > $HOME/.local/share/seldevice ;;
+		  esac
+  fi
+  
+  case "$seldevice" in
+  "") exit 0 ;;
+  esac
+}
+
+connectwifi() {
+  iwctl station $seldevice scan
+  network=$(iwctl station $seldevice get-networks | sed -n 6,20p | sed "s|>||g" | awk '{ print $1 }' | $RUNLAUNCHER -l 10 -g 1 -p "Select a network to connect to")
+
+  connect_pass() {
+		PASSPHRASE=$(printf "\n" | $RUNLAUNCHER -p "This network is protected. Enter the passphrase." -l 1 -g 1)
+		case "$PASSPHRASE" in
+		"") exit 0 ;;
+		esac
+
+		printf "$network\n" >> $HOME/.local/share/networks
+
+		iwctl station $seldevice connect $network -P $PASSPHRASE
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Connected to $network!"
+		fi
+		exit 0
+  }
+
+  connect_no_pass() {
+		iwctl station $seldevice connect $network || exit 0
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Connected to $network!"
+		fi
+		exit 0
+  }
+
+  grep $network $HOME/.local/share/networks && connect_no_pass && exit 0
+  iwctl station $seldevice get-networks | grep psk && connect_pass && exit 0
+}
+
+getdevice && connectwifi
+pkill status && status &

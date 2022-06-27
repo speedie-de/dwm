@@ -6,10 +6,16 @@ MUTE() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --toggle-mute
+				if [ -e "/usr/bin/notify-send" ]; then
+						notify-send "Toggled mute."
+				fi
 		fi
   else
         # Mute for alsa
 		amixer sset Master toggle
+				if [ -e "/usr/bin/notify-send" ]; then
+						notify-send "Toggled mute."
+				fi
   fi
 }
 
@@ -17,9 +23,15 @@ RAISE() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume +7
+			    if [ -e "/usr/bin/notify-send" ]; then
+						notify-send "Increased volume by 7%.($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+				fi
 		fi
   else
 		amixer -c 0 set Master 7%+
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Increased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+		fi
   fi
 }
 
@@ -27,9 +39,15 @@ LOWER() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume -7
+		        if [ -e "/usr/bin/notify-send" ]; then
+						notify-send "Decreased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+				fi
 		fi
   else
 		amixer -c 0 set Master 7%-
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Decreased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+		fi
   fi
 }
 
@@ -37,8 +55,14 @@ SWITCH() {
   ls $HOME/.local/share/audioctrl-status || echo "0" > $HOME/.local/share/audioctrl-status
   if [ "$(cat $HOME/.local/share/audioctrl-status)" = "0" ]; then
 		amixer -c 0 sset 'Auto-Mute Mode' Enabled ; echo "1" > $HOME/.local/share/audioctrl-status
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Switched to headphones."
+		fi
   else
 		amixer -c 0 sset 'Auto-Mute Mode' Disabled ; echo "0" > $HOME/.local/share/audioctrl-status
+		if [ -e "/usr/bin/notify-send" ]; then
+				notify-send "Switched to speakers."
+		fi
   fi
 }
 
@@ -64,3 +88,5 @@ case "$1" in
 "-lower") LOWER ;;
 "-switch") SWITCH ;;
 esac
+
+pkill status && status &

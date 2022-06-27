@@ -1,34 +1,36 @@
 #!/bin/sh
 
-rm -f /tmp/screenshot
+DATE=$(date "+%T_%D" | sed "s|:|-|g" | sed "s|/||g")
+
+rm -f /tmp/screenshot*
 
 case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
 if [ "$1" = "-t" ]; then
-		sleep $2 && maim -suB > /tmp/screenshot || exit 0
+		sleep $2 && maim -suB > /tmp/screenshot-$DATE || exit 0
 fi
 
 if [ "$1" = "-o" ]; then
-		cat $2 > /tmp/screenshot
+		cat $2 > /tmp/screenshot-$DATE
 fi
 
 if [ "$1" = "-f" ]; then
-		if [ -e "/tmp/screenshot" ]; then
+		if [ -e "/tmp/screenshot-$DATE" ]; then
 				exists=true
 		else
-				maim -uB > /tmp/screenshot || exit 0 
+				maim -uB > /tmp/screenshot-$DATE || exit 0 
 		fi
 else
-		if [ -e "/tmp/screenshot" ]; then
+		if [ -e "/tmp/screenshot-$DATE" ]; then
 				exists=true
 		else
-				maim -suB > /tmp/screenshot || exit 0
+				maim -suB > /tmp/screenshot-$DATE || exit 0
 		fi
 fi
 
-if [ -e "/tmp/screenshot" ]; then
+if [ -e "/tmp/screenshot-$DATE" ]; then
 		U_INPUT="$(printf "Image\nURL\nSave" | $RUNLAUNCHER -l 3 -p "Copy to clipboard as an: ")"
 else
 		exit 0
@@ -55,9 +57,9 @@ SENDNOTIF_IMG() {
 }
 
 case "$U_INPUT" in
-"Image") cat /tmp/screenshot | xclip -selection clipboard -t image/png && SENDNOTIF_IMG ;;
-"URL") curl -s -F source=@"/tmp/screenshot" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard && SENDNOTIF_URL ;;
-"Save") SAVEDIR=$(printf "$HOME/Screenshot.png" | $RUNLAUNCHER -l 1 -g 1 -p "Where do you want to save it? (Including filename)") && cat /tmp/screenshot > $SAVEDIR && SENDNOTIF_SAVE ;;
+"Image") cat /tmp/screenshot-$DATE | xclip -selection clipboard -t image/png && SENDNOTIF_IMG ;;
+"URL") printf "\n" | xclip -selection clipboard && curl -s -F source=@"/tmp/screenshot-$DATE" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard && SENDNOTIF_URL ;;
+"Save") SAVEDIR=$(printf "$HOME/Screenshot.png" | $RUNLAUNCHER -l 1 -g 1 -p "Where do you want to save it? (Including filename)") && cat /tmp/screenshot-$DATE > $SAVEDIR && SENDNOTIF_SAVE ;;
 esac
 
-rm -f /tmp/screenshot
+rm -f /tmp/screenshot*

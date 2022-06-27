@@ -6,7 +6,7 @@ O=$1
 echo "${0}. Run '$0 -h' to see a list of arguments or to jump to a specific section.\n$(cat /usr/share/dwm-about /usr/share/dwm-patchlist /usr/share/dwm-about-2 /usr/share/dwm-bindlist /usr/share/dwm-deplist /usr/share/dwm-about-3 /usr/share/dwm-xresources /usr/share/dwm-about-4 /usr/share/dwm-fsignal /usr/share/dwm-about-5)" > /tmp/dwm-doc
 
 case "$O" in
-"-w") cat /tmp/dwm-doc | sed "s|$(head -n 1 /tmp/dwm-doc)||g" > ../readme ;;
+"-w") cat /tmp/dwm-doc | sed "s|$(head -n 2 /tmp/dwm-doc)||" > ../readme ;;
 "-h") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n"; exit 0 ;;
 "") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n"; exit 0 ;;
 "-1") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | head -n 10 | less ;;

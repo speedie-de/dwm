@@ -1,0 +1,32 @@
+#!/bin/sh
+# libxft_bgra install script.
+
+libxft_arch() {
+		ls /usr/bin/git
+		git clone https://aur.archlinux.org/libxft-bgra && echo "Cloned libXft-bgra AUR repository."
+		cd libxft-bgra && echo "Changed directory to libxft_bgra"
+		makepkg -si && echo "Installed libXft-bgra"
+		cd ..
+		rm -r libxft-bgra && echo "Cleaned."
+		echo "Done installing libXft-bgra."
+}
+
+libxft_gentoo() {
+		mkdir -p /etc/portage/patches/x11-libs/libXft && echo "Created directory."
+		curl -o  /etc/portage/patches/x11-libs/libXft https://raw.githubusercontent.com/speediegq/spDE-resources/main/1.diff && echo "Downloaded patch."
+		emerge x11-libs/libXft && echo "Installed libXft-bgra."
+}
+
+libxftfix() {
+		git clone https://github.com/uditkarode/libxft_bgra && cd libxft_bgra && echo "Cloned and changed directory."
+		sh autogen.sh --sysconfdir=/etc --prefix=/usr --mandir=/usr/share/man && echo "Ran autogen script"
+		make install && echo "Compiled libXft-bgra."
+		cd .. && rm -r libxft_bgra && echo "Cleaned."
+		echo "Done installing libXft-bgra."
+}
+
+case "$1" in
+"-gentoo") libxft_gentoo ;;
+"-arch") libxft_arch ;;
+"-source") libxft_source ;;
+esac
