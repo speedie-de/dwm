@@ -45,6 +45,7 @@ static Key keys[] = {
 	{ ControlMask|MODKEY|ShiftMask, XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
 	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwmutils") },
 	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("swal") },
+	{ ControlMask|MODKEY|ShiftMask, XK_n,          spawn,                SHCMD("netctrl") },
 	{ ControlMask|MODKEY|ShiftMask, XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
 
 	/* Layout keybinds */

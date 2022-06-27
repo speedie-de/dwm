@@ -57,6 +57,7 @@ install: all
 	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
 	cp -f scripts/scriptedit ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/scriptedit
 	cp -f scripts/audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/audioctrl
+	cp -f scripts/netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/netctrl
 	cp -f scripts/dwm_run ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm_run
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/compatcheck
@@ -81,19 +82,15 @@ help:
 	@echo help: Displays this help sheet.
 
 libxftfix:
-	git clone https://github.com/uditkarode/libxft-bgra && cd libxft-bgra
-	sh autogen.sh --sysconfdir=/etc --prefix=/usr --mandir=/usr/share/man
-	make install
-	cd .. && rm -r libxft-bgra
+		chmod +x scripts/libxftfix
+		./scripts/libxft -source
 
 gentoo-libxftfix:
-	mkdir -pv /etc/portage/patches/x11-libs/libXft
-	curl -o /etc/portage/patches/x11-libs/libXft/bgra.diff https://gitlab.freedesktop.org/xorg/lib/libXft/-/merge_requests/1.diff
-	emerge x11-libs/libXft
+		chmod +x scripts/libxftfix
+		./scripts/libxftfix -gentoo
 
 arch-libxftfix:
-	git clone https://aur.archlinux.org/libxft-bgra
-	cd libxft-bgra
-	makepkg -i
+		chmod +x scripts/libxftfix
+		./scripts/libxftfix -arch
 
 .PHONY: all options clean dist install uninstall help libxftfix gentoo-libxftfix arch-libxftfix
