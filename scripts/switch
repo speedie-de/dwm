@@ -53,7 +53,7 @@ windows=$(echo "$windows" | \
 target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
 
 case "$target" in
-"") exit 0 ;;
+"") RESTORE && exit 0 ;;
 esac
 
 wmctrl -a "$target"
