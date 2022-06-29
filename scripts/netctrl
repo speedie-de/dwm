@@ -37,7 +37,7 @@ connectwifi() {
 
 		printf "$network\n" >> $HOME/.local/share/networks
 
-		iwctl station $seldevice connect $network -P $PASSPHRASE
+		iwctl station $seldevice connect $network -P $PASSPHRASE || connect_pass
 		if [ -e "/usr/bin/notify-send" ]; then
 				notify-send "Connected to $network!"
 		fi
