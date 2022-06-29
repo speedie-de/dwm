@@ -80,7 +80,7 @@ ITEM4() {
 }
 
 ITEM5() {
-  echo "<  $(echo $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+  echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
 }
 
 ITEM6() {
@@ -140,7 +140,7 @@ ITEM11() {
 }
 
 BASE() {
-  SLEEPTIME=6
+  SLEEPTIME=12
 }
 
 # Item 1 = Memory X
@@ -156,7 +156,7 @@ BASE() {
 # Item 11 = Battery X
 
 PRINT() {
-  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9)"
+  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
 
   if [ "$USINGWAL" = "true" ]; then
 		if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
