@@ -6,9 +6,47 @@ O=$1
 echo "${0}. Run '$0 -h' to see a list of arguments or to jump to a specific section.\n$(cat /usr/share/dwm-about /usr/share/dwm-patchlist /usr/share/dwm-about-2 /usr/share/dwm-bindlist /usr/share/dwm-deplist /usr/share/dwm-about-3 /usr/share/dwm-xresources /usr/share/dwm-about-4 /usr/share/dwm-fsignal /usr/share/dwm-about-5)" > /tmp/dwm-doc
 
 case "$O" in
-"-w") cat /tmp/dwm-doc | sed "s|$(head -n 2 /tmp/dwm-doc)||" > ../readme ;;
+"-w") cat /tmp/dwm-doc | tail -n $(expr $(cat /tmp/dwm-doc | wc -l) "-" 1) > ../readme ;;
+"-wmd") cat /tmp/dwm-doc | \
+						 tail -n $(expr $(cat /tmp/dwm-doc | wc -l) "-" 1) | \
+				         sed "s|-- speedie's fork of dynamic window manager --|# speedie's fork of dynamic window manager|g" | \
+						 sed "s|-- What is dwm? --|## What is dwm?|g" | \
+						 sed "s|-- Installation --|## Installation|g" | \
+						 sed "s|-- Layouts --|## Layouts|g" | \
+						 sed "s|-- Patches --|## Patches|g" | \
+						 sed "s|-- Keybinds --|## Keybinds|g" | \
+						 sed "s|-- Applications --|### Applications|g" | \
+						 sed "s|-- Navigation --|### Nagigation|g" | \
+						 sed "s|-- Extras --|### Extras|g" | \
+						 sed "s|-- Dependencies --|## Dependencies|g" | \
+						 sed "s|-- Features --|## Features|g" | \
+						 sed "s|-- Software --|## Software|g" | \
+						 sed "s|-- Important --|## Important|g" | \
+						 sed "s|-- .Xresources and Pywal --|## .Xresources and Pywal|g" | \
+						 sed "s|-- Fsignal --|## Fsignal|g" | \
+						 sed "s|-- Switching run launcher --|## Switching run launcher|g" > ../README.md ;;
+"-whtml") cat /tmp/dwm-doc | \
+						   tail -n $(expr $(cat /tmp/dwm-doc | wc -l) "-" 1) | \
+						   awk '{print "<p>"$0}' | \
+						   awk '{print $0"</p>"}' | \
+				           sed "s|-- speedie's fork of dynamic window manager --|<h1>speedie's fork of dynamic window manager</h1>|g" | \
+						   sed "s|-- What is dwm? --|<h2>What is dwm?</h2>|g" | \
+						   sed "s|-- Installation --|<h2>Installation</h2>|g" | \
+						   sed "s|-- Layouts --|<h2>Layouts</h2>|g" | \
+						   sed "s|-- Patches --|<h2>Patches</h2>|g" | \
+						   sed "s|-- Keybinds --|<h2>Keybinds</h2>|g" | \
+						   sed "s|-- Applications --|<h3>Applications</h3>|g" | \
+						   sed "s|-- Navigation --|<h3>Nagigation</h3>|g" | \
+						   sed "s|-- Extras --|<h3>Extras</h3>|g" | \
+						   sed "s|-- Dependencies --|<h2>Dependencies</h2>|g" | \
+						   sed "s|-- Features --|<h2>Features</h2>|g" | \
+						   sed "s|-- Software --|<h2>Software</h2>|g" | \
+						   sed "s|-- Important --|<h2>Important</h2>|g" | \
+						   sed "s|-- .Xresources and Pywal --|<h2>.Xresources and Pywal</h2>|g" | \
+						   sed "s|-- Fsignal --|<h2>Fsignal</h2>|g" | \
+						   sed "s|-- Switching run launcher --|<h2>Switching run launcher</h2>|g" > ../readme.html ;;
 "-h") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n"; exit 0 ;;
-"") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n"; exit 0 ;;
+"") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n-wmd | Write documentation (Markdown)\n-whtml | Write documentation (HTML)\nWARNING: Not complete!\n"; exit 0 ;;
 "-1") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | head -n 10 | less ;;
 "-2") cat /usr/share/dwm-about /usr/share/dwm-patchlist | sed "s|--|${COL2}--${COL1}|g" | tail -n 45 | less ;;
 "-3") cat /usr/share/dwm-about-2 /usr/share/dwm-bindlist | sed "s|--|${COL2}--${COL1}|g" | less ;;
