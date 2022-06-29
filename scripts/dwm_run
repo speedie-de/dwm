@@ -1,11 +1,22 @@
 #!/bin/sh
+
+XRESOURCES() {
 ls $HOME/.Xresources && xrdb $HOME/.Xresources
 ls $HOME/.config/.Xresources && xrdb $HOME/.config/.Xresources
+}
 
+RESET() {
 $HOME/.config/swal/swal_wm
-
 xsetroot -name "fsignal:25"
+}
 
+START_DWM() {
 while true; do
 dwm > /tmp/dwm-log
 done
+}
+
+case "$1" in
+"") XRESOURCES ; RESET ; START_DWM && exit 0 ;;
+"-r") RESET && exit 0 ;;
+esac
