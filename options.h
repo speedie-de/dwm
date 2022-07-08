@@ -144,30 +144,3 @@ static const char *dmenucmd[]                 = { NULL };
 /* Tag text options */
 static const char *tags[]                     = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
-
-/* Misc color options */
-static char *colors[][3]                      = {
-	[SchemeNorm]                              = { col_textnorm, col_background,    col_windowbordernorm },
-	[SchemeSel]                               = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
-/*                                                text          background         window border */
-};
-
-/* Colors for the status bar (.Xresources) */
-static char *termcolor[]                      = {
-  termcol0,
-  termcol1,
-  termcol2,
-  termcol3,
-  termcol4,
-  termcol5,
-  termcol6,
-  termcol7,
-  termcol8,
-  termcol9,
-  termcol10,
-  termcol11,
-  termcol12,
-  termcol13,
-  termcol14,
-  termcol15,
-};

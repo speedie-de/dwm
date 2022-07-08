@@ -3,6 +3,41 @@
  *
  * Once you're done with your edits, run 'make clean install'. */
 
+/* Define
+ * This build comes with defines for common software such as your web browser or terminal.
+ * If you wish to use a different browser for example, simply change the values.
+ *
+ * You do not need to edit 'keybinds.h' or 'rules.h' because that's where these are used.
+ * Once you're done with your edits, run 'make clean install'.
+ *************************************/
+
+/* Misc color options */
+static char *colors[][3]                      = {
+	[SchemeNorm]                              = { col_textnorm, col_background,    col_windowbordernorm },
+	[SchemeSel]                               = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
+/*                                                text          background         window border */
+};
+
+/* Colors for the status bar (.Xresources) */
+static char *termcolor[]                      = {
+  termcol0,
+  termcol1,
+  termcol2,
+  termcol3,
+  termcol4,
+  termcol5,
+  termcol6,
+  termcol7,
+  termcol8,
+  termcol9,
+  termcol10,
+  termcol11,
+  termcol12,
+  termcol13,
+  termcol14,
+  termcol15,
+};
+
 /* Colors to use for alpha */
 static const unsigned int alphas[][3]         = {
        /*                                         fg      bg        border     */
