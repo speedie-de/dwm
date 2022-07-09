@@ -171,13 +171,8 @@ PRINT() {
 }
 
 BASE
-
 SETCOLORS
-
-if [[ "$(cat ~/.config/swal/swal_wm)" =~ "xsetroot" ]]; then
-		SETCOLORS_WAL
-fi
-
+grep xsetroot $HOME/.config/swal/swal_wm && SETCOLORS_WAL
 SETCOLORS_CMD
 
 PRINT
