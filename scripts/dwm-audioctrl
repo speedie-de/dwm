@@ -68,17 +68,7 @@ SWITCH() {
 
 AUDIO=alsa
 
-if [ -e "$HOME/.local/share/audioctrl-sound" ]; then
-		if [ "$(cat $HOME/.local/share/audioctrl-sound)" = "" ]; then
-				AUDIO=alsa
-		else
-				AUDIO=pulseaudio
-		fi
-else
-		pgrep -x pulseaudio > $HOME/.local/share/audioctrl-pulseaudio
-		pgrep -x pipewire > $HOME/.local/share/audioctrl-pipewire
-		cat $HOME/.local/share/audioctrl-pipewire $HOME/.local/share/audioctrl-pulseaudio > $HOME/.local/share/audioctrl-sound
-fi
+test /usr/bin/pulsemixer && audio=pulse # PulseAudio and PipeWire support through Pulsemixer
 
 printf "\nAudio = $AUDIO\n"
 
