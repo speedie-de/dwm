@@ -89,4 +89,5 @@ case "$1" in
 "-switch") SWITCH ;;
 esac
 
+# Update status
 pkill status && status &

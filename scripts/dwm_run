@@ -1,4 +1,6 @@
 #!/bin/sh
+# External script which starts dwm!
+# https://speedie.gq/dwm for instructions!
 
 XRESOURCES() {
 ls $HOME/.Xresources && xrdb $HOME/.Xresources

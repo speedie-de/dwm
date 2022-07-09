@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # dynamic window manager status bar
 # Written by speedie.gq for https://speedie.gq/dwm
 # Licensed under the GNU GPLv3 free software license.

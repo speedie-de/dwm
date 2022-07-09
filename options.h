@@ -18,18 +18,17 @@
 #define EMAIL                                 "neomutt" /* Email client to use */
 #define EDITOR                                "vim" /* Text editor to use */
 #define RUN                                   "dmenu_run -l 1 -p 'Run:'" /* Run launcher */
-#define SCREENSHOT                            "bb" /* How to take screenshots (Selection) */
-#define SCREENSHOT_FULL                       "bb -f" /* How to take screenshots (Full screen) */
+#define SCREENSHOT                            "dwm-screenshotutil" /* How to take screenshots (Selection) */
+#define SCREENSHOT_FULL                       "dwm-screenshotutil -f" /* How to take screenshots (Full screen) */
 #define FILEMANAGER                           "vifmrun || vifm" /* File manager that will be used */
 #define FILEMANAGER_CLASS                     "vifmrun" /* File manager that will be used for rules */
 #define LOCKER                                "slock" /* Screen locker that will be used */
-#define OPENSCRIPT                            "scriptedit ~/Scripts || ~/Scripts/scriptedit ~/Scripts"
 #define OPENPDF                               "pdfopen ~/Documents zathura || ~/Scripts/pdfopen ~/Documents zathura"
 #define KILLMUSIC                             "pkill mocp"
-#define VOL_DOWN                              "audioctrl -lower" /* Command to run when decreasing volume */
-#define VOL_UP                                "audioctrl -raise" /* Command to run when increasing volume */
-#define VOL_MUTE                              "audioctrl -mute" /* Command to run when muting volume */
-#define VOL_OUTPUT_SPEAKER                    "audioctrl -switch" /* Command to run when enabling speakers */
+#define VOL_DOWN                              "dwm-audioctrl -lower" /* Command to run when decreasing volume */
+#define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
+#define VOL_MUTE                              "dwm-audioctrl -mute" /* Command to run when muting volume */
+#define VOL_OUTPUT_SPEAKER                    "dwm-audioctrl -switch" /* Command to run when enabling speakers */
 #define LIVERELOAD                            "xrdb ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
 #define MODKEY Mod1Mask
 #define SMODKEY Mod4Mask

@@ -48,30 +48,29 @@ install: all
 	cp -f docs/example.Xresources ${DESTDIR}${PREFIX}/share/dwm-xresources
 	cp -f docs/example.fsignal ${DESTDIR}${PREFIX}/share/dwm-fsignal
 	cp -f scripts/dwm-help ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-help
-	cp -f scripts/dwmshutdown ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmshutdown
-	cp -f scripts/switch ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/switch
-	cp -f scripts/dwmutils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwmutils
-	cp -f scripts/swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/swal
-	cp -f scripts/bb ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/bb
-	cp -f scripts/dboard ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dboard
+	cp -f scripts/dwm-shutdown ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-shutdown
+	cp -f scripts/dwm-winnav ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-winnav
+	cp -f scripts/dwm-utils ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-utils
+	cp -f scripts/dwm-swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-swal
+	cp -f scripts/dwm-screenshotutil ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-screenshotutil
+	cp -f scripts/dwm-virtualkeyboard ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard
 	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
-	cp -f scripts/scriptedit ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/scriptedit
-	cp -f scripts/audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/audioctrl
-	cp -f scripts/netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/netctrl
+	cp -f scripts/dwm-audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-audioctrl
+	cp -f scripts/dwm-netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-netctrl
 	cp -f scripts/dwm_run ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm_run
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
-	chmod +x ./scripts/compatcheck
-	chmod +x ./scripts/dwmdm
-	./scripts/compatcheck
-	./scripts/dwmdm
+	chmod +x ./scripts/dwm-compatcheck
+	chmod +x ./scripts/dwm-dm
+	./scripts/dwm-compatcheck
+	./scripts/dwm-dm
 	rm drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
-		${DESTDIR}${PREFIX}/bin/dwmutils \
-		${DESTDIR}${PREFIX}/bin/switch \
-		${DESTDIR}${PREFIX}/bin/dwmshutdown \
-		${DESTDIR}${PREFIX}/bin/swal \
+		${DESTDIR}${PREFIX}/bin/dwm-utils \
+		${DESTDIR}${PREFIX}/bin/dwm-winnav \
+		${DESTDIR}${PREFIX}/bin/dwm-shutdown \
+		${DESTDIR}${PREFIX}/bin/dwm-swal \
 
 help:
 	@echo install: Installs dwm. You may need to run this as root.

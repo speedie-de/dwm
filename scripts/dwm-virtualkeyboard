@@ -1,6 +1,7 @@
 #!/bin/sh
-# dkeyboard by speedie
+# virtualkeyboard by speedie
 # Licensed under GNU GPLv3
+# https://speedie.gq/dwm
 
 case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
