@@ -3,13 +3,13 @@
 # Default configuration, should be fine for most users.
 SWAL_DEFAULT_CONFIG()
 {
-  SWAL_WALLPAPERDIR=~/Wallpapers
+  SWAL_WALLPAPERDIR=$HOME/Wallpapers
   case "$RUNLAUNCHER" in
   "") RUNLAUNCHER=dmenu ;;
   esac
   SWAL_OPT=xwallpaper
   SWAL_BINDIR=/usr/bin
-  SWAL_EXPORTDIR=~/.config/swal
+  SWAL_EXPORTDIR=$HOME/.config/swal
   SWAL_FSIGNAL_RELOAD_XRESOURCES=18
 }
 
@@ -95,9 +95,11 @@ SWAL_SETTYPE()
   esac
 
   SWAL_TYPE="--$SWAL_TYPE"
-  if [ -e "/usr/bin/wal" ]; then
-		SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Wal/Pywal?" -l 2)
-  else
+  SWAL_WAL_STATUS="0"
+  wal -v && SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Wal/Pywal?" -l 2) && SWAL_WAL_STATUS="1"
+
+  # Don't perform pywal actions if not installed/used
+  if [ "$SWAL_WAL_STATUS" = "0" ]; then
 		SWAL_USE_WAL="No"
   fi
 }
