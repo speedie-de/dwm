@@ -17,7 +17,7 @@ static const Rule rules[]                     = {
     	/* class                instance    title                             tags mask   isfloating    isterminal   noswallow   centerfirst    monitor      ignoretransient    scratch key */
 		{ TERMINAL_CLASS,       NULL,       NULL,                             0,          0,            1,           0,          0,             -1,          0,                 0  },
         { TERMINAL_CLASS,       NULL,       "sxiv",                           0,          0,            0,           1,          0,             -1,          0,                 0  },
-        { TERMINAL_CLASS,       NULL,       FILEMANAGER_CLASS,                0,          0,            1,           0,          1,             -1,          0,                 0  },
+        { TERMINAL_CLASS,       NULL,       FILEMANAGER_CLASS,                0,          0,            1,           0,          0,             -1,          0,                 0  },
         { PDF_CLASS,            NULL,       NULL,                             0,          0,            0,           0,          0,             -1,          0,                 0  },
         { TERMINAL_CLASS,       NULL,       EDITOR,                           0,          0,            0,           0,          0,             -1,          0,                 0  },
         { TERMINAL_CLASS,       NULL,       MUSIC,                            0,          0,            0,           1,          0,             -1,          0,                 0  },
