@@ -19,8 +19,8 @@ RAISE() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume +7
-			    if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Increased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+			    if [ -e "/usr/bin/notify-send" ]; then 
+						notify-send "Increased volume by 7%. ($(pulsemixer --get-volume | awk '{ print $1 }')%)"
 				fi
 		fi
   else
