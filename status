@@ -7,6 +7,7 @@
 # This means the output of a command will be printed as well.
 # Once you're done editing, run 'make clean install'.
 
+# Set generic colors as base.
 SETCOLORS() {
   COLOR1=#ffffff
   COLOR2=#ffffff
@@ -25,6 +26,7 @@ SETCOLORS() {
   COLOR15=#ffffff
 }
 
+# Add colors to status2d compatible variable to use with xsetroot later.
 SETCOLORS_CMD() {
   SETCOLORCMD1="^c${COLOR1}^"
   SETCOLORCMD2="^c${COLOR2}^"
@@ -43,6 +45,7 @@ SETCOLORS_CMD() {
   SETCOLORCMD15="^c${COLOR15}^"
 }
 
+# Grab colors from pywal if possible
 SETCOLORS_WAL() {
   COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
   COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
@@ -77,6 +80,14 @@ ITEM3() {
 
 ITEM4() {
   echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+  test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
+  test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
+
+  if [ "$MUTED" = "false" ]; then
+		a=$a
+  else
+		printf "\n (Muted)"
+  fi
 }
 
 ITEM5() {

@@ -1,5 +1,7 @@
 #!/bin/sh
-# audioctrl
+# dwm-audioctrl
+# This simple shell script handles audio controls on my build of dwm
+# License: GPLv3.
 
 MUTE() {
   # Mute for pulseaudio/pipewire
@@ -10,12 +12,6 @@ MUTE() {
 						notify-send "Toggled mute."
 				fi
 		fi
-  else
-        # Mute for alsa
-		amixer sset Master toggle
-				if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Toggled mute."
-				fi
   fi
 }
 
@@ -24,7 +20,7 @@ RAISE() {
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume +7
 			    if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Increased volume by 7%.($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+						notify-send "Increased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
 				fi
 		fi
   else
@@ -40,13 +36,32 @@ LOWER() {
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume -7
 		        if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Decreased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+						notify-send "Decreased volume by 7%. ($(pulsemixer --get-volume | awk '{ print $1 }')%)"
 				fi
 		fi
   else
 		amixer -c 0 set Master 7%-
 		if [ -e "/usr/bin/notify-send" ]; then
 				notify-send "Decreased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+		fi
+  fi
+}
+
+GETVOL() {
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				echo "$(pulsemixer --get-volume | awk '{ print $1 }')%"
+		fi
+  else
+		echo "$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+  fi
+}
+
+GETMUTE() {
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				pulsemixer --get-mute | grep 1 > /dev/null && echo "Muted"
+				pulsemixer --get-mute | grep 0 > /dev/null && echo "Not muted"
 		fi
   fi
 }
@@ -66,18 +81,27 @@ SWITCH() {
   fi
 }
 
-AUDIO=alsa
+AUDIO=$2
 
-test /usr/bin/pulsemixer && audio=pulse # PulseAudio and PipeWire support through Pulsemixer
-
-printf "\nAudio = $AUDIO\n"
-
-case "$1" in
-"-mute") MUTE ;;
-"-raise") RAISE ;;
-"-lower") LOWER ;;
-"-switch") SWITCH ;;
+case "$2" in
+"") AUDIO=alsa
+test /usr/bin/pulsemixer && AUDIO=pulse ;;
 esac
 
 # Update status
-pkill status && status &
+UPDATESTATUS() {
+  pkill status && status &
+}
+
+case "$1" in
+"-mute") MUTE && GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
+"-raise") RAISE ;;
+"-lower") LOWER ;;
+"-switch") SWITCH ;;
+"-getvol") GETVOL ;;
+"-getmute") GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
+"-getbackend") printf "$AUDIO\n" ;;
+"") exit 0 ;;
+esac
+
+pgrep -x status && UPDATESTATUS
