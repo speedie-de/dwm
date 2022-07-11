@@ -9,7 +9,7 @@ MUTE() {
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --toggle-mute
 				if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Toggled mute."
+						notify-send "🔇Toggled mute"
 				fi
 		fi
   fi
@@ -20,13 +20,13 @@ RAISE() {
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume +7
 			    if [ -e "/usr/bin/notify-send" ]; then 
-						notify-send "Increased volume by 7%. ($(pulsemixer --get-volume | awk '{ print $1 }')%)"
+						notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 		fi
   else
 		amixer -c 0 set Master 7%+
 		if [ -e "/usr/bin/notify-send" ]; then
-				notify-send "Increased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+				notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
@@ -36,13 +36,13 @@ LOWER() {
 		if [ -e "/usr/bin/pulsemixer" ]; then
 				pulsemixer --change-volume -7
 		        if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "Decreased volume by 7%. ($(pulsemixer --get-volume | awk '{ print $1 }')%)"
+						notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 		fi
   else
 		amixer -c 0 set Master 7%-
 		if [ -e "/usr/bin/notify-send" ]; then
-				notify-send "Decreased volume by 7%. ($(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+				notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
@@ -105,3 +105,13 @@ case "$1" in
 esac
 
 pgrep -x status && UPDATESTATUS
+
+
+
+#!/bin/bash
+# Settings for my dwm build.
+
+# Use dmenu as default.
+case "$RUNLAUNCHER" in
+"") RUNLAUNCHER=dmenu ;;
+esac
