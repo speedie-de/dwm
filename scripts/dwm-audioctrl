@@ -18,15 +18,19 @@ MUTE() {
 RAISE() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
-				pulsemixer --change-volume +7
-			    if [ -e "/usr/bin/notify-send" ]; then 
-						notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
+				if [ "$(pulsemixer --get-volume | awk '{ print $1 }')" = "100" ]; then
+						a=$a
+				else
+						pulsemixer --change-volume +7
+						test /usr/bin/notify-send && notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 		fi
   else
-		amixer -c 0 set Master 7%+
-		if [ -e "/usr/bin/notify-send" ]; then
-				notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+		if [ "$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")" = "100" ]; then
+				a=$a
+		else
+				amixer -c 0 set Master 7%+
+				ls /usr/bin/notify-send && notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
@@ -34,15 +38,20 @@ RAISE() {
 LOWER() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
-				pulsemixer --change-volume -7
-		        if [ -e "/usr/bin/notify-send" ]; then
-						notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
+				if [ "$(pulsemixer --get-volume | awk '{ print $1 }')" = "0" ]; then
+						a=$a
+				else
+						pulsemixer --change-volume -7
+						test /usr/bin/notify-send && notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
+				
 		fi
   else
-		amixer -c 0 set Master 7%-
-		if [ -e "/usr/bin/notify-send" ]; then
-				notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+		if [ "$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")" = "0" ]; then
+				a=$a
+		else
+				amixer -c 0 set Master 7%-
+				test /usr/bin/notify-send && notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
