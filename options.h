@@ -5,6 +5,7 @@
  * You do not need to edit 'keybinds.h' or 'rules.h' because that's where these are used.
  * Once you're done with your edits, run 'make clean install'.
  *************************************/
+
 #define TERMINAL                              "st -e " /* Terminal to use */
 #define TERMINAL_CLASS                        "St" /* Terminal to use for rules */
 #define BROWSER                               "firefox" /* Web browser to use */
@@ -29,17 +30,16 @@
 #define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
 #define VOL_MUTE                              "dwm-audioctrl -mute" /* Command to run when muting volume */
 #define VOL_OUTPUT_SPEAKER                    "dwm-audioctrl -switch" /* Command to run when enabling speakers */
-#define LIVERELOAD                            "xrdb ~/.cache/wal/colors.Xresources" /* Command to run when reloading .Xresources */
 #define MODKEY Mod1Mask
 #define SMODKEY Mod4Mask
 #define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
-#define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
-#define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
-
 #define CLIPBOARD                             "xclip" /* Clipboard to use */
 #define COMPOSITOR                            "picom" /* Compositor to use */
+
+#define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
+#define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
 
 /* Options
  *

@@ -53,7 +53,6 @@
   - Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
   - Super+Control+h           |  Open a list of all keybinds in your terminal using less
   - Super+Control+Shift+a/d   |  Move between available layouts
-  - Super+Control+Shift+Tab   |  Read .Xresources again without reloading dwm
   - Super+Alt+s               |  Make the current selected window sticky
   - Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
   - Super+Control+Shift+Arrow |  Resize the window to the screen size.

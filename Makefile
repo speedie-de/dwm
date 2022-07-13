@@ -63,14 +63,31 @@ install: all
 	chmod +x ./scripts/dwm-dm
 	./scripts/dwm-compatcheck
 	./scripts/dwm-dm
-	rm drw.o dwm.o util.o ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
+	rm drw.o dwm.o util.o dwm ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\
 		${DESTDIR}${PREFIX}/bin/dwm-utils \
+		${DESTDIR}${PREFIX}/bin/dwm-audioctrl \
 		${DESTDIR}${PREFIX}/bin/dwm-winnav \
 		${DESTDIR}${PREFIX}/bin/dwm-shutdown \
 		${DESTDIR}${PREFIX}/bin/dwm-swal \
+		${DESTDIR}${PREFIX}/bin/dwm-help \
+		${DESTDIR}${PREFIX}/bin/dwm-netctrl \
+		${DESTDIR}${PREFIX}/bin/dwm-screenshotutil \
+		${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard \
+		${DESTDIR}${PREFIX}/bin/pdfopen \
+		${DESTDIR}${PREFIX}/bin/status \
+		${DESTDIR}${PREFIX}/share/dwm-bindlist \
+		${DESTDIR}${PREFIX}/share/dwm-deplist \
+		${DESTDIR}${PREFIX}/share/dwm-about \
+		${DESTDIR}${PREFIX}/share/dwm-about-2 \
+		${DESTDIR}${PREFIX}/share/dwm-about-3 \
+		${DESTDIR}${PREFIX}/share/dwm-about-4 \
+		${DESTDIR}${PREFIX}/share/dwm-about-5 \
+		${DESTDIR}${PREFIX}/share/dwm-patchlist \
+		${DESTDIR}${PREFIX}/share/dwm-xresources \
+		${DESTDIR}${PREFIX}/share/dwm-fsignal \
 
 help:
 	@echo install: Installs dwm. You may need to run this as root.

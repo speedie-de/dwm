@@ -40,7 +40,6 @@ static Key keys[] = {
 	{ ControlMask|MODKEY,           XK_2,          spawn,                SHCMD(VOL_DOWN) },
 	{ ControlMask|MODKEY,           XK_3,          spawn,                SHCMD(VOL_UP) },
 	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER) },
-	{ ControlMask|MODKEY|ShiftMask, XK_Tab,        spawn,                SHCMD(LIVERELOAD) },
 	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwm-utils") },
 	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("dwm-swal") },
 	{ ControlMask|MODKEY|ShiftMask, XK_n,          spawn,                SHCMD("dwm-netctrl") },
