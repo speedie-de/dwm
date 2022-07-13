@@ -7,10 +7,15 @@ MUTE() {
   # Mute for pulseaudio/pipewire
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "/usr/bin/pulsemixer" ]; then
-				pulsemixer --toggle-mute
-				if [ -e "/usr/bin/notify-send" ]; then
+				 pulsemixer --toggle-mute
+				 if [ -e "/usr/bin/notify-send" ]; then
+					 	 notify-send "🔇Toggled mute"
+				 fi
+		else
+				 amixer set Master toggle
+				 if [ -e "/usr/bin/notify-send" ]; then
 						notify-send "🔇Toggled mute"
-				fi
+				 fi
 		fi
   fi
 }
@@ -90,6 +95,16 @@ SWITCH() {
   fi
 }
 
+RUNMIXER() {
+  if [ "$AUDIO" = "pulse" ]; then
+		if [ -e "/usr/bin/pulsemixer" ]; then
+				pulsemixer
+		else
+				alsamixer
+		fi
+  fi
+}
+
 AUDIO=$2
 
 case "$2" in
@@ -110,6 +125,7 @@ case "$1" in
 "-getvol") GETVOL ;;
 "-getmute") GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
 "-getbackend") printf "$AUDIO\n" ;;
+"-runmixer") RUNMIXER && exit 0 ;;
 "") exit 0 ;;
 esac
 

@@ -13,7 +13,6 @@
 #define RSS                                   "newsboat" /* RSS reader to use */
 #define PDF                                   "zathura" /* PDF reader to use */
 #define PDF_CLASS                             "Zathura" /* PDF reader to use for rules */
-#define MIXER                                 "alsamixer" /* Audio mixer to use */
 #define MUSIC                                 "mocp" /* Music player to use */
 #define EMAIL                                 "neomutt" /* Email client to use */
 #define EDITOR                                "vim" /* Text editor to use */
@@ -25,6 +24,7 @@
 #define LOCKER                                "slock" /* Screen locker that will be used */
 #define OPENPDF                               "pdfopen ~/Documents zathura || ~/Scripts/pdfopen ~/Documents zathura"
 #define KILLMUSIC                             "pkill mocp"
+#define MIXER                                 "dwm-audioctrl -runmixer" /* Audio mixer to use */
 #define VOL_DOWN                              "dwm-audioctrl -lower" /* Command to run when decreasing volume */
 #define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
 #define VOL_MUTE                              "dwm-audioctrl -mute" /* Command to run when muting volume */
