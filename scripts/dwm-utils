@@ -65,7 +65,7 @@ printf "dwmutils allows you to control dwm using your terminal or dmenu/rofi.\n-
 }
 
 case "$1" in
-"-layout") SEL_LAYOUT=$(printf "Tiling\nFloating\nMonocle\nGrid\nDeck\nCentered Master\nCentered Floating Master\nFibonacci Spiral\nFibonacci Dwindle\nThree Column\nBottom Stack Vertical\nBottom Stack Horizontal\nHorizontal Grid\nTatami\nPrevious Layout\nNext Layout" | dmenu -l 20 -p "Pick a layout: ") ;;
+"-layout") SEL_LAYOUT=$(printf "L1: Tiling\nL2: Floating\nL3: Monocle\nL4: Grid\nL5: Deck\nL6: Centered Master\nL7: Centered Floating Master\nL8: Fibonacci Spiral\nL9: Fibonacci Dwindle\nL10: Three Column\nL11: Bottom Stack Vertical\nL12: Bottom Stack Horizontal\nL13: Horizontal Grid\nL14: Tatami\nPrevious Layout\nNext Layout" | $RUNLAUNCHER -l 20 -p "Pick a layout: ") ;;
 "-spawn") printf "Not complete" ;;
 "-reloadxrdb") xsetroot -name "fsignal:$SIGNAL_18" ;;
 "-help") HELP ;;
@@ -76,20 +76,20 @@ esac
 
 case "$SEL_LAYOUT" in
 "Exit") exit 0 ;;
-"Tiling") xsetroot -name "fsignal:$SIGNAL_1" ;;
-"Floating") xsetroot -name "fsignal:$SIGNAL_2" ;;
-"Monocle") xsetroot -name "fsignal:$SIGNAL_3" ;;
-"Grid") xsetroot -name "fsignal:$SIGNAL_4" ;;
-"Deck") xsetroot -name "fsignal:$SIGNAL_5" ;;
-"Centered Master") xsetroot -name "fsignal:$SIGNAL_6" ;;
-"Centered Floating Master") xsetroot -name "fsignal:$SIGNAL_7" ;;
-"Fibonacci Spiral") xsetroot -name "fsignal:$SIGNAL_8" ;;
-"Fibonacci Dwindle") xsetroot -name "fsignal:$SIGNAL_9" ;;
-"Three Column") xsetroot -name "fsignal:$SIGNAL_10" ;;
-"Bottom Stack Vertical") xsetroot -name "fsignal:$SIGNAL_11" ;;
-"Bottom Stack Horizontal") xsetroot -name "fsignal:$SIGNAL_12" ;;
-"Horizontal Grid") xsetroot -name "fsignal:$SIGNAL_13" ;;
-"Tatami") xsetroot -name "fsignal:$SIGNAL_14" ;;
+"L1: Tiling") xsetroot -name "fsignal:$SIGNAL_1" ;;
+"L2: Floating") xsetroot -name "fsignal:$SIGNAL_2" ;;
+"L3: Monocle") xsetroot -name "fsignal:$SIGNAL_3" ;;
+"L4: Grid") xsetroot -name "fsignal:$SIGNAL_4" ;;
+"L5: Deck") xsetroot -name "fsignal:$SIGNAL_5" ;;
+"L6: Centered Master") xsetroot -name "fsignal:$SIGNAL_6" ;;
+"L7: Centered Floating Master") xsetroot -name "fsignal:$SIGNAL_7" ;;
+"L8: Fibonacci Spiral") xsetroot -name "fsignal:$SIGNAL_8" ;;
+"L9: Fibonacci Dwindle") xsetroot -name "fsignal:$SIGNAL_9" ;;
+"L10: Three Column") xsetroot -name "fsignal:$SIGNAL_10" ;;
+"L11: Bottom Stack Vertical") xsetroot -name "fsignal:$SIGNAL_11" ;;
+"L12: Bottom Stack Horizontal") xsetroot -name "fsignal:$SIGNAL_12" ;;
+"L13: Horizontal Grid") xsetroot -name "fsignal:$SIGNAL_13" ;;
+"L14: Tatami") xsetroot -name "fsignal:$SIGNAL_14" ;;
 "Previous Layout") xsetroot -name "fsignal:$SIGNAL_16" ;;
 "Next Layout") xsetroot -name "fsignal:$SIGNAL_18" ;;
 esac

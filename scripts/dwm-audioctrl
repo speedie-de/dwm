@@ -132,13 +132,3 @@ case "$1" in
 esac
 
 pgrep -x status && UPDATESTATUS
-
-
-
-#!/bin/bash
-# Settings for my dwm build.
-
-# Use dmenu as default.
-case "$RUNLAUNCHER" in
-"") RUNLAUNCHER=dmenu ;;
-esac
