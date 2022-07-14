@@ -8,6 +8,8 @@ case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu # Run launcher to use (dmenu, rofi, etc.) ;;
 esac
 
+BINDIR=$(cat /usr/share/dwm-bindir)
+
 SIGNAL_1=1         # Layout: Tiling
 SIGNAL_2=2         # Layout: Floating
 SIGNAL_3=3         # Layout: Monocle

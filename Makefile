@@ -61,9 +61,11 @@ install: all
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/dwm-compatcheck
 	chmod +x ./scripts/dwm-dm
+	mkdir -p /usr/share
+	echo "${DESTDIR}${PREFIX}/bin/" > /usr/share/dwm-bindir
 	./scripts/dwm-compatcheck
 	./scripts/dwm-dm
-	rm drw.o dwm.o util.o dwm ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
+	rm -f drw.o dwm.o util.o dwm ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
 	rm -f ${DESTDIR}${PREFIX}/bin/dwm\

@@ -6,7 +6,9 @@ case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
-ls /usr/bin/iwctl || exit 0
+BINDIR=$(cat /usr/share/dwm-bindir)
+
+ls $BINDIR/iwctl || exit 0
 
 # Get the device used to connect.
 getdevice() {
@@ -38,7 +40,7 @@ connectwifi() {
 		printf "$network\n" >> $HOME/.local/share/networks
 
 		iwctl station $seldevice connect $network -P $PASSPHRASE || connect_pass
-		if [ -e "/usr/bin/notify-send" ]; then
+		if [ -e "$BINDIR/notify-send" ]; then
 				notify-send "Connected to $network!"
 		fi
 		exit 0
@@ -46,7 +48,7 @@ connectwifi() {
 
   connect_no_pass() {
 		iwctl station $seldevice connect $network || exit 0
-		if [ -e "/usr/bin/notify-send" ]; then
+		if [ -e "$BINDIR/notify-send" ]; then
 				notify-send "Connected to $network!"
 		fi
 		exit 0

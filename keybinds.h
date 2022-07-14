@@ -33,7 +33,6 @@ static Key keys[] = {
 	{ ControlMask|MODKEY,           XK_Tab,        spawn,                SHCMD("dwm-utils -layout") },
 	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-help -a") },
 	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
-    { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
 	{ ControlMask|MODKEY,           XK_u,          spawn,                SHCMD(TERMINAL RSS) },
     { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },
 	{ ControlMask|MODKEY,           XK_1,          spawn,                SHCMD(VOL_MUTE) },

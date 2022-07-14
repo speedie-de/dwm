@@ -7,6 +7,8 @@ case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
+BINDIR=$(cat /usr/share/dwm-bindir)
+
 EMOJILIST()
 {
 printf "🙂 Slightly smiling face

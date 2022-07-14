@@ -8,6 +8,8 @@ case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
+BINDIR=$(cat /usr/share/dwm-bindir)
+
 if [ "$1" = "-t" ]; then
 		sleep $2 && maim -suB > /tmp/screenshot-$DATE || exit 0
 fi
@@ -38,20 +40,20 @@ fi
 
 # Send notification for URL
 SENDNOTIF_URL() {
-  if [ -e "/usr/bin/notify-send" ]; then
+  if [ -e "$BINDIR/notify-send" ]; then
 		notify-send "Screenshot copied to clipboard."
   fi
 }
 
 # Send notifcation for local image save
 SENDNOTIF_SAVE() {
-  if [ -e "/usr/bin/notify-send" ]; then
+  if [ -e "$BINDIR/notify-send" ]; then
 		notify-send "Screenshot saved to $SAVEDIR."
   fi
 }
 
 SENDNOTIF_IMG() {
-  if [ -e "/usr/bin/notify-send" ]; then
+  if [ -e "$BINDIR/notify-send" ]; then
 		notify-send "Screenshot copied to clipboard."
   fi
 }
