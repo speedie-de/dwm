@@ -1,6 +1,6 @@
 /* Signal definitions
  * Signum must be greater than 0
- * Trigger signals using `xsetroot -name "fsignal:<signum>"` 
+ * Trigger signals using `dwm-utils -exec <signum>"` 
  * 
  * Once you're done with your edits, run 'make clean install'. */
 static Signal signals[] = {

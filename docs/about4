@@ -4,7 +4,7 @@ Thanks to the 'fsignal' patch available on suckless.org's website, we can easily
 This is exactly what I did and dwmutils, swal, dwmshutdown and more take advantage of it.
 
 In order to use 'fsignal', your system must have 'xsetroot' installed.
-Then you can simply run or add "xsetroot -name 'fsignal:<signum>'" to your script.
+Then simply use the dwm-utils script. Syntax is dwm-utils -exec <signum>
 
 Below is a list of all signums and what they do.
 
