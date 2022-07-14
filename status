@@ -79,6 +79,7 @@ ITEM3() {
 }
 
 ITEM4() {
+  MUTED=false
   if [ -e "/usr/bin/pulsemixer" ]; then
 		echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
 		test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
