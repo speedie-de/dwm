@@ -1,5 +1,7 @@
 #!/bin/sh
 # dwmutils
+# Because controlling dwm using your terminal is based.
+#
 # Written for speedie's dwm
 # You can find it here: https://github.com/speedie-de/dwm
 # Licensed under GNU GPLv3.
@@ -8,34 +10,37 @@ case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu # Run launcher to use (dmenu, rofi, etc.) ;;
 esac
 
-BINDIR=$(cat /usr/share/dwm-bindir)
+VARS() {
+  BINDIR=$(cat /usr/share/dwm-bindir)
+  
+  SIGNAL_1=1         # Layout: Tiling
+  SIGNAL_2=2         # Layout: Floating
+  SIGNAL_3=3         # Layout: Monocle
+  SIGNAL_4=4         # Layout: Grid
+  SIGNAL_5=5         # Layout: Deck
+  SIGNAL_6=6         # Layout: Centered Master
+  SIGNAL_7=7         # Layout: Centered Floating Master
+  SIGNAL_8=8         # Layout: Fibonacci Spiral
+  SIGNAL_9=9         # Layout: Fibonacci Dwindle
+  SIGNAL_10=10       # Layout: Three Column
+  SIGNAL_11=11       # Layout: Bottom Stack Vertical
+  SIGNAL_12=12       # Layout: Bottom Stack Horizontal
+  SIGNAL_13=13       # Layout: Horizontal Grid
+  SIGNAL_14=14       # Layout: Tatami
+  SIGNAL_15=15       # Layout: Unused
+  SIGNAL_16=16       # Layout: Previous
+  SIGNAL_17=17       # Layout: Next
+  SIGNAL_18=18       # General: Reload resources (xrdb)
+  SIGNAL_19=19       # General: Set mfact (-0.05)
+  SIGNAL_20=20       # General: Set mfact (+0.05)
+  SIGNAL_21=21       # General: Toggle Scratchpad
+  SIGNAL_22=22       # General: Toggle Sticky
+  SIGNAL_23=23       # General: Toggle Bar
+  SIGNAL_24=24       # General: Toggle Fullscreen
+  SIGNAL_25=25       # General: Restart dwm
+}
 
-SIGNAL_1=1         # Layout: Tiling
-SIGNAL_2=2         # Layout: Floating
-SIGNAL_3=3         # Layout: Monocle
-SIGNAL_4=4         # Layout: Grid
-SIGNAL_5=5         # Layout: Deck
-SIGNAL_6=6         # Layout: Centered Master
-SIGNAL_7=7         # Layout: Centered Floating Master
-SIGNAL_8=8         # Layout: Fibonacci Spiral
-SIGNAL_9=9         # Layout: Fibonacci Dwindle
-SIGNAL_10=10       # Layout: Three Column
-SIGNAL_11=11       # Layout: Bottom Stack Vertical
-SIGNAL_12=12       # Layout: Bottom Stack Horizontal
-SIGNAL_13=13       # Layout: Horizontal Grid
-SIGNAL_14=14       # Layout: Tatami
-SIGNAL_15=15       # Layout: Unused
-SIGNAL_16=16       # Layout: Previous
-SIGNAL_17=17       # Layout: Next
-
-SIGNAL_18=18       # General: Reload resources (xrdb)
-SIGNAL_19=19       # General: Set mfact (-0.05)
-SIGNAL_20=20       # General: Set mfact (+0.05)
-SIGNAL_21=21       # General: Toggle Scratchpad
-SIGNAL_22=22       # General: Toggle Sticky
-SIGNAL_23=23       # General: Toggle Bar
-SIGNAL_24=24       # General: Toggle Fullscreen
-SIGNAL_25=25       # General: Restart dwm
+VARS
 
 GENERAL() {
 GENERALOPTS=$(printf "mfact +\nmfact -\nToggle Scratchpad\nToggle Sticky\nToggle Bar\nToggle Fullscreen" | $RUNLAUNCHER -l 20 -p 'What do you wanna do?')
@@ -51,24 +56,34 @@ esac
 
 OPT() {
 MENUOPTS=$(printf "Layout\nReload .Xresources\nSpawn\nGeneral\nExit" | $RUNLAUNCHER -l 20 -p 'What do you wanna do?')
+
 case "$MENUOPTS" in
-"Layout") ${0} -layout && exit 0 ;;
+"Layout") ${0} -layout $2 && exit 0 ;;
 "Reload .Xresources") ${0} -reloadxrdb && exit 0 ;;
-"Spawn") ${0} -spawn && exit 0 ;;
-"General") ${0} -general && exit 0 ;;
+"Spawn") ${0} -spawn $2 && exit 0 ;;
+"General") ${0} -general $2 && exit 0 ;;
 "Exit") exit 0 ;;
 esac
 }
 
 HELP() {
-printf "dwmutils allows you to control dwm using your terminal or dmenu/rofi.\n-- Arguments --\n-layout | Let the user select a dwm layout\n-reloadxrdb | Reload .Xresources\n-spawn | Spawn a command through dwm" | $RUNLAUNCHER -p 'dwmutils help' -g 1 -l 20
+  printf "dwmutils allows you to control dwm using your terminal or dmenu/rofi.\n-- Arguments --\n-layout | Let the user select a dwm layout\n-reloadxrdb | Reload .Xresources\n-spawn | Spawn a command through dwm\n-exec | Execute an fsignal signum\n-list | List all available signums\n" > /tmp/dwm-printed-help
+  pgrep -x $RUNLAUNCHER || cat /tmp/dwm-printed-help
+  pgrep -x $RUNLAUNCHER && cat /tmp/dwm-printed-help | $RUNLAUNCHER -p 'dwmutils help' -g 1 -l 20
 }
 
 case "$1" in
 "-layout") SEL_LAYOUT=$(printf "L1: Tiling\nL2: Floating\nL3: Monocle\nL4: Grid\nL5: Deck\nL6: Centered Master\nL7: Centered Floating Master\nL8: Fibonacci Spiral\nL9: Fibonacci Dwindle\nL10: Three Column\nL11: Bottom Stack Vertical\nL12: Bottom Stack Horizontal\nL13: Horizontal Grid\nL14: Tatami\nPrevious Layout\nNext Layout" | $RUNLAUNCHER -l 20 -p "Pick a layout: ") ;;
 "-spawn") printf "Not complete" ;;
+"-list") sed 's|xsetroot -name "fsignal:||g' /usr/share/dwm-fsignal | sed 's|"||g' ;;
 "-reloadxrdb") xsetroot -name "fsignal:$SIGNAL_18" ;;
 "-help") HELP ;;
+"-exec")
+		if [ "$2" = "" ]; then
+				exit 0
+		else
+				xsetroot -name "fsignal:$2"
+		fi ;;
 "-h") HELP ;;
 "-general") GENERAL ;;
 "") OPT ;;
@@ -91,5 +106,5 @@ case "$SEL_LAYOUT" in
 "L13: Horizontal Grid") xsetroot -name "fsignal:$SIGNAL_13" ;;
 "L14: Tatami") xsetroot -name "fsignal:$SIGNAL_14" ;;
 "Previous Layout") xsetroot -name "fsignal:$SIGNAL_16" ;;
-"Next Layout") xsetroot -name "fsignal:$SIGNAL_18" ;;
+"Next Layout") xsetroot -name "fsignal:$SIGNAL_17" ;;
 esac
