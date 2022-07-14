@@ -100,6 +100,7 @@ ResourcePref resources[]                      = {
        { "showbar",              INTEGER, &showbar },
        { "topbar",               INTEGER, &topbar },
        { "nmaster",              INTEGER, &nmaster },
+	   { "rmaster",              INTEGER, &rmaster },
        { "resizehints",          INTEGER, &resizehints },
        { "startontag",           INTEGER, &startontag },
 	   { "gappx",                INTEGER, &gappx },

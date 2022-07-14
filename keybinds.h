@@ -52,6 +52,7 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,           XK_r,          setlayout,            {.v = &layouts[1]} },
 	{ MODKEY|ControlMask,           XK_t,          setlayout,            {.v = &layouts[0]} },
 	{ MODKEY,                       XK_space,      setlayout,            {0} },
+	{ MODKEY,                       XK_r,          togglermaster,        {0} },
 
 	/* Sticky keybinds */
 	{  SMODKEY|MODKEY,              XK_s,          togglesticky,         {0} },

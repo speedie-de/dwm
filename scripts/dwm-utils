@@ -38,12 +38,13 @@ VARS() {
   SIGNAL_23=23       # General: Toggle Bar
   SIGNAL_24=24       # General: Toggle Fullscreen
   SIGNAL_25=25       # General: Restart dwm
+  SIGNAL_26=26       # General: Toggle rmaster
 }
 
 VARS
 
 GENERAL() {
-GENERALOPTS=$(printf "mfact +\nmfact -\nToggle Scratchpad\nToggle Sticky\nToggle Bar\nToggle Fullscreen" | $RUNLAUNCHER -l 20 -p 'What do you wanna do?')
+GENERALOPTS=$(printf "mfact +\nmfact -\nToggle Scratchpad\nToggle Sticky\nToggle Bar\nToggle Fullscreen\nToggle rmaster" | $RUNLAUNCHER -l 20 -p 'What do you wanna do?')
 case "$GENERALOPTS" in
 "mfact +") xsetroot -name "fsignal:$SIGNAL_20" ;;
 "mfact -") xsetroot -name "fsignal:$SIGNAL_19" ;;
@@ -51,6 +52,7 @@ case "$GENERALOPTS" in
 "Toggle Sticky") xsetroot -name "fsignal:$SIGNAL_22" ;;
 "Toggle Bar") xsetroot -name "fsignal:$SIGNAL_23" ;;
 "Toggle Fullscreen") xsetroot -name "fsignal:$SIGNAL_24" ;;
+"Toggle rmaster") xsetroot -name "fsignal:$SIGNAL_26" ;;
 esac
 }
 

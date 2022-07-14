@@ -30,4 +30,5 @@ static Signal signals[] = {
 	{ 23,           togglebar,      {0} },
 	{ 24,           togglefullscr,  {0} },
 	{ 25,           self_restart,   {0} },
+    { 26,           togglermaster,  {0} },
 };

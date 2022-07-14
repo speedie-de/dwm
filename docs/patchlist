@@ -47,3 +47,4 @@
   - dwm-status2d              | This patch allows you to draw stuff (and colored text) on your status bar.
   - dwm-swap-save-restore     | This patch extends status2d.
   - dwm-statusallmons         | This patch makes dwm print the status bar on all monitors
+  - dwm.rmaster               | This patch adds an option to have the master area on the right
