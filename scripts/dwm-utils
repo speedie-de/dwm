@@ -27,7 +27,7 @@ VARS() {
   SIGNAL_12=12       # Layout: Bottom Stack Horizontal
   SIGNAL_13=13       # Layout: Horizontal Grid
   SIGNAL_14=14       # Layout: Tatami
-  SIGNAL_15=15       # Layout: Unused
+  SIGNAL_15=15       # Layout: Tilewide
   SIGNAL_16=16       # Layout: Previous
   SIGNAL_17=17       # Layout: Next
   SIGNAL_18=18       # General: Reload resources (xrdb)
@@ -75,7 +75,7 @@ HELP() {
 }
 
 case "$1" in
-"-layout") SEL_LAYOUT=$(printf "L1: Tiling\nL2: Floating\nL3: Monocle\nL4: Grid\nL5: Deck\nL6: Centered Master\nL7: Centered Floating Master\nL8: Fibonacci Spiral\nL9: Fibonacci Dwindle\nL10: Three Column\nL11: Bottom Stack Vertical\nL12: Bottom Stack Horizontal\nL13: Horizontal Grid\nL14: Tatami\nPrevious Layout\nNext Layout" | $RUNLAUNCHER -l 20 -p "Pick a layout: ") ;;
+"-layout") SEL_LAYOUT=$(printf "L1: Tiling\nL2: Floating\nL3: Monocle\nL4: Grid\nL5: Deck\nL6: Centered Master\nL7: Centered Floating Master\nL8: Fibonacci Spiral\nL9: Fibonacci Dwindle\nL10: Three Column\nL11: Bottom Stack Vertical\nL12: Bottom Stack Horizontal\nL13: Horizontal Grid\nL14: Tatami\nL15: Tilewide\nPrevious Layout\nNext Layout" | $RUNLAUNCHER -l 20 -p "Pick a layout: ") ;;
 "-spawn") printf "Not complete" ;;
 "-list") sed 's|xsetroot -name "fsignal:||g' /usr/share/dwm-fsignal | sed 's|"||g' ;;
 "-reloadxrdb") xsetroot -name "fsignal:$SIGNAL_18" ;;
@@ -107,6 +107,7 @@ case "$SEL_LAYOUT" in
 "L12: Bottom Stack Horizontal") xsetroot -name "fsignal:$SIGNAL_12" ;;
 "L13: Horizontal Grid") xsetroot -name "fsignal:$SIGNAL_13" ;;
 "L14: Tatami") xsetroot -name "fsignal:$SIGNAL_14" ;;
+"L15: Tilewide") xsetroot -name "fsignal:$SIGNAL_15" ;;
 "Previous Layout") xsetroot -name "fsignal:$SIGNAL_16" ;;
 "Next Layout") xsetroot -name "fsignal:$SIGNAL_17" ;;
 esac

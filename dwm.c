@@ -197,6 +197,7 @@ typedef struct {
 static void applyrules(Client *c);
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
+static void tilewide(Monitor *m);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void spawnscratch(const Arg *arg);
 static void inplacerotate(const Arg *arg);

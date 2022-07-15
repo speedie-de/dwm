@@ -36,6 +36,7 @@ This fork of dwm comes with the following layouts:
   - Horizontal Bottom Stack
   - Horizonal Grid
   - Tatami
+  - Tilewide
 
 They can be switched between using a little menu (See Keybinds for more information)
 The more commonly used layouts can be switched between using a quick keybind.
