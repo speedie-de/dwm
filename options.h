@@ -83,6 +83,11 @@ static int topbar                             = 1; /* Should the bar be on the t
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
 
+/* Layout options */
+static unsigned int stairpx                   = 20; /* depth of the stairs layout */
+static int stairdirection                     = 1; /* 0: left-aligned, 1: right-aligned */
+static int stairsamesize                      = 1; /* 1 means shrink all the staired windows to the same size */
+
 /* Bar colors */
 static char col_background[]                  = "#222222"; /* dwm dark bg & slstatus bg */
 static char col_backgroundmid[]               = "#005577"; /* dwm middle background */
@@ -146,5 +151,5 @@ static const char *tags[]                     = { "1", "2", "3", "4", "5", "6", 
 static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
 
 /* Icon misc */
-static XPoint stickyicon[]    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
-static XPoint stickyiconbb    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
+static XPoint stickyicon[]                    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
+static XPoint stickyiconbb                    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */

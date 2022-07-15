@@ -198,6 +198,7 @@ static void applyrules(Client *c);
 static void centeredmaster(Monitor *m);
 static void centeredfloatingmaster(Monitor *m);
 static void tilewide(Monitor *m);
+static void stairs(Monitor *m);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void spawnscratch(const Arg *arg);
 static void inplacerotate(const Arg *arg);
@@ -381,8 +382,8 @@ static xcb_connection_t *xcon;
 
 /* configuration, allows nested code to access above variables */
 #include <X11/XF86keysym.h> /* Enable multimedia button support */
-#include "layouts.c" /* Enable patched layouts */
 #include "options.h" /* Include options */
+#include "layouts.c" /* Enable patched layouts */
 #include "autostart.h" /* Add autostart support */
 #include "colors.h" /* Include colors */
 #include "rules.h" /* Include rules */

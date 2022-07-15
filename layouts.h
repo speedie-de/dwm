@@ -20,5 +20,6 @@ static const Layout layouts[]                 = {
 	{ "| (L12)",         horizgrid },
 	{ "| (L13)",         tatami },
 	{ "| (L14)",	     tilewide },
+	{ "| (L15)",         stairs },
 	{ NULL,              NULL },
 };
