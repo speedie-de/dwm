@@ -59,3 +59,4 @@
   - dwm.decorhints:           1
   - dwm.vertpad:              0
   - dwm.sidepad:              0  
+  - dwm.barheight:            0

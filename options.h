@@ -62,7 +62,7 @@ static int decorhints                         = 1; /* Respect decoration hints *
 static int swallowfloating                    = 0; /* Swallow floating windows by default */
 
 /* Font options */
-static char font[]                            = { "Terminus:size=8" }; /* What font should we use? */
+static char font[]                            = { "Fantasque Sans Mono:size=8:antialiasing=true" }; /* What font should we use? */
 static char font2[]                           = { "JoyPixels:size=8" }; /* Second font */
 static char font3[]                           = { "Siji:size=8" }; /* Third font */
 static const char *fonts[]                    = { font, font2, font3 };
@@ -78,6 +78,7 @@ static int sizeicon                           = 10; /* size of the icon */
 static int spacingicon                        = 5; /* spacing between the title and icon */
 
 /* Bar options */
+static int barheight                          = 5; /* Bar height in px, 0 = default behaviour */
 static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
 static int vertpad                            = 0; /* How much padding to have vertically */
