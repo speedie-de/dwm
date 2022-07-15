@@ -32,4 +32,5 @@ static Signal signals[] = {
 	{ 25,           self_restart,   {0} },
     { 26,           togglermaster,  {0} },
 	{ 27,           setlayout,      {.v = &layouts[15]} },
+	{ 28,           resetlayout,    {0} },
 };
