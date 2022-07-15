@@ -109,6 +109,7 @@ ResourcePref resources[]                      = {
        { "swallowfloating",      INTEGER, &swallowfloating },
 	   { "vertpad",              INTEGER, &vertpad },
 	   { "sidepad",              INTEGER, &sidepad },
+	   { "barheight",            INTEGER, &barheight },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };
