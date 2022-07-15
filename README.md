@@ -36,6 +36,8 @@ This fork of dwm comes with the following layouts:
   - Horizontal Bottom Stack
   - Horizonal Grid
   - Tatami
+  - Tilewide
+  - Stairs
 
 They can be switched between using a little menu (See Keybinds for more information)
 The more commonly used layouts can be switched between using a quick keybind.
@@ -91,6 +93,11 @@ My build of dwm has been patched with the following patches:
   - dwm-status2d              | This patch allows you to draw stuff (and colored text) on your status bar.
   - dwm-swap-save-restore     | This patch extends status2d.
   - dwm-statusallmons         | This patch makes dwm print the status bar on all monitors
+  - dwm-rmaster               | This patch adds an option to have the master area on the right
+  - dwm-tilewide              | This patch adds a tilewide layout (14)
+  - dwm-stickyindicator       | Adds an indicator if your window is sticky.
+  - dwm-stairs                | This patch adds a stair layout (15)
+  - dwm-resetlayout           | This patch adds a keybind to reset layout and mfact
 
 ## Keybinds
 Below is a list of all dwm keybinds.
@@ -115,6 +122,7 @@ Below is a list of all dwm keybinds.
 
   ### Nagigation
   These keybinds are for navigating dwm
+  - Super+r                   |  Toggle master on the left/right
   - Super+f                   |  Full-screen the selected window
   - Super+b                   |  Show/hide the dwm bar
   - Super+j/k                 |  Move focus between windows
@@ -150,7 +158,6 @@ Below is a list of all dwm keybinds.
   - Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
   - Super+Control+h           |  Open a list of all keybinds in your terminal using less
   - Super+Control+Shift+a/d   |  Move between available layouts
-  - Super+Control+Shift+Tab   |  Read .Xresources again without reloading dwm
   - Super+Alt+s               |  Make the current selected window sticky
   - Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
   - Super+Control+Shift+Arrow |  Resize the window to the screen size.
@@ -254,6 +261,7 @@ If it is not or you want it somewhere else, you can edit 'autostart.h' and 'make
 Note that the 'xrdb' dependency is required for both pywal and .Xresources support and 'xsetroot' is required for automatic reloading of colors.
 
   - dwm.nmaster:              1
+  - dwm.rmaster:              1
   - dwm.font:                 Terminus:size=8
   - dwm.font2:                JoyPixels:size=8
   - dwm.font3:                Siji:size=8
@@ -319,7 +327,7 @@ Thanks to the 'fsignal' patch available on suckless.org's website, we can easily
 This is exactly what I did and dwmutils, swal, dwmshutdown and more take advantage of it.
 
 In order to use 'fsignal', your system must have 'xsetroot' installed.
-Then you can simply run or add "xsetroot -name 'fsignal:<signum>'" to your script.
+Then simply use the dwm-utils script. Syntax is dwm-utils -exec <signum>
 
 Below is a list of all signums and what they do.
 
@@ -348,7 +356,9 @@ Below is a list of all signums and what they do.
   - xsetroot -name "fsignal:23" | Toggle Bar
   - xsetroot -name "fsignal:24" | Toggle Fullscreen
   - xsetroot -name "fsignal:25" | Restart dwm keeping all your applications open.
-
+  - xsetroot -name "fsignal:26" | Toggle right master
+  - xsetroot -name "fsignal:27" | Switch to the Stairs layout
+  - xsetroot -name "fsignal:28" | Reset layout and mfact
 ## Switching run launcher
 Some users may prefer to use a different run launcher than dmenu.
 Previously all scripts bundled would only run dmenu from $PATH but you can now switch run launcher very easily.
