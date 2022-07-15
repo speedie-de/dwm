@@ -1707,14 +1707,14 @@ maprequest(XEvent *e)
 void
 monocle(Monitor *m)
 {
-	unsigned int n = 0;
+	//unsigned int n = 0;
 	Client *c;
 
-	for (c = m->clients; c; c = c->next)
-		if (ISVISIBLE(c))
-			n++;
-	if (n > 0) /* override layout symbol */
-		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
+	//for (c = m->clients; c; c = c->next)
+	//	if (ISVISIBLE(c))
+	//		n++;
+	//if (n > 0) /* override layout symbol */
+	//	snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = m->stack; c && (!ISVISIBLE(c) || c->isfloating); c = c->snext);
 	if (c && !c->isfloating) {
 		XMoveWindow(dpy, c->win, m->wx, m->wy);

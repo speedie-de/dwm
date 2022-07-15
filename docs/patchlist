@@ -52,3 +52,4 @@
   - dwm-stickyindicator       | Adds an indicator if your window is sticky.
   - dwm-stairs                | This patch adds a stair layout (15)
   - dwm-resetlayout           | This patch adds a keybind to reset layout and mfact
+  - dwm-monoclesymbol         | This patch always displays the monocle symbol instead of open clients
