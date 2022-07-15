@@ -49,3 +49,4 @@
   - dwm-statusallmons         | This patch makes dwm print the status bar on all monitors
   - dwm-rmaster               | This patch adds an option to have the master area on the right
   - dwm-tilewide              | This patch adds a tilewide layout (15)
+  - dwm-stickyindicator       | Adds an indicator if your window is sticky.
