@@ -11,6 +11,7 @@ SWAL_DEFAULT_CONFIG()
   SWAL_BINDIR=$BINDIR
   SWAL_EXPORTDIR=$HOME/.config/swal
   SWAL_FSIGNAL_RELOAD_XRESOURCES=18
+  SWAL_IMAGE_VIEWER=sxiv
 }
 
 SWAL_MKCONFIG() {
@@ -22,6 +23,7 @@ SWAL_MKCONFIG() {
   printf "\n#SWAL_OPT=$SWAL_OPT" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_BINDIR=$SWAL_BINDIR" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_EXPORTDIR=$SWAL_EXPORTDIR" >> $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_IMAGE_VIEWER=$SWAL_IMAGE_VIEWER" >> $SWAL_EXPORTDIR/config
 }
 
 BINDIR=$(cat /usr/share/dwm-bindir)
@@ -35,6 +37,8 @@ SWAL_SOURCE()
 
 SWAL_CHECK()
 {
+  ls "$SWAL_BINDIR/feh" && SWAL_IMAGE_VIEWER=feh
+  ls "$SWAL_BINDIR/sxiv" && SWAL_IMAGE_VIEWER=sxiv
   ls "$SWAL_BINDIR/xwallpaper" || SWAL_DIE
 }
 
@@ -88,14 +92,15 @@ SWAL_SETTYPE()
   #test "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" || notify-send "Selected wallpaper does not exist."; $0 && exit 0
   # had to comment because this will not work for some reason im not able to figure out
 
-  SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch" | $RUNLAUNCHER -p "How do you want to set the wallpaper?" -g 1 -l 4)
+  SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch\nPreview" | $RUNLAUNCHER -p "How do you want to set the wallpaper?" -g 1 -l 5)
   
   case "$SWAL_TYPE" in
   "Center") SWAL_TYPE=center ;;
   "Tile") SWAL_TYPE=tile ;;
   "Zoom") SWAL_TYPE=zoom ;;
   "Stretch") SWAL_TYPE=stretch ;;
-  "") $0 && exit 0 ;;
+  "Preview") $SWAL_IMAGE_VIEWER "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && exit 0 ;;
+  "") exit 0 ;;
   esac
 
   SWAL_TYPE="--$SWAL_TYPE"
