@@ -60,6 +60,7 @@ static int resizehints                        = 0;
 static int startontag                         = 1; /* Start on a tag or not? 1 = yes, 0 = no */
 static int decorhints                         = 1; /* Respect decoration hints */
 static int swallowfloating                    = 0; /* Swallow floating windows by default */
+static int centerfloating                     = 1; /* Center floating windows by default */
 
 /* Font options */
 static char font[]                            = { "NotoSans-Regular:size=8:antialiasing=true" }; /* What font should we use? */

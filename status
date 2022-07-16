@@ -65,6 +65,8 @@ SETCOLORS_WAL() {
   USINGWAL=true
 }
 
+MUTED=false
+
 
 ITEM1() {
   echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
@@ -79,7 +81,6 @@ ITEM3() {
 }
 
 ITEM4() {
-  MUTED=false
   if [ -e "/usr/bin/pulsemixer" ]; then
 		echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
 		test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
