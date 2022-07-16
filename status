@@ -98,7 +98,7 @@ ITEM4() {
 }
 
 ITEM5() {
-  echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+  ip link | grep "state UP" > /dev/null && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
 }
 
 ITEM6() {
