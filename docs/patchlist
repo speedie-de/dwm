@@ -35,7 +35,7 @@
   - dwm-threecolumn           | Adds a three column layout to dwm.
   - dwm-bottomstack           | Adds a bottom stack layout to dwm.
   - dwm-horizgrid             | Adds a horizontal grid layout to dwm.
-  - dwm-alwayscenter          | Always center floating windows.
+  - dwm-alwayscenter          | Always center floating windows. (Slightly modified to add alwayscenter int)
   - dwm-rulerefresher         | Refresh rules if window title/class changes.
   - dwm-alpha-monocle         | Alpha for monocle layout.
   - dwm-tatami                | Adds a tatami layout to dwm.
