@@ -57,7 +57,7 @@ SWAL_HELP() {
 SWAL_SELWALLPAPER()
 {
   case "$NEW1" in
-  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\nChange Wallpaper Directory\n.." | $RUNLAUNCHER -g 1 -l 90 -p "What wallpaper would you like to set?" -l 20)" ;;
+  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\nChange Wallpaper Directory\nPreview\n.." | $RUNLAUNCHER -g 1 -l 100 -p "What wallpaper would you like to set?" -l 20)" ;;
   "-w") SWAL_SELWALLPAPER="$(basename "$NEW2")" && touch /tmp/swal_cpath ;;
   "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
   "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES="$NEW2" ;;
@@ -81,6 +81,7 @@ SWAL_SETTYPE()
   case "$SWAL_SELWALLPAPER" in
   "Change Wallpaper Directory") SWAL_MKCONFIG && $0 $1 $2 $3 && exit 0 ;;
   "") exit 0 ;;
+  "Preview") $SWAL_IMAGE_VIEWER * && exit 0 ;;
   "..") cd "$SWAL_WALLPAPERDIR/.." && SWAL_WALLPAPERDIR="$(pwd)" && SWAL_SELWALLPAPER && SET && exit 0 ;;
   esac
 
