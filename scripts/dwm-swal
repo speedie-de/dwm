@@ -115,16 +115,16 @@ SWAL_SETWALLPAPER()
 
 SWAL_EXPORT_SCRIPT()
 {
-  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER""" > $SWAL_EXPORTDIR/swal_wm
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""" > $SWAL_EXPORTDIR/swal_wm
   chmod +x $SWAL_EXPORTDIR/swal_wm
   rm -f ~/.config/swal/CurrentWallpaper && ln -s "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ~/.config/swal/CurrentWallpaper
 }
 
 SWAL_EXPORT_SCRIPT_WAL()
 {
-  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER""\nwal -i ""$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER""\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES'" > $SWAL_EXPORTDIR/swal_wm
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""\nwal -i ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES'" > $SWAL_EXPORTDIR/swal_wm
   chmod +x $SWAL_EXPORTDIR/swal_wm
-  wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
+  wal -i "'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ~/.config/swal/CurrentWallpaper
   ${RUNLAUNCHER}_run -r
   pgrep -x status && pkill status && status &
