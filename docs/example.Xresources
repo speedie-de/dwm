@@ -1,6 +1,6 @@
   - dwm.nmaster:              1
   - dwm.rmaster:              1
-  - dwm.font:                 Terminus:size=8
+  - dwm.font:                 NotoSans-Regular:size=8
   - dwm.font2:                JoyPixels:size=8
   - dwm.font3:                Siji:size=8
   - dwm.col_background:       #222222
