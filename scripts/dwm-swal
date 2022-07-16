@@ -85,6 +85,8 @@ SWAL_SETTYPE()
 		cd $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER && SWAL_WALLPAPERDIR=$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER && SWAL_SELWALLPAPER && SET && exit 0
   fi
 
+  ls $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER || notify-send "Selected wallpaper does not exist."; $0 && exit 0
+
   SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch" | $RUNLAUNCHER -p "How should we set it?" -g 1 -l 4)
   
   case "$SWAL_TYPE" in
