@@ -62,3 +62,4 @@
   - dwm.barheight:            0
   - dwm.centerfloating:       1
   - dwm.firstwindowsize:      0
+  - dwm.savefloat:            1

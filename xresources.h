@@ -112,6 +112,7 @@ ResourcePref resources[]                      = {
 	   { "barheight",            INTEGER, &barheight },
 	   { "centerfloating",       INTEGER, &centerfloating },
 	   { "firstwindowsize",      INTEGER, &firstwindowsize },
+	   { "savefloat",			 INTEGER, &savefloat },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };

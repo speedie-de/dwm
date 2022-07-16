@@ -54,3 +54,4 @@
   - dwm-resetlayout           | This patch adds a keybind to reset layout and mfact
   - dwm-monoclesymbol         | This patch always displays the monocle symbol instead of open clients
   - dwm-barheight             | This patch adds in customizable bar height
+  - dwm-savefloats            | This patch saves the position of floating windows and restores them (Modified to add a toggle)
