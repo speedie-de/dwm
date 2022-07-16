@@ -63,3 +63,4 @@
   - dwm.centerfloating:       1
   - dwm.firstwindowsize:      0
   - dwm.savefloat:            1
+  - dwm.warpcursor:           1

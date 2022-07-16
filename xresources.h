@@ -113,6 +113,7 @@ ResourcePref resources[]                      = {
 	   { "centerfloating",       INTEGER, &centerfloating },
 	   { "firstwindowsize",      INTEGER, &firstwindowsize },
 	   { "savefloat",			 INTEGER, &savefloat },
+	   { "warpcursor",			 INTEGER, &warpcursor },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };

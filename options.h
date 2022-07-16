@@ -71,10 +71,12 @@ static char font3[]                           = { "Siji:size=8" }; /* Third font
 static const char *fonts[]                    = { font, font2, font3 };
 
 /* Misc */
+
 static char shell[]                           = "/bin/sh"; /* shell to use */ 
 static char status[]                          = "status"; /* status bar to use, dwmblocks for dwmblocks, slstatus for slstatus, etc. */
-static int lockfullscreen                     = 1;
 static char *scratchpadcmd[]                  = {"s", TERMINAL, "-t", "scratchpad", NULL};
+static int lockfullscreen                     = 1;
+static int warpcursor                         = 1; /* Warp cursor when switching client/monitor */
 
 /* Icon options */
 static int sizeicon                           = 10; /* size of the icon */
