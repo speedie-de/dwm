@@ -124,6 +124,7 @@ SWAL_EXPORT_SCRIPT_WAL()
   wal -i "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s $SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER ~/.config/swal/CurrentWallpaper
   ${RUNLAUNCHER}_run -r
+  pgrep -x status && pkill status && status &
   dwm_run -r
 }
 
@@ -131,6 +132,10 @@ SWAL_XRESOURCES()
 {
   xrdb -query | grep "swal" | sed "s|: |=|" | sed "s|swal.|swal_|" > /tmp/swal
   . /tmp/swal
+}
+
+SWAL_SENDNOTIFICATION() {
+  test /usr/bin/notify-send && notify-send "$SWAL_SELWALLPAPER set as wallpaper in $(echo $SWAL_TYPE | sed "s|--||g") mode."
 }
 
 # Arguments
@@ -158,6 +163,8 @@ SET() {
   "No") SWAL_EXPORT_SCRIPT || SWAL_DIE ;;
   "") exit 0 ;;
   esac
+
+  SWAL_SENDNOTIFICATION
 }
 
 SET
