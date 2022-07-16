@@ -12,6 +12,7 @@ SWAL_DEFAULT_CONFIG()
   SWAL_EXPORTDIR=$HOME/.config/swal
   SWAL_FSIGNAL_RELOAD_XRESOURCES=18
   SWAL_IMAGE_VIEWER=sxiv
+  SWAL_ASK_WAL=false
 }
 
 SWAL_MKCONFIG() {
@@ -24,6 +25,7 @@ SWAL_MKCONFIG() {
   printf "\n#SWAL_BINDIR=$SWAL_BINDIR" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_EXPORTDIR=$SWAL_EXPORTDIR" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_IMAGE_VIEWER=$SWAL_IMAGE_VIEWER" >> $SWAL_EXPORTDIR/config
+  printf "\n#SWAL_ASK_WAL=$SWAL_ASK_WAL" >> $SWAL_EXPORTDIR/config
 }
 
 BINDIR=$(cat /usr/share/dwm-bindir)
@@ -106,7 +108,11 @@ SWAL_SETTYPE()
 
   SWAL_TYPE="--$SWAL_TYPE"
   SWAL_WAL_STATUS="0"
-  wal -v && SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Pywal?" -l 2) && SWAL_WAL_STATUS="1"
+
+  case "$SWAL_ASK_WAL" in
+  "true") wal -v && SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Pywal?" -l 2) && SWAL_WAL_STATUS="1" ;;
+  "false") wal -v && xrdb -query | grep color66 > /dev/null && SWAL_USE_WAL="Yes" && SWAL_WAL_STATUS="1" ;;
+  esac
 
   # Don't perform pywal actions if not installed/used
   if [ "$SWAL_WAL_STATUS" = "0" ]; then
