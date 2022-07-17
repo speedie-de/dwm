@@ -64,8 +64,8 @@
   -- Extras --
   These will only work if your keyboard has special multimedia buttons.
   - Mute button               |  Mutes your audio
-  - + Volume button           |  Increases your volume
-  - - Volume button           |  Decreases your volume
+  - Up Volume button          |  Increases your volume
+  - Down Volume button        |  Decreases your volume
   - Stop button               |  Stops your defined music player
   - Browser button            |  Opens your defined web browser
   - Power button              |  Ask if you wanna shut down, restart or lock your computer.
