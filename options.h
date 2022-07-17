@@ -65,8 +65,8 @@ static int firstwindowsize                    = 0; /* Size of first centered win
 static int savefloat                          = 1; /* Save position of floating windows */
 
 /* Font options */
-static char font[]                            = { "NotoSans-Regular:size=8:antialiasing=true" }; /* What font should we use? */
-static char font2[]                           = { "JoyPixels:size=8" }; /* Second font */
+static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */
+static char font2[]                           = { "NotoSans-Regular:size=8:antialiasing=true" }; /* Second font */
 static char font3[]                           = { "Siji:size=8" }; /* Third font */
 static const char *fonts[]                    = { font, font2, font3 };
 
