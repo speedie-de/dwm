@@ -26,4 +26,5 @@
   - xsetroot -name "fsignal:26" | Toggle right master
   - xsetroot -name "fsignal:27" | Switch to the Stairs layout
   - xsetroot -name "fsignal:28" | Reset layout and mfact
+  - xsetroot -name "fsignal:29" | Reorganize tags
 

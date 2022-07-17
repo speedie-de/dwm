@@ -19,6 +19,7 @@
   -- Navigation --
   These keybinds are for navigating dwm
   - Super+r                   |  Toggle master on the left/right
+  - Super+t                   |  Reorganize tags and move clients
   - Super+f                   |  Full-screen the selected window
   - Super+b                   |  Show/hide the dwm bar
   - Super+j/k                 |  Move focus between windows

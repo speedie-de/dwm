@@ -113,6 +113,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,          6)
 	TAGKEYS(                        XK_8,          7)
 	TAGKEYS(                        XK_9,          8)
+	{ MODKEY,                       XK_t,          reorganizetags, {0} },
 
 	/* Media buttons */
 	{ 0, XF86XK_AudioMute,		    spawn,		                   SHCMD(VOL_MUTE) },

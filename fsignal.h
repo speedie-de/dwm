@@ -33,4 +33,5 @@ static Signal signals[] = {
     { 26,           togglermaster,  {0} },
 	{ 27,           setlayout,      {.v = &layouts[15]} },
 	{ 28,           resetlayout,    {0} },
+	{ 29,           reorganizetags, {0} },
 };
