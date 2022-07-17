@@ -1,7 +1,7 @@
 
 -- Fsignal --
 Thanks to the 'fsignal' patch available on suckless.org's website, we can easily write shell scripts to interact with dwm.
-This is exactly what I did and dwmutils, swal, dwmshutdown and more take advantage of it.
+This is exactly what I did and dwm-utils, dwm-swal, dwm-shutdown and more take advantage of it.
 
 In order to use 'fsignal', your system must have 'xsetroot' installed.
 Then simply use the dwm-utils script. Syntax is dwm-utils -exec <signum>
