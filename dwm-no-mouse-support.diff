@@ -235,8 +235,3 @@ diff -up dwm/dwm.c dwm-patched/dwm.c
 -	}
 -}
 -
--void
- restack(Monitor *m)
- {
- 	Client *c;
-Common subdirectories: dwm/.git and dwm-patched/.git
