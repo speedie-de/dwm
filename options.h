@@ -147,10 +147,6 @@ static char termcol15[]                       = "#ffffff";
 static const unsigned int baralpha            = 0xcc;
 static const unsigned int borderalpha         = 0xcc;
 
-/* dmenu options */
-static char dmenumon[2]                       = "0";
-static const char *dmenucmd[]                 = { NULL };
-
 /* Tag text options */
 static const char *tags[]                     = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]", "[9]" };
