@@ -81,10 +81,12 @@ ITEM3() {
 }
 
 ITEM4() {
+  MUTED=false
   if [ -e "/usr/bin/pulsemixer" ]; then
 		echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
-		test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
-		test /tmp/dwm-audioctrl-mutestatus && grep "Not" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
+		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
+		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
+		test /tmp/dwm-audioctrl-mutestatus || MUTED=false
   else
 		echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
 		MUTED=false
@@ -98,7 +100,7 @@ ITEM4() {
 }
 
 ITEM5() {
-  ip link | grep "state UP" > /dev/null && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+  curl -so /tmp/internet_test wttr.in && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
 }
 
 ITEM6() {
