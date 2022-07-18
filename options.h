@@ -37,6 +37,7 @@
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
 #define CLIPBOARD                             "xclip" /* Clipboard to use */
 #define COMPOSITOR                            "picom" /* Compositor to use */
+#define BLUETOOTH                             "dwm-btctrl" /* Bluetooth manager to use */
 
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
 #define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \

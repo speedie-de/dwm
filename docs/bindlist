@@ -60,6 +60,7 @@
   - Super+Control+Shift+Arrow |  Resize the window to the screen size.
   - Super+Control+Shift+s     |  Set a wallpaper
   - Super+Control+Shift+n     |  Connect to wifi (Requires iwd)
+  - Super+Control+Shift+b     |  Connect to a bluetooth device (Requires bluez and bluez-utils)
   - Alt+Tab                   |  Switch windows quickly and easily 
   
   -- Extras --

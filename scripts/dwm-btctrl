@@ -12,17 +12,23 @@ CHECK() {
 
 CHECK
 
+# Help
+HELP() {
+  printf "\n1. Turn on your device\n2. Make sure the bluetooth service is running. If it is not, start it.\n3. Press the pair button on your device\n4. Select your device in the list of devices. If it does not show up, select 'Refresh'.\n5. Select 'Pair' and then optionally 'Trust' to save it in the list of devices.\n6. And finally, select 'Connect' to connect the device." | $RUNLAUNCHER -l 12 -g 1 -p 'How to use' 
+}
+
 # Enable bluetooth and scan for devices
 ENABLE_BT() {
   bluetoothctl power on > /dev/null && echo "Power: On"
   bluetoothctl scan on & # Start scanning for devices
-  USEROPT_1="$(printf "$(bluetoothctl devices | cut -d\  -f3-)\nRefresh\nExit" | $RUNLAUNCHER -l 12 -g 1 -p "Select a device")"
+  USEROPT_1="$(printf "$(bluetoothctl devices | cut -d\  -f3-)\nRefresh\nHelp\nExit" | $RUNLAUNCHER -l 12 -g 1 -p "Select a device")"
   
   # Check what to do
   case "$USEROPT_1" in
   "") $0 && exit 0 ;;
   "Refresh") ENABLE_BT ;;
   "Exit") exit 0 ;;
+  "Help") HELP && $0 && exit 0 ;;
   esac
 
   SELDEVICE_MAC="$(bluetoothctl devices | grep "$USEROPT_1$" | awk '{ print $2 }')"
@@ -36,61 +42,35 @@ ENABLE_BT() {
 
 ENABLE_BT
 
-# Check status of device
-CHECK_STATUS() {
-  bluetoothctl info $SELDEVICE_MAC | grep "Paired: yes" && PAIRED=Yes
-  bluetoothctl info $SELDEVICE_MAC | grep "Trusted: yes" && TRUSTED=Yes
-  bluetoothctl info $SELDEVICE_MAC | grep "Connected: yes" && CONNECTED=Yes && CONNECTED_LABEL="Disconnect"
-
-  # Set to no if set to nothing
-  if [ "$PAIRED" = "" ]; then
-		PAIRED=No
-  elif [ "$TRUSTED" = "" ]; then
-		TRUSTED=No
-  elif [ "$CONNECTED" = "" ]; then
-		CONNECTED=No
-		CONNECTED_LABEL="Connect"
-  fi
-}
-
-CHECK_STATUS
-
 # List options for the device
 LIST_OPTIONS() {
-  USEROPT_2="$(echo "-- Options --\nConnect\nDisconnect\n-- Toggle --\nPaired: [$PAIRED]\nTrusted: [$TRUSTED]\n--\nExit" | $RUNLAUNCHER -g 1 -l 20 -p "What do you want to do with this device?" | awk '{ print $1 }')"
+  USEROPT_2="$(echo "-- Options --\nConnect\nDisconnect\n-- Toggle --\nPair\nRemove\nTrust\nUntrust\n--\nExit\nHelp" | $RUNLAUNCHER -g 1 -l 20 -p "What do you want to do with this device?" | awk '{ print $1 }')"
 }
 
 LIST_OPTIONS
 
-# Toggle trust
-TOGGLE_TRUST() {
-  if [ "$TRUSTED" = "Yes" ]; then
-		bluetoothctl untrust $SELDEVICE_MAC
-  else
-		bluetoothctl trust $SELDEVICE_MAC
-		TRUSTED=No
-  fi
+# Trust device
+TRUST() {
+  bluetoothctl trust $SELDEVICE_MAC
 }
 
-# Toggle pair
-TOGGLE_PAIR() {
-  if [ "$PAIRED" = "Yes" ]; then
-		bluetoothctl remove $SELDEVICE_MAC
-		bluetoothctl disconnect $SELDEVICE_MAC
-  else
-		bluetoothctl pair $SELDEVICE_MAC
-		PAIRED=No
-  fi
+# Pair device
+PAIR() {
+  bluetoothctl pair $SELDEVICE_MAC
+}
+
+# Remove device
+REMOVE() {
+  bluetoothctl remove $SELDEVICE_MAC
+}
+
+UNTRUST() {
+  bluetoothctl untrust $SELDEVICE_MAC
 }
 
 # Connect
 CONNECT() {
-  if [ "$PAIRED" = "Yes" ]; then
-		bluetoothctl connect $SELDEVICE_MAC
-  else
-		PAIRED=No
-		$0 && exit 0
-  fi
+  bluetoothctl connect $SELDEVICE_MAC
 }
 
 # Disconnect
@@ -111,11 +91,14 @@ NOTIFY_DISCONNECT() {
 # Perform actions as per user choice
 PERFORM() {
   case "$USEROPT_2" in
-  "Trusted:") TOGGLE_TRUST && CHECK_STATUS && LIST_OPTIONS ;;
-  "Paired:") TOGGLE_PAIR && CHECK_STATUS && LIST_OPTIONS ;;
-  "Connect") CONNECT && CHECK_STATUS && LIST_OPTIONS ;;
-  "Disconnect") DISCONNECT && CHECK_STATUS && LIST_OPTIONS ;;
+  "Trust") TRUST && LIST_OPTIONS ;;
+  "Pair") PAIR && LIST_OPTIONS ;;
+  "Connect") CONNECT && NOTIFY_CONNECT && LIST_OPTIONS ;;
+  "Disconnect") DISCONNECT && NOTIFY_DISCONNECT && LIST_OPTIONS ;;
+  "Untrust") UNTRUST && LIST_OPTIONS ;;
+  "Remove") REMOVE && LIST_OPTIONS ;;
   "Exit") exit 0 ;;
+  "Help") HELP ;;
   "") $0 && exit 0 ;;
   esac
 }
