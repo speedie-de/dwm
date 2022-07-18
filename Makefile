@@ -57,6 +57,7 @@ install: all
 	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
 	cp -f scripts/dwm-audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-audioctrl
 	cp -f scripts/dwm-netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-netctrl
+	cp -f scripts/dwm-btctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-btctrl
 	cp -f scripts/dwm_run ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm_run
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/dwm-compatcheck
@@ -76,6 +77,7 @@ uninstall:
 		${DESTDIR}${PREFIX}/bin/dwm-swal \
 		${DESTDIR}${PREFIX}/bin/dwm-help \
 		${DESTDIR}${PREFIX}/bin/dwm-netctrl \
+		${DESTDIR}${PREFIX}/bin/dwm-btctrl \
 		${DESTDIR}${PREFIX}/bin/dwm-screenshotutil \
 		${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard \
 		${DESTDIR}${PREFIX}/bin/pdfopen \

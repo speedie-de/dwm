@@ -1,0 +1,125 @@
+#!/bin/sh
+# dwm-btctrl
+
+# Check stuff
+CHECK() {
+  case "$RUNLAUNCHER" in
+  "") RUNLAUNCHER=dmenu ;;
+  esac
+  
+  BINDIR=$(cat /usr/share/dwm-bindir) # Set binary directory to the contents of this file for NixOS support
+}
+
+CHECK
+
+# Enable bluetooth and scan for devices
+ENABLE_BT() {
+  bluetoothctl power on > /dev/null && echo "Power: On"
+  bluetoothctl scan on & # Start scanning for devices
+  USEROPT_1="$(printf "$(bluetoothctl devices | cut -d\  -f3-)\nRefresh\nExit" | $RUNLAUNCHER -l 12 -g 1 -p "Select a device")"
+  
+  # Check what to do
+  case "$USEROPT_1" in
+  "") $0 && exit 0 ;;
+  "Refresh") ENABLE_BT ;;
+  "Exit") exit 0 ;;
+  esac
+
+  SELDEVICE_MAC="$(bluetoothctl devices | grep "$USEROPT_1$" | awk '{ print $2 }')"
+  echo "$SELDEVICE_MAC"
+
+  # Check if a MAC was grabbed
+  case "$SELDEVICE_MAC" in
+  "") echo "Could not get MAC" && exit 1 ;;
+  esac
+}
+
+ENABLE_BT
+
+# Check status of device
+CHECK_STATUS() {
+  bluetoothctl info $SELDEVICE_MAC | grep "Paired: yes" && PAIRED=Yes
+  bluetoothctl info $SELDEVICE_MAC | grep "Trusted: yes" && TRUSTED=Yes
+  bluetoothctl info $SELDEVICE_MAC | grep "Connected: yes" && CONNECTED=Yes && CONNECTED_LABEL="Disconnect"
+
+  # Set to no if set to nothing
+  if [ "$PAIRED" = "" ]; then
+		PAIRED=No
+  elif [ "$TRUSTED" = "" ]; then
+		TRUSTED=No
+  elif [ "$CONNECTED" = "" ]; then
+		CONNECTED=No
+		CONNECTED_LABEL="Connect"
+  fi
+}
+
+CHECK_STATUS
+
+# List options for the device
+LIST_OPTIONS() {
+  USEROPT_2="$(echo "-- Options --\nConnect\nDisconnect\n-- Toggle --\nPaired: [$PAIRED]\nTrusted: [$TRUSTED]\n--\nExit" | $RUNLAUNCHER -g 1 -l 20 -p "What do you want to do with this device?" | awk '{ print $1 }')"
+}
+
+LIST_OPTIONS
+
+# Toggle trust
+TOGGLE_TRUST() {
+  if [ "$TRUSTED" = "Yes" ]; then
+		bluetoothctl untrust $SELDEVICE_MAC
+  else
+		bluetoothctl trust $SELDEVICE_MAC
+		TRUSTED=No
+  fi
+}
+
+# Toggle pair
+TOGGLE_PAIR() {
+  if [ "$PAIRED" = "Yes" ]; then
+		bluetoothctl remove $SELDEVICE_MAC
+		bluetoothctl disconnect $SELDEVICE_MAC
+  else
+		bluetoothctl pair $SELDEVICE_MAC
+		PAIRED=No
+  fi
+}
+
+# Connect
+CONNECT() {
+  if [ "$PAIRED" = "Yes" ]; then
+		bluetoothctl connect $SELDEVICE_MAC
+  else
+		PAIRED=No
+		$0 && exit 0
+  fi
+}
+
+# Disconnect
+DISCONNECT() {
+  bluetoothctl disconnect $SELDEVICE_MAC
+}
+
+# Notification when connecting
+NOTIFY_CONNECT() {
+  notify-send && notify-send "Connected to $USEROPT_1"
+}
+
+# Notification when disconnecting
+NOTIFY_DISCONNECT() {
+  notify-send "Connected to $USEROPT_1"
+}
+
+# Perform actions as per user choice
+PERFORM() {
+  case "$USEROPT_2" in
+  "Trusted:") TOGGLE_TRUST && CHECK_STATUS && LIST_OPTIONS ;;
+  "Paired:") TOGGLE_PAIR && CHECK_STATUS && LIST_OPTIONS ;;
+  "Connect") CONNECT && CHECK_STATUS && LIST_OPTIONS ;;
+  "Disconnect") DISCONNECT && CHECK_STATUS && LIST_OPTIONS ;;
+  "Exit") exit 0 ;;
+  "") $0 && exit 0 ;;
+  esac
+}
+
+PERFORM
+
+$0 && exit 0
