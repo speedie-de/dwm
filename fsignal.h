@@ -34,4 +34,6 @@ static Signal signals[] = {
 	{ 27,           setlayout,      {.v = &layouts[15]} },
 	{ 28,           resetlayout,    {0} },
 	{ 29,           reorganizetags, {0} },
+	{ 30,           quit,           {1} },
+	{ 31,           quit,           {0} },
 };

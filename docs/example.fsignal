@@ -27,4 +27,5 @@
   - xsetroot -name "fsignal:27" | Switch to the Stairs layout
   - xsetroot -name "fsignal:28" | Reset layout and mfact
   - xsetroot -name "fsignal:29" | Reorganize tags
-
+  - xsetroot -name "fsignal:30" | Restart dwm
+  - xsetroot -name "fsignal:31" | Shutdown dwm

@@ -264,7 +264,7 @@ static void motionnotify(XEvent *e);
 static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
-//static void quit(const Arg *arg);
+static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void resetlayout(const Arg *arg);
 static void reorganizetags(const Arg *arg);
@@ -291,6 +291,8 @@ static void setup(void);
 static void seturgent(Client *c, int urg);
 static void showhide(Client *c);
 static void sigchld(int unused);
+static void sighup(int unused);
+static void sigterm(int unused);
 //static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
 static void tagmon(const Arg *arg);
@@ -367,6 +369,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 };
 static Atom wmatom[WMLast], netatom[NetLast], motifatom;
 static int running = 1;
+static int restart = 0;
 static Cur *cursor[CurLast];
 static Clr **scheme;
 static Clr **tagscheme;
@@ -1977,21 +1980,12 @@ propertynotify(XEvent *e)
 	}
 }
 
-//void
-//quit(const Arg *arg)
-//{
-//  size_t i;
-//
-//  /* kill child processes */
-//  for (i = 0; < autostart_len; i++) {
-//      if (0 < autostart_pids[i]) {
-//	      kill(autostart_pids[i], SIGTERM);
-//	      waitpid(autostart_pids[i], NULL, 0);
-//      }
-//  }
-//
-//   running = 0;
-//}
+void
+quit(const Arg *arg)
+{
+   if(arg->i) restart = 1;
+   running = 0;
+}
 
 Monitor *
 recttomon(int x, int y, int w, int h)
@@ -2399,6 +2393,9 @@ setup(void)
 	/* clean up any zombies immediately */
 	sigchld(0);
 
+	signal(SIGHUP, sighup);
+	signal(SIGTERM, sigterm);
+
 	/* init screen */
 	screen = DefaultScreen(dpy);
 	tw = DisplayWidth(dpy, screen);
@@ -2559,6 +2556,20 @@ sigchld(int unused)
 //
 //	sigqueue(statuspid, SIGRTMIN+statussig, sv);
 //}
+
+void
+sighup(int unused)
+{
+	Arg a = {.i = 1};
+	quit(&a);
+}
+
+void
+sigterm(int unused)
+{
+	Arg a = {.i = 0};
+	quit(&a);
+}
 
 void
 spawn(const Arg *arg)
@@ -3507,6 +3518,7 @@ main(int argc, char *argv[])
 #endif /* __OpenBSD__ */
 	scan();
 	run();
+	if(restart) execvp(argv[0], argv);
 	cleanup();
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
