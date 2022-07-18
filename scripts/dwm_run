@@ -10,7 +10,9 @@ ls $HOME/.config/.Xresources && xrdb $HOME/.config/.Xresources
 RESET() {
 $HOME/.config/swal/swal_wm
 xsetroot -name "fsignal:25"
+xsetroot -name "Loading"
 xsetroot -name "fsignal:30"
+xsetroot -name "Loading"
 }
 
 START_DWM() {
