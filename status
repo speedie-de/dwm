@@ -127,7 +127,7 @@ if [ -e "/usr/bin/mocp" ]; then
 		if [ "$(echo $(mocp -Q %file))" = "" ]; then
 				a=$a
 		else
-				echo "<  $(mocp -Q %file | awk -F/ '$0=$NF' | sed "s|[.]...||")"
+				echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
 		fi
 fi
 }
