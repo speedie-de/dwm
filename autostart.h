@@ -29,11 +29,11 @@ static const char *const autostart[]          = {
    /* Run the defined compositor */
    shell, "-c", COMPOSITOR "&", NULL,
 
+   /* Run the defined notification daemon */
+   shell, "-c", NOTIFICATION "&", NULL,
+
    /* Run the status bar defined */
    shell, "-c", STATUSBAR, NULL,
-
-   /* zsh */
-   shell, "-c", "zsh", NULL,
 
    NULL
 };
