@@ -18,14 +18,52 @@ SWAL_DEFAULT_CONFIG()
 SWAL_MKCONFIG() {
   mkdir -p $SWAL_EXPORTDIR
   touch $SWAL_EXPORTDIR/config
-  SWAL_WALLPAPERDIR_NEW=$(printf "Your wallpaper directory" | dmenu -g 1 -p "Where are all your wallpapers stored?" -l 1)
+  SWAL_ASK_WAL_NEW=$SWAL_ASK_WAL
+  SWAL_WALLPAPERDIR_NEW=$SWAL_WALLPAPERDIR
+
+  SWAL_CHANGE_WALLPAPERDIR() {
+		SWAL_WALLPAPERDIR_NEW=$(printf "Your wallpaper directory" | $RUNLAUNCHER -g 1 -p "Where are all your wallpapers stored?" -l 1)
+  }
+
+  SWAL_CHANGE_ASK_WAL() {
+		wal -v > /dev/null && SWAL_ASK_WAL_NEW=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -p "Ask whether or not to use Pywal?" -l 2 | sed "s|No|false|g" | sed "s|Yes|true|g")
+  }
+
+  SWAL_CHANGE_IMAGE_VIEWER() {
+		SWAL_IMAGE_VIEWER=$(printf "" | $RUNLAUNCHER -g 1 -p "What image viewer do you want to use for previews?" -l 1)
+  }
+
+  USER_OPT_ACTION=$(printf "Wallpaper directory\nPywal\nImage Viewer\n------\nExit" | $RUNLAUNCHER -g 1 -l 10 -p "What setting do you want to change?")
+
+  case "$USER_OPT_ACTION" in
+  "") $0 && exit 0 ;;
+  "Wallpaper directory") SWAL_CHANGE_WALLPAPERDIR && CHANGED=true ;;
+  "Pywal") SWAL_CHANGE_ASK_WAL && CHANGED=true ;;
+  "Image Viewer") SWAL_CHANGE_IMAGE_VIEWER && CHANGED=true ;;
+  "Exit") exit 0 ;;
+  "------") $0 && exit 0 ;;
+  esac
+
+  case "$CHANGED" in
+  "") $0 && exit 0 ;;
+  esac
+
+  case "$SWAL_ASK_WAL_NEW" in
+  "true") ASKED=true ;;
+  "false") ASKED=true ;;
+  esac
+
+  if [ "$ASKED" = "" ]; then
+		$0 && exit 0
+  fi
+
   printf "SWAL_WALLPAPERDIR=$SWAL_WALLPAPERDIR_NEW" > $SWAL_EXPORTDIR/config
   printf "\n#RUNLAUNCHER=$RUNLAUNCHER" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_OPT=$SWAL_OPT" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_BINDIR=$SWAL_BINDIR" >> $SWAL_EXPORTDIR/config
   printf "\n#SWAL_EXPORTDIR=$SWAL_EXPORTDIR" >> $SWAL_EXPORTDIR/config
-  printf "\n#SWAL_IMAGE_VIEWER=$SWAL_IMAGE_VIEWER" >> $SWAL_EXPORTDIR/config
-  printf "\n#SWAL_ASK_WAL=$SWAL_ASK_WAL" >> $SWAL_EXPORTDIR/config
+  printf "\nSWAL_IMAGE_VIEWER=$SWAL_IMAGE_VIEWER" >> $SWAL_EXPORTDIR/config
+  printf "\nSWAL_ASK_WAL=$SWAL_ASK_WAL_NEW" >> $SWAL_EXPORTDIR/config
 }
 
 BINDIR=$(cat /usr/share/dwm-bindir)
@@ -59,7 +97,7 @@ SWAL_HELP() {
 SWAL_SELWALLPAPER()
 {
   case "$NEW1" in
-  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\nChange Wallpaper Directory\nPreview\n.." | $RUNLAUNCHER -g 1 -l 100 -p "What wallpaper would you like to set?" -l 20)" ;;
+  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\n------\n..\nOptions\nPreview\nExit" | $RUNLAUNCHER -g 1 -l 100 -p "What wallpaper would you like to set?" -l 20)" ;;
   "-w") SWAL_SELWALLPAPER="$(basename "$NEW2")" && touch /tmp/swal_cpath ;;
   "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
   "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES="$NEW2" ;;
@@ -81,10 +119,12 @@ SWAL_SELWALLPAPER()
 SWAL_SETTYPE()
 {
   case "$SWAL_SELWALLPAPER" in
-  "Change Wallpaper Directory") SWAL_MKCONFIG && $0 $1 $2 $3 && exit 0 ;;
-  "") exit 0 ;;
-  "Preview") $SWAL_IMAGE_VIEWER * && exit 0 ;;
+  "Options") SWAL_MKCONFIG && $0 $1 $2 $3 && exit 0 ;;
+  "") $0 && exit 0 ;;
+  "Preview") $SWAL_IMAGE_VIEWER * ; $0 ; exit 0 ;;
   "..") cd "$SWAL_WALLPAPERDIR/.." && SWAL_WALLPAPERDIR="$(pwd)" && SWAL_SELWALLPAPER && SET && exit 0 ;;
+  "Exit") exit 0 ;;
+  "------") $0 && exit 0 ;;
   esac
 
   # Check if it's a directory
@@ -95,7 +135,7 @@ SWAL_SETTYPE()
   #test "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" || notify-send "Selected wallpaper does not exist."; $0 && exit 0
   # had to comment because this will not work for some reason im not able to figure out
 
-  SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch\nPreview" | $RUNLAUNCHER -p "How do you want to set the wallpaper?" -g 1 -l 5)
+  SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch\n------\nPreview\nExit" | $RUNLAUNCHER -p "How do you want to set the wallpaper?" -g 1 -l 5)
   
   case "$SWAL_TYPE" in
   "Center") SWAL_TYPE=center ;;
@@ -103,7 +143,9 @@ SWAL_SETTYPE()
   "Zoom") SWAL_TYPE=zoom ;;
   "Stretch") SWAL_TYPE=stretch ;;
   "Preview") $SWAL_IMAGE_VIEWER "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && exit 0 ;;
-  "") exit 0 ;;
+  "Exit") exit 0 ;;
+  "------") $0 && exit 0 ;;
+  "") $0 && exit 0 ;;
   esac
 
   SWAL_TYPE="--$SWAL_TYPE"
@@ -183,3 +225,5 @@ SET() {
 }
 
 SET
+
+$0 && exit 0

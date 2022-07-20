@@ -163,18 +163,6 @@ BASE() {
   SLEEPTIME=12
 }
 
-# Item 1 = Memory X
-# Item 2 = Time X
-# Item 3 = Date X
-# Item 4 = Volume X
-# Item 5 = Weather 
-# Item 6 = Internet Traffic X
-# Item 7 = Dfmpeg Status
-# Item 8 = CPU Temp
-# Item 9 = Music
-# Item 10 = Newsboat unreads
-# Item 11 = Battery X
-
 PRINT() {
   xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
 
