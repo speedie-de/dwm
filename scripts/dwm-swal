@@ -77,8 +77,11 @@ SWAL_SOURCE()
 
 SWAL_CHECK()
 {
-  ls "$SWAL_BINDIR/feh" && SWAL_IMAGE_VIEWER=feh
-  ls "$SWAL_BINDIR/sxiv" && SWAL_IMAGE_VIEWER=sxiv
+  if [ "$SWAL_IMAGE_VIEWER" = "" ]; then
+		ls "$SWAL_BINDIR/feh" && SWAL_IMAGE_VIEWER=feh
+		ls "$SWAL_BINDIR/sxiv" && SWAL_IMAGE_VIEWER=sxiv
+  fi
+
   ls "$SWAL_BINDIR/xwallpaper" || SWAL_DIE
 }
 
