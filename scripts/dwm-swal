@@ -195,7 +195,7 @@ SWAL_XRESOURCES()
 }
 
 SWAL_SENDNOTIFICATION() {
-  test /usr/bin/notify-send && notify-send "$SWAL_SELWALLPAPER set as wallpaper in $(echo $SWAL_TYPE | sed "s|--||g") mode."
+  test /usr/bin/notify-send && notify-send "🖼$SWAL_SELWALLPAPER set as wallpaper in $(echo $SWAL_TYPE | sed "s|--||g") mode."
 }
 
 # Arguments
