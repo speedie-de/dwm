@@ -8,7 +8,7 @@ esac
 
 BINDIR=$(cat /usr/share/dwm-bindir)
 
-ls $BINDIR/iwctl || exit 0
+test $BINDIR/iwctl || exit 0
 
 # Get the device used to connect.
 getdevice() {
@@ -29,7 +29,14 @@ getdevice() {
 
 connectwifi() {
   iwctl station $seldevice scan
-  network=$(iwctl station $seldevice get-networks | sed -n 6,20p | sed "s|>||g" | awk '{ print $1 }' | $RUNLAUNCHER -l 10 -g 1 -p "Select a network to connect to")
+  network="$(printf "$(iwctl station $seldevice get-networks | sed -n 6,20p | sed "s|>||g" | awk '{ print $1 }')\n------\nExit" | sed "s| |No networks found|g" | $RUNLAUNCHER -l 10 -g 1 -p "Select a network to connect to" | sed "s|------||g" | sed "s|No networks found| |g")"
+
+  case "$network" in
+  "") $0 && exit 0 ;;
+  "Exit") exit 0 ;;
+  esac
+
+  iwctl station $seldevice get-networks | grep "$network" > /dev/null || exit 1
 
   connect_pass() {
 		PASSPHRASE=$(printf "\n" | $RUNLAUNCHER -p "This network is protected. Enter the passphrase." -l 1 -g 1)
