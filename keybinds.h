@@ -41,8 +41,8 @@ static Key keys[] = {
 	{ ControlMask|MODKEY|ShiftMask, XK_k,          spawn,                SHCMD(VOL_OUTPUT_SPEAKER) },
 	{ ControlMask|MODKEY|ShiftMask, XK_Escape,     spawn,                SHCMD("dwm-utils") },
 	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("dwm-swal") },
-	{ ControlMask|MODKEY|ShiftMask, XK_n,          spawn,                SHCMD("dwm-netctrl") },
-	{ ControlMask|MODKEY|ShiftMask, XK_b,          spawn,                SHCMD("dwm-btctrl") },
+	{ ControlMask|MODKEY|ShiftMask, XK_n,          spawn,                SHCMD(NETWORK) },
+	{ ControlMask|MODKEY|ShiftMask, XK_b,          spawn,                SHCMD(BLUETOOTH) },
 	{ ControlMask|MODKEY|ShiftMask, XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
 
 	/* Layout keybinds */
