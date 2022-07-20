@@ -23,7 +23,7 @@
 #define FILEMANAGER                           "vifmrun || vifm" /* File manager that will be used */
 #define FILEMANAGER_CLASS                     "vifmrun" /* File manager that will be used for rules */
 #define LOCKER                                "slock" /* Screen locker that will be used */
-#define OPENPDF                               "pdfopen ~/Documents zathura || ~/Scripts/pdfopen ~/Documents zathura"
+#define OPENPDF                               "dwm-pdfopen ~/Documents zathura || ~/Scripts/dwm-pdfopen ~/Documents zathura"
 #define KILLMUSIC                             "pkill mocp"
 #define MIXER                                 "dwm-audioctrl -runmixer" /* Audio mixer to use */
 #define VOL_DOWN                              "dwm-audioctrl -lower" /* Command to run when decreasing volume */

@@ -54,7 +54,7 @@ install: all
 	cp -f scripts/dwm-swal ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-swal
 	cp -f scripts/dwm-screenshotutil ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-screenshotutil
 	cp -f scripts/dwm-virtualkeyboard ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard
-	cp -f scripts/pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/pdfopen
+	cp -f scripts/dwm-pdfopen ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-pdfopen
 	cp -f scripts/dwm-audioctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-audioctrl
 	cp -f scripts/dwm-netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-netctrl
 	cp -f scripts/dwm-btctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-btctrl
@@ -80,7 +80,7 @@ uninstall:
 		${DESTDIR}${PREFIX}/bin/dwm-btctrl \
 		${DESTDIR}${PREFIX}/bin/dwm-screenshotutil \
 		${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard \
-		${DESTDIR}${PREFIX}/bin/pdfopen \
+		${DESTDIR}${PREFIX}/bin/dwm-pdfopen \
 		${DESTDIR}${PREFIX}/bin/status \
 		${DESTDIR}${PREFIX}/share/dwm-bindlist \
 		${DESTDIR}${PREFIX}/share/dwm-deplist \
