@@ -15,13 +15,14 @@ CHECK
 # Help
 HELP() {
   printf "\n1. Turn on your device\n2. Make sure the bluetooth service is running. If it is not, start it.\n3. Press the pair button on your device\n4. Select your device in the list of devices. If it does not show up, select 'Refresh'.\n5. Select 'Pair' and then optionally 'Trust' to save it in the list of devices.\n6. And finally, select 'Connect' to connect the device." | $RUNLAUNCHER -l 12 -g 1 -p 'How to use' 
+  $0 && exit 0
 }
 
 # Enable bluetooth and scan for devices
 ENABLE_BT() {
   bluetoothctl power on > /dev/null && echo "Power: On"
   bluetoothctl scan on & # Start scanning for devices
-  USEROPT_1="$(printf "$(bluetoothctl devices | cut -d\  -f3-)\nRefresh\nHelp\nExit" | $RUNLAUNCHER -l 12 -g 1 -p "Select a device")"
+  USEROPT_1="$(printf "$(bluetoothctl devices | cut -d\  -f3-)\n------\nRefresh\nHelp\nExit" | $RUNLAUNCHER -l 12 -g 1 -p "Select a device")"
   
   # Check what to do
   case "$USEROPT_1" in
