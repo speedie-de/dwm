@@ -127,7 +127,7 @@ if [ -e "/usr/bin/mocp" ]; then
 		if [ "$(echo $(mocp -Q %file))" = "" ]; then
 				a=$a
 		else
-				echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
+				echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
 		fi
 fi
 }
@@ -135,7 +135,7 @@ fi
 ITEM10() {
 # RSS
 if [ -e "/usr/bin/newsboat" ]; then
-		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!" > /tmp/newsboat && cat /tmp/newsboat
+		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
 fi
 }
 
@@ -154,7 +154,7 @@ BASE() {
 }
 
 PRINT() {
-  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
+  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
 
   if [ "$USINGWAL" = "true" ]; then
 		if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
