@@ -47,26 +47,34 @@ SETCOLORS_CMD() {
 
 # Grab colors from pywal if possible
 SETCOLORS_WAL() {
-  COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
-  COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
-  COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
-  COLOR4=$(sed -n 4,4p $HOME/.cache/wal/colors)
-  COLOR5=$(sed -n 5,5p $HOME/.cache/wal/colors)
-  COLOR6=$(sed -n 6,6p $HOME/.cache/wal/colors)
-  COLOR7=$(sed -n 7,7p $HOME/.cache/wal/colors)
-  COLOR8=$(sed -n 8,8p $HOME/.cache/wal/colors)
-  COLOR9=$(sed -n 9,9p $HOME/.cache/wal/colors)
-  COLOR10=$(sed -n 10,10p $HOME/.cache/wal/colors)
-  COLOR11=$(sed -n 11,11p $HOME/.cache/wal/colors)
-  COLOR12=$(sed -n 12,12p $HOME/.cache/wal/colors)
-  COLOR13=$(sed -n 13,13p $HOME/.cache/wal/colors)
-  COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
-  COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
-  USINGWAL=true
+  if [ "$USINGWAL" = "" ]; then
+		COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
+		COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
+		COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
+		COLOR4=$(sed -n 4,4p $HOME/.cache/wal/colors)
+		COLOR5=$(sed -n 5,5p $HOME/.cache/wal/colors)
+		COLOR6=$(sed -n 6,6p $HOME/.cache/wal/colors)
+		COLOR7=$(sed -n 7,7p $HOME/.cache/wal/colors)
+		COLOR8=$(sed -n 8,8p $HOME/.cache/wal/colors)
+		COLOR9=$(sed -n 9,9p $HOME/.cache/wal/colors)
+		COLOR10=$(sed -n 10,10p $HOME/.cache/wal/colors)
+		COLOR11=$(sed -n 11,11p $HOME/.cache/wal/colors)
+		COLOR12=$(sed -n 12,12p $HOME/.cache/wal/colors)
+		COLOR13=$(sed -n 13,13p $HOME/.cache/wal/colors)
+		COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
+		COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
+		USINGWAL=true
+  fi
 }
 
-MUTED=false
+case "$BINDIR" in
+"") BINDIR=$(cat /usr/share/dwm-bindir) ;;
+esac
 
+case "$MUTED" in
+"") MUTED=false ;;
+"true") MUTED=false ;;
+esac
 
 ITEM1() {
   echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
@@ -81,15 +89,13 @@ ITEM3() {
 }
 
 ITEM4() {
-  MUTED=false
-  if [ -e "/usr/bin/pulsemixer" ]; then
+  if [ -e "${BINDIR}pulsemixer" ]; then
 		echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
 		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
 		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
 		test /tmp/dwm-audioctrl-mutestatus || MUTED=false
   else
 		echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
-		MUTED=false
   fi
 
   if [ "$MUTED" = "false" ]; then
@@ -116,14 +122,14 @@ fi
 
 ITEM8() {
 # CPU temp
-if [ -e "/usr/bin/sensors" ]; then
+if [ -e "${BINDIR}sensors" ]; then
 		echo "<  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
 fi
 }
 
 ITEM9() {
 # Music
-if [ -e "/usr/bin/mocp" ]; then
+if [ -e "${BINDIR}mocp" ]; then
 		if [ "$(echo $(mocp -Q %file))" = "" ]; then
 				a=$a
 		else
@@ -134,7 +140,7 @@ fi
 
 ITEM10() {
 # RSS
-if [ -e "/usr/bin/newsboat" ]; then
+if [ -e "${BINDIR}newsboat" ]; then
 		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
 fi
 }
@@ -144,7 +150,7 @@ ITEM11() {
 		echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
   fi
 
-  if [ -e "/usr/bin/acpi" ]; then
+  if [ -e "${BINDIR}acpi" ]; then
 		CHARGESTATUS=$(echo ", $(acpi | awk '{ print $3 }' | sed "s|,||g" | sed "s|Discharging|Not charging|g")") && echo $CHARGESTATUS
   fi
 }
@@ -170,7 +176,13 @@ PRINT() {
 
 BASE
 SETCOLORS
-grep xsetroot $HOME/.config/swal/swal_wm && SETCOLORS_WAL
+
+if [ -e "${BINDIR}xsetroot" ]; then
+		if [ -e "${BINDIR}xrdb" ]; then
+				grep xsetroot $HOME/.config/swal/swal_wm > /dev/null && SETCOLORS_WAL
+		fi
+fi
+
 SETCOLORS_CMD
 
 PRINT
