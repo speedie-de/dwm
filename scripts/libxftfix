@@ -1,6 +1,8 @@
 #!/bin/sh
 # libxft_bgra install script.
 
+echo "WARNING: This script has not been properly tested and may not work as expected or at all. Expect to install libXft-bgra manually if necessary."
+
 libxft_arch() {
 		ls /usr/bin/git
 		git clone https://aur.archlinux.org/libxft-bgra && echo "Cloned libXft-bgra AUR repository."

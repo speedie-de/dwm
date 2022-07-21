@@ -101,6 +101,8 @@ My build of dwm has been patched with the following patches:
   - dwm-monoclesymbol         | This patch always displays the monocle symbol instead of open clients
   - dwm-barheight             | This patch adds in customizable bar height
   - dwm-savefloats            | This patch saves the position of floating windows and restores them (Modified to add a toggle)
+  - dwm-reorganizetags        | This patch adds a keybind to reorganize tags
+  - dwm-restartsig            | This patch adds an option to restart dwm
 
 ## Keybinds
 Below is a list of all dwm keybinds.
@@ -126,6 +128,7 @@ Below is a list of all dwm keybinds.
   ### Nagigation
   These keybinds are for navigating dwm
   - Super+r                   |  Toggle master on the left/right
+  - Super+t                   |  Reorganize tags and move clients
   - Super+f                   |  Full-screen the selected window
   - Super+b                   |  Show/hide the dwm bar
   - Super+j/k                 |  Move focus between windows
@@ -166,13 +169,14 @@ Below is a list of all dwm keybinds.
   - Super+Control+Shift+Arrow |  Resize the window to the screen size.
   - Super+Control+Shift+s     |  Set a wallpaper
   - Super+Control+Shift+n     |  Connect to wifi (Requires iwd)
+  - Super+Control+Shift+b     |  Connect to a bluetooth device (Requires bluez and bluez-utils)
   - Alt+Tab                   |  Switch windows quickly and easily 
   
   ### Extras
   These will only work if your keyboard has special multimedia buttons.
   - Mute button               |  Mutes your audio
-  - + Volume button           |  Increases your volume
-  - - Volume button           |  Decreases your volume
+  - Up Volume button          |  Increases your volume
+  - Down Volume button        |  Decreases your volume
   - Stop button               |  Stops your defined music player
   - Browser button            |  Opens your defined web browser
   - Power button              |  Ask if you wanna shut down, restart or lock your computer.
@@ -332,7 +336,7 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
 
 ## Fsignal
 Thanks to the 'fsignal' patch available on suckless.org's website, we can easily write shell scripts to interact with dwm.
-This is exactly what I did and dwmutils, swal, dwmshutdown and more take advantage of it.
+This is exactly what I did and dwm-utils, dwm-swal, dwm-shutdown and more take advantage of it.
 
 In order to use 'fsignal', your system must have 'xsetroot' installed.
 Then simply use the dwm-utils script. Syntax is dwm-utils -exec <signum>
@@ -367,7 +371,9 @@ Below is a list of all signums and what they do.
   - 26 | Toggle right master
   - 27 | Switch to the Stairs layout
   - 28 | Reset layout and mfact
-
+  - 29 | Reorganize tags
+  - 30 | Restart dwm
+  - 31 | Shutdown dwm
 ## Switching run launcher
 Some users may prefer to use a different run launcher than dmenu.
 Previously all scripts bundled would only run dmenu from $PATH but you can now switch run launcher very easily.
