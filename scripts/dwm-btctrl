@@ -81,16 +81,16 @@ DISCONNECT() {
 
 # Notification when connecting
 NOTIFY_CONNECT() {
-  notify-send && notify-send "Connected to $USEROPT_1"
+  notify-send " Connected to $USEROPT_1"
 }
 
 # Notification when disconnecting
 NOTIFY_DISCONNECT() {
-  notify-send "Disconnected from $USEROPT_1"
+  notify-send " Disconnected from $USEROPT_1"
 }
 
 NOTIFY_REMOVE() {
-  notify-send "Removed $USEROPT_1"
+  notify-send " Removed $USEROPT_1"
 }
 
 # Perform actions as per user choice

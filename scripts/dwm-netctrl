@@ -48,7 +48,7 @@ connectwifi() {
 
 		iwctl station $seldevice connect $network -P $PASSPHRASE || connect_pass
 		if [ -e "${BINDIR}notify-send" ]; then
-				notify-send "Connected to $network!"
+				notify-send "  Connected to $network!"
 		fi
 		exit 0
   }
@@ -56,7 +56,7 @@ connectwifi() {
   connect_no_pass() {
 		iwctl station $seldevice connect $network || exit 0
 		if [ -e "${BINDIR}notify-send" ]; then
-				notify-send "Connected to $network!"
+				notify-send "  Connected to $network!"
 		fi
 		exit 0
   }

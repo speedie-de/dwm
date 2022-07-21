@@ -11,12 +11,12 @@ MUTE() {
 		if [ -e "${BINDIR}pulsemixer" ]; then
 				 pulsemixer --toggle-mute
 				 if [ -e "${BINDIR}notify-send" ]; then
-					 	 notify-send "🔇Toggled mute"
+					 	 notify-send " Toggled mute"
 				 fi
 		else
 				 amixer set Master toggle
 				 if [ -e "${BINDIR}notify-send" ]; then
-						notify-send "🔇Toggled mute"
+						notify-send " Toggled mute"
 				 fi
 		fi
   fi
@@ -29,7 +29,7 @@ RAISE() {
 						a=$a
 				else
 						pulsemixer --change-volume +7
-						test ${BINDIR}notify-send && notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
+						test ${BINDIR}notify-send && notify-send " $(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 		fi
   else
@@ -37,7 +37,7 @@ RAISE() {
 				a=$a
 		else
 				amixer -c 0 set Master 7%+
-				ls ${BINDIR}notify-send && notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+				ls ${BINDIR}notify-send && notify-send " $(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
@@ -49,7 +49,7 @@ LOWER() {
 						a=$a
 				else
 						pulsemixer --change-volume -7
-						test ${BINDIR}notify-send && notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
+						test ${BINDIR}notify-send && notify-send " $(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 				
 		fi
@@ -58,7 +58,7 @@ LOWER() {
 				a=$a
 		else
 				amixer -c 0 set Master 7%-
-				test ${BINDIR}notify-send && notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+				test ${BINDIR}notify-send && notify-send " $(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
@@ -87,12 +87,12 @@ SWITCH() {
   if [ "$(cat $HOME/.local/share/audioctrl-status)" = "0" ]; then
 		amixer -c 0 sset 'Auto-Mute Mode' Enabled ; echo "1" > $HOME/.local/share/audioctrl-status
 		if [ -e "${BINDIR}notify-send" ]; then
-				notify-send "Switched to headphones."
+				notify-send " Switched to headphones."
 		fi
   else
 		amixer -c 0 sset 'Auto-Mute Mode' Disabled ; echo "0" > $HOME/.local/share/audioctrl-status
 		if [ -e "${BINDIR}notify-send" ]; then
-				notify-send "Switched to speakers."
+				notify-send " Switched to speakers."
 		fi
   fi
 }
@@ -101,7 +101,7 @@ RUNMIXER() {
   if [ "$AUDIO" = "pulse" ]; then
 		if [ -e "${BINDIR}pulsemixer" ]; then
 				pulsemixer
-		else
+		elif [ -e "${BINDIR}alsamixer" ]; then
 				alsamixer
 		fi
   fi
