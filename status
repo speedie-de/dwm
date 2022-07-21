@@ -142,20 +142,10 @@ fi
 ITEM11() {
   if [ -e "/sys/class/power_supply/BAT0/capacity" ]; then
 		echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
-		case "$(cat /sys/class/power_supply/BAT0/capacity)" in
-		"100") test /usr/bin/notify-send && test /tmp/hasnotified_full || notify-send "Fully charged." && touch /tmp/hasnotified_full ;;
-		"30") test /usr/bin/notify-send && test /tmp/hasnotified_30 || notify-send "30% battery left." && touch /tmp/hasnotified_30 ;;
-		"15") test /usr/bin/notify-send && test /tmp/hasnotified_15 || notify-send "15% battery left." && touch /tmp/hasnotified_15 ;;
-		"5") test /usr/bin/notify-send && test /tmp/hasnotified_5 || notify-send "5% battery left. Charge your computer!" && touch /tmp/hasnotified_5 ;;
-		esac
   fi
 
   if [ -e "/usr/bin/acpi" ]; then
 		CHARGESTATUS=$(echo ", $(acpi | awk '{ print $3 }' | sed "s|,||g" | sed "s|Discharging|Not charging|g")") && echo $CHARGESTATUS
-		case "$CHARGESTATUS" in
-		", Charging") test /usr/bin/notify-send && test /tmp/hasnotified_charging || notify-send "Charging ($(cat /sys/class/power_supply/BAT0/capacity)% left)" && touch /tmp/hasnotified_charging && rm -f /tmp/hasnotified_full /tmp/hasnotified_30 /tmp/hasnotified_15 /tmp/hasnotified_5 ;;
-		", Not charging") rm -f /tmp/hasnotified_charging ;;
-		esac
   fi
 }
 
