@@ -8,14 +8,14 @@ BINDIR=$(cat /usr/share/dwm-bindir)
 MUTE() {
   # Mute for pulseaudio/pipewire
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				 pulsemixer --toggle-mute
-				 if [ -e "$BINDIR/notify-send" ]; then
+				 if [ -e "${BINDIR}notify-send" ]; then
 					 	 notify-send "🔇Toggled mute"
 				 fi
 		else
 				 amixer set Master toggle
-				 if [ -e "$BINDIR/notify-send" ]; then
+				 if [ -e "${BINDIR}notify-send" ]; then
 						notify-send "🔇Toggled mute"
 				 fi
 		fi
@@ -24,12 +24,12 @@ MUTE() {
 
 RAISE() {
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				if [ "$(pulsemixer --get-volume | awk '{ print $1 }')" = "100" ]; then
 						a=$a
 				else
 						pulsemixer --change-volume +7
-						test $BINDIR/notify-send && notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
+						test ${BINDIR}notify-send && notify-send "🔊$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 		fi
   else
@@ -37,19 +37,19 @@ RAISE() {
 				a=$a
 		else
 				amixer -c 0 set Master 7%+
-				ls $BINDIR/notify-send && notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+				ls ${BINDIR}notify-send && notify-send "🔊$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
 
 LOWER() {
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				if [ "$(pulsemixer --get-volume | awk '{ print $1 }')" = "0" ]; then
 						a=$a
 				else
 						pulsemixer --change-volume -7
-						test $BINDIR/notify-send && notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
+						test ${BINDIR}notify-send && notify-send "🔈$(pulsemixer --get-volume | awk '{ print $1 }')%"
 				fi
 				
 		fi
@@ -58,14 +58,14 @@ LOWER() {
 				a=$a
 		else
 				amixer -c 0 set Master 7%-
-				test $BINDIR/notify-send && notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
+				test ${BINDIR}notify-send && notify-send "🔈$(amixer -c 0 get Master | tail -n 1 | sed -r "s/.*\[(.*)%\].*/\1/")%"
 		fi
   fi
 }
 
 GETVOL() {
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				echo "$(pulsemixer --get-volume | awk '{ print $1 }')%"
 		fi
   else
@@ -75,7 +75,7 @@ GETVOL() {
 
 GETMUTE() {
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				pulsemixer --get-mute | grep 1 > /dev/null && echo "Muted"
 				pulsemixer --get-mute | grep 0 > /dev/null && echo "Not muted"
 		fi
@@ -86,12 +86,12 @@ SWITCH() {
   ls $HOME/.local/share/audioctrl-status || echo "0" > $HOME/.local/share/audioctrl-status
   if [ "$(cat $HOME/.local/share/audioctrl-status)" = "0" ]; then
 		amixer -c 0 sset 'Auto-Mute Mode' Enabled ; echo "1" > $HOME/.local/share/audioctrl-status
-		if [ -e "$BINDIR/notify-send" ]; then
+		if [ -e "${BINDIR}notify-send" ]; then
 				notify-send "Switched to headphones."
 		fi
   else
 		amixer -c 0 sset 'Auto-Mute Mode' Disabled ; echo "0" > $HOME/.local/share/audioctrl-status
-		if [ -e "$BINDIR/notify-send" ]; then
+		if [ -e "${BINDIR}notify-send" ]; then
 				notify-send "Switched to speakers."
 		fi
   fi
@@ -99,7 +99,7 @@ SWITCH() {
 
 RUNMIXER() {
   if [ "$AUDIO" = "pulse" ]; then
-		if [ -e "$BINDIR/pulsemixer" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
 				pulsemixer
 		else
 				alsamixer
@@ -111,7 +111,7 @@ AUDIO=$2
 
 case "$2" in
 "") AUDIO=alsa
-test $BINDIR/pulsemixer && AUDIO=pulse ;;
+test ${BINDIR}pulsemixer && AUDIO=pulse ;;
 esac
 
 # Update status

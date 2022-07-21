@@ -8,7 +8,7 @@ esac
 
 BINDIR=$(cat /usr/share/dwm-bindir)
 
-test $BINDIR/iwctl || exit 0
+test ${BINDIR}iwctl || exit 0
 
 # Get the device used to connect.
 getdevice() {
@@ -47,7 +47,7 @@ connectwifi() {
 		printf "$network\n" >> $HOME/.local/share/networks
 
 		iwctl station $seldevice connect $network -P $PASSPHRASE || connect_pass
-		if [ -e "$BINDIR/notify-send" ]; then
+		if [ -e "${BINDIR}notify-send" ]; then
 				notify-send "Connected to $network!"
 		fi
 		exit 0
@@ -55,7 +55,7 @@ connectwifi() {
 
   connect_no_pass() {
 		iwctl station $seldevice connect $network || exit 0
-		if [ -e "$BINDIR/notify-send" ]; then
+		if [ -e "${BINDIR}notify-send" ]; then
 				notify-send "Connected to $network!"
 		fi
 		exit 0

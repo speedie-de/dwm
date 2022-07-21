@@ -40,20 +40,20 @@ fi
 
 # Send notification for URL
 SENDNOTIF_URL() {
-  if [ -e "$BINDIR/notify-send" ]; then
+  if [ -e "${BINDIR}notify-send" ]; then
 		notify-send "Screenshot copied to clipboard."
   fi
 }
 
 # Send notifcation for local image save
 SENDNOTIF_SAVE() {
-  if [ -e "$BINDIR/notify-send" ]; then
+  if [ -e "${BINDIR}notify-send" ]; then
 		notify-send "Screenshot saved to $SAVEDIR."
   fi
 }
 
 SENDNOTIF_IMG() {
-  if [ -e "$BINDIR/notify-send" ]; then
+  if [ -e "${BINDIR}notify-send" ]; then
 		notify-send "Screenshot copied to clipboard."
   fi
 }

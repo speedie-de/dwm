@@ -3,35 +3,35 @@
 BINDIR=$(cat /usr/share/dwm-bindir)
 
 # Check if xrdb exists
-if [ -e "$BINDIR/xrdb" ]; then
+if [ -e "${BINDIR}xrdb" ]; then
 		xrdb_exists=true
 else
 		printf "\nWARNING: xrdb was not found. .Xresources and Pywal support will not work."
 fi
 
 # Check if wmctrl exists
-if [ -e "$BINDIR/wmctrl" ]; then
+if [ -e "${BINDIR}wmctrl" ]; then
 		wmctrl_exists=true
 else
 		printf "\nWARNING: wmctrl was not found. Window management using 'Alt+Tab' will not work."
 fi
 
 # Check if xsetroot exists
-if [ -e "$BINDIR/xsetroot" ]; then
+if [ -e "${BINDIR}xsetroot" ]; then
 		xsetroot_exists=true
 else
 		printf "\nWARNING: xsetroot was not found. This means most status bars and bundled scripts won't work. Highly recommend installing this (sort of) optional dependency!"
 fi
 
 # Check if xwallpaper exists
-if [ -e "$BINDIR/xwallpaper" ]; then
+if [ -e "${BINDIR}xwallpaper" ]; then
 		xwallpaper_exists=true
 else
 		printf "\nWARNING: xwallpaper was not found. This means setting your wallpaper and Pywal support won't work."
 fi
 
 # Check if xmodmap exists
-if [ -e "$BINDIR/xmodmap" ]; then
+if [ -e "${BINDIR}xmodmap" ]; then
 		xmodmap_exists=true
 else
 		printf "\nWARNING: xmodmap was not found. This means the Alt+Tab script will not be able to remap Alt+hjkl temporarily."

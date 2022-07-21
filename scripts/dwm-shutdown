@@ -20,9 +20,9 @@ case "$USER_OPT3" in
 esac
 }
 
-ls $BINDIR/sudo && PERM=sudo
-ls $BINDIR/doas && PERM=doas
-ls $BINDIR/rootdo && PERM=rootdo
+ls ${BINDIR}sudo && PERM=sudo
+ls ${BINDIR}doas && PERM=doas
+ls ${BINDIR}rootdo && PERM=rootdo
 
 USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nMore" | $RUNLAUNCHER -l 5 -p "What do you wanna do?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff")
 
