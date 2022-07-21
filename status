@@ -141,7 +141,7 @@ fi
 ITEM10() {
 # RSS
 if [ -e "${BINDIR}newsboat" ]; then
-		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
+		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
 fi
 }
 
