@@ -24,7 +24,7 @@
 #define FILEMANAGER_CLASS                     "vifmrun" /* File manager that will be used for rules */
 #define LOCKER                                "slock" /* Screen locker that will be used */
 #define OPENPDF                               "dwm-pdfopen ~/Documents zathura || ~/Scripts/dwm-pdfopen ~/Documents zathura"
-#define KILLMUSIC                             "pkill mocp"
+#define KILLMUSIC                             "pkill mocp" /* Command to run when killing the music player */
 #define MIXER                                 "dwm-audioctrl -runmixer" /* Audio mixer to use */
 #define VOL_DOWN                              "dwm-audioctrl -lower" /* Command to run when decreasing volume */
 #define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
@@ -32,7 +32,7 @@
 #define VOL_OUTPUT_SPEAKER                    "dwm-audioctrl -switch" /* Command to run when enabling speakers */
 #define MODKEY Mod1Mask
 #define SMODKEY Mod4Mask
-#define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks */
+#define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks, status for other value */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
 #define CLIPBOARD                             "xclip" /* Clipboard to use */
