@@ -47,7 +47,6 @@ SETCOLORS_CMD() {
 
 # Grab colors from pywal if possible
 SETCOLORS_WAL() {
-  if [ "$USINGWAL" = "" ]; then
 		COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
 		COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
 		COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
@@ -64,7 +63,6 @@ SETCOLORS_WAL() {
 		COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
 		COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
 		USINGWAL=true
-  fi
 }
 
 case "$BINDIR" in
@@ -160,7 +158,7 @@ BASE() {
 }
 
 PRINT() {
-  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
+  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
 
   if [ "$USINGWAL" = "true" ]; then
 		if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
