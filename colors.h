@@ -15,6 +15,7 @@
 static char *colors[][3]                      = {
 	[SchemeNorm]                              = { col_textnorm, col_background,    col_windowbordernorm },
 	[SchemeSel]                               = { col_textsel,  col_backgroundmid, col_windowbordersel }, 
+	[SchemeHid]                               = { col_backgroundmid, col_background, col_backgroundmid  },
 /*                                                text          background         window border */
 };
 

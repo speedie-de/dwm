@@ -41,7 +41,7 @@
   - dwm-tatami                | Adds a tatami layout to dwm.
   - dwm-fsignal               | Allows you to interact with dwm through shell scripts (such as included swal, dwmshutdown or dwmutils)
   - dwm-selfrestart           | Allows dwm to restart without killing your X server.
-  - dwm-fancybar              | Display window title for all windows open on a tag.
+  - dwm-awesomebar            | Display window title for all windows open on a tag.
   - dwm-inplacerotate         | Allows you to 'rotate' windows.
   - dwm-ignore-transient      | This patch adds an option to ignore transient windows, fixing issues with certain applications.
   - dwm-status2d              | This patch allows you to draw stuff (and colored text) on your status bar.
