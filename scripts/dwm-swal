@@ -124,19 +124,25 @@ SWAL_SETTYPE()
   case "$SWAL_SELWALLPAPER" in
   "Options") SWAL_MKCONFIG && $0 $1 $2 $3 && exit 0 ;;
   "") $0 && exit 0 ;;
-  "Preview") $SWAL_IMAGE_VIEWER * ; $0 ; exit 0 ;;
+  "Preview") SWAL_PREVIEWIMG="$(basename $($SWAL_IMAGE_VIEWER *))" ;;
   "..") cd "$SWAL_WALLPAPERDIR/.." && SWAL_WALLPAPERDIR="$(pwd)" && SWAL_SELWALLPAPER && SET && exit 0 ;;
   "Exit") exit 0 ;;
   "------") $0 && exit 0 ;;
   esac
 
+  # If it's an actual image, use it as wallpaper
+  if [ "$SWAL_SELWALLPAPER" = "Preview" ]; then
+		if [ "$SWAL_PREVIEWIMG" = "" ]; then
+				$0 && exit 0
+		else
+				SWAL_SELWALLPAPER="$SWAL_PREVIEWIMG"
+		fi
+  fi
+
   # Check if it's a directory
   if [ -d "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ]; then
 		cd "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && SWAL_WALLPAPERDIR="$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" && SWAL_SELWALLPAPER && SET && exit 0
   fi
-
-  #test "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" || notify-send "Selected wallpaper does not exist."; $0 && exit 0
-  # had to comment because this will not work for some reason im not able to figure out
 
   SWAL_TYPE=$(printf "Center\nTile\nZoom\nStretch\n------\nPreview\nExit" | $RUNLAUNCHER -p "How do you want to set the wallpaper?" -g 1 -l 7)
   
@@ -199,7 +205,7 @@ SWAL_XRESOURCES()
 }
 
 SWAL_SENDNOTIFICATION() {
-  test /usr/bin/notify-send && notify-send " $SWAL_SELWALLPAPER set as wallpaper in $(echo $SWAL_TYPE | sed "s|--||g") mode."
+  test ${BINDIR}notify-send && notify-send " $SWAL_SELWALLPAPER set as wallpaper in $(echo $SWAL_TYPE | sed "s|--||g") mode."
   exit 0
 }
 
