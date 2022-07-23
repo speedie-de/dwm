@@ -268,8 +268,8 @@ BASE() {
   "true") exit 0 ;;
   esac
 
-  BASE
   PRINT
+  BASE
 }
 
 # Set base colors
