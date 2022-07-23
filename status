@@ -9,21 +9,21 @@
 
 # Set generic colors as base.
 SETCOLORS() {
-  COLOR1=#ffffff
-  COLOR2=#ffffff
-  COLOR3=#ffffff
-  COLOR4=#ffffff
-  COLOR5=#ffffff
-  COLOR6=#ffffff
-  COLOR7=#ffffff
-  COLOR8=#ffffff
-  COLOR9=#ffffff
-  COLOR10=#ffffff
-  COLOR11=#ffffff
-  COLOR12=#ffffff
-  COLOR13=#ffffff
-  COLOR14=#ffffff
-  COLOR15=#ffffff
+  COLOR1=#131210
+  COLOR2=#bf616a
+  COLOR3=#A16F9D
+  COLOR4=#68ABAA
+  COLOR5=#A89F93
+  COLOR6=#D3A99B
+  COLOR7=#AFC9AC
+  COLOR8=#eae1cb
+  COLOR9=#a39d8e
+  COLOR10=#6D5E8E
+  COLOR11=#A16F9D
+  COLOR12=#D3A99B
+  COLOR13=#AFC9AC
+  COLOR14=#eae1cb
+  COLOR15=#6D5E8E
 }
 
 # Add colors to status2d compatible variable to use with xsetroot later.

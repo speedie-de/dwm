@@ -183,9 +183,13 @@ SWAL_EXPORT_SCRIPT_WAL()
   chmod +x $SWAL_EXPORTDIR/swal_wm
   wal -i "'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ~/.config/swal/CurrentWallpaper
-  ${RUNLAUNCHER}_run -r
-  pgrep -x status && pkill status && status &
-  dwm_run -r
+  
+  if [ -e "/usr/bin/${RUNLAUNCHER}_run" ]; then
+		grep "PYWAL" ${BINDIR}${RUNLAUNCHER}_run && printf "\n${RUNLAUNCHER}_run -r" >> $SWAL_EXPORTDIR/swal_wm
+		${RUNLAUNCHER}_run -r # For speedie.gq/dmenu
+        pgrep -x status && pkill status && status & # For built in status bar
+        dwm_run -r
+  fi
 }
 
 SWAL_XRESOURCES()
