@@ -2,12 +2,52 @@
 # dynamic window manager status bar
 # Written by speedie.gq for https://speedie.gq/dwm
 # Licensed under the GNU GPLv3 free software license.
-
+#
 # NOTE: Anything in the DISPLAY function will be printed to your status bar.
-# This means the output of a command will be printed as well.
+# This means stdout will be printed regardless.
+# You can output to /dev/null to silence most commands.
+#
 # Once you're done editing, run 'make clean install'.
+#
+##########################################################################
+# CONFIG
+# This is the configuration for the status bar
+##########################################################################
 
-# Set generic colors as base.
+# General settings
+USEWAL=true # Use Pywal if possible (true/false)
+RUNONCE=false # Only run status bar once (true/false)
+SLEEPTIME=7 # How long delay in seconds between each reload (int)
+DATEBINDIR="/bin/" # Directory where your 'date' binary is. Default should be fine for most people
+SETMETHOD="xsetroot -name" # Method used to set the status bar
+
+# Status bar modules
+# Set to true/false to enable/disable.
+# Keep in mind, if the dependencies are not installed, then they will not be used regardless of what the option is set to.
+ENABLE_ITEM1=true # Enable RAM usage (true/false)
+ENABLE_ITEM2=true # Enable Time (HH:MM) (true/false)
+ENABLE_ITEM3=true # Enable Date (DD/MM/YY) (true/false)
+ENABLE_ITEM4=true # Enable Volume/Mute status (<perc>%) (true/false)
+ENABLE_ITEM5=true # Enable Weather (true/false)
+ENABLE_ITEM6=true # Enable Network Traffic (<num>B/s (true/false)
+ENABLE_ITEM7=true # Enable dfmpeg status (true/false)
+ENABLE_ITEM8=true # Enable CPU temp (true/false)
+ENABLE_ITEM9=true # Enable mocp track (true/false)
+ENABLE_ITEM10=true # Enable newsboat unread (true/false)
+ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
+
+# Order of colors and items in the status bar
+PRINT() {
+		$SETMETHOD \
+		"$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
+}
+
+# Colors
+####################################
+# The colors under SETCOLORS will be used if Pywal is not enabled.
+
+# Default colorscheme, for when pywal is not enabled or available.
+# I recommend using Vim, vim-plugin and colorizer so that you can actually see the colors.
 SETCOLORS() {
   COLOR1=#131210
   COLOR2=#bf616a
@@ -46,142 +86,207 @@ SETCOLORS_CMD() {
 }
 
 # Grab colors from pywal if possible
+# For example, 1,1p means the first line
 SETCOLORS_WAL() {
-		COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
-		COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
-		COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
-		COLOR4=$(sed -n 4,4p $HOME/.cache/wal/colors)
-		COLOR5=$(sed -n 5,5p $HOME/.cache/wal/colors)
-		COLOR6=$(sed -n 6,6p $HOME/.cache/wal/colors)
-		COLOR7=$(sed -n 7,7p $HOME/.cache/wal/colors)
-		COLOR8=$(sed -n 8,8p $HOME/.cache/wal/colors)
-		COLOR9=$(sed -n 9,9p $HOME/.cache/wal/colors)
-		COLOR10=$(sed -n 10,10p $HOME/.cache/wal/colors)
-		COLOR11=$(sed -n 11,11p $HOME/.cache/wal/colors)
-		COLOR12=$(sed -n 12,12p $HOME/.cache/wal/colors)
-		COLOR13=$(sed -n 13,13p $HOME/.cache/wal/colors)
-		COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
-		COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
-		USINGWAL=true
+		if [ "$USEWAL" = "true" ]; then
+				if [ -e "$HOME/.cache/wal/colors" ]; then
+						COLOR1=$(sed -n 1,1p $HOME/.cache/wal/colors)
+						COLOR2=$(sed -n 2,2p $HOME/.cache/wal/colors)
+						COLOR3=$(sed -n 3,3p $HOME/.cache/wal/colors)
+						COLOR4=$(sed -n 4,4p $HOME/.cache/wal/colors)
+						COLOR5=$(sed -n 5,5p $HOME/.cache/wal/colors)
+						COLOR6=$(sed -n 6,6p $HOME/.cache/wal/colors)
+						COLOR7=$(sed -n 7,7p $HOME/.cache/wal/colors)
+						COLOR8=$(sed -n 8,8p $HOME/.cache/wal/colors)
+						COLOR9=$(sed -n 9,9p $HOME/.cache/wal/colors)
+						COLOR10=$(sed -n 10,10p $HOME/.cache/wal/colors)
+						COLOR11=$(sed -n 11,11p $HOME/.cache/wal/colors)
+						COLOR12=$(sed -n 12,12p $HOME/.cache/wal/colors)
+						COLOR13=$(sed -n 13,13p $HOME/.cache/wal/colors)
+						COLOR14=$(sed -n 14,14p $HOME/.cache/wal/colors)
+						COLOR15=$(sed -n 15,15p $HOME/.cache/wal/colors)
+						USINGWAL=true
+				fi
+		fi
 }
 
+# End of configuration
+#########################################################################
+
+# Set bindir
 case "$BINDIR" in
 "") BINDIR=$(cat /usr/share/dwm-bindir) ;;
 esac
 
+# Set it to /usr/bin if it was not possible to get it through /usr/share/dwm-bindir
+case "$BINDIR" in
+"") BINDIR="/usr/bin" ;;
+esac
+
+# Check if muted, for use with volume status bar. Unmute if muted.
 case "$MUTED" in
 "") MUTED=false ;;
 "true") MUTED=false ;;
 esac
 
+# RAM usage
 ITEM1() {
-  echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
+  if [ "$ENABLE_ITEM1" = "true" ]; then
+		if [ -e "${BINDIR}free" ]; then
+				echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
+		fi
+  fi
 }
 
+# Time
 ITEM2() {
-  echo "<  $(date +%H:%M)"
+  if [ "$ENABLE_ITEM2" = "true" ]; then
+		if [ -e "${DATEBINDIR}date" ]; then
+				echo "<  $(date +%H:%M)"
+		fi
+  fi
 }
 
+# Date
 ITEM3() {
-  echo "<  $(date +%d/%m/%Y)"
+  if [ "$ENABLE_ITEM3" = "true" ]; then
+		if [ -e "${DATEBINDIR}date" ]; then
+				echo "<  $(date +%d/%m/%Y)"
+		fi
+  fi
 }
 
+# Volume
 ITEM4() {
-  if [ -e "${BINDIR}pulsemixer" ]; then
-		echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
-		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
-		test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
-		test /tmp/dwm-audioctrl-mutestatus || MUTED=false
-  else
-		echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
-  fi
+  if [ "$ENABLE_ITEM4" = "true" ]; then
+		if [ -e "${BINDIR}pulsemixer" ]; then
+				echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
+				test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
+				test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
+				test /tmp/dwm-audioctrl-mutestatus || MUTED=false
+		else
+				echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+		fi
 
-  if [ "$MUTED" = "false" ]; then
-		a=$a
-  else
-		printf "\n (Muted)"
-  fi
-}
-
-ITEM5() {
-  curl -so /tmp/hacky_internet_test wttr.in && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
-  rm -f /tmp/hacky_internet_test
-}
-
-ITEM6() {
-  echo "<  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/' | sed "s|B|B/s |")"
-}
-
-ITEM7() {
-# Check if we're recording with dfmpeg or not
-if [ -e "/tmp/dfmpeg-recording" ]; then
-		echo "<  Recording"
-fi
-}
-
-ITEM8() {
-# CPU temp
-if [ -e "${BINDIR}sensors" ]; then
-		echo "<  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
-fi
-}
-
-ITEM9() {
-# Music
-if [ -e "${BINDIR}mocp" ]; then
-		if [ "$(echo $(mocp -Q %file))" = "" ]; then
+		if [ "$MUTED" = "false" ]; then
 				a=$a
 		else
-				echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
+				printf "\n (Muted)"
 		fi
-fi
+  fi
 }
 
+# Weather
+ITEM5() {
+  if [ "$ENABLE_ITEM5" = "true" ]; then
+		if [ -e "${BINDIR}curl" ]; then
+				curl -so /tmp/hacky_internet_test wttr.in && echo "<  $(echo $(curl -s wttr.in/?format="%C"), $(curl -s wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+				rm -f /tmp/hacky_internet_test
+		fi
+  fi
+}
+
+# Network traffic
+ITEM6() {
+  if [ "$ENABLE_ITEM6" = "true" ]; then
+		if [ -e "${BINDIR}awk" ]; then
+				echo "<  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/' | sed "s|B|B/s |")"
+		fi
+  fi
+}
+
+# Dfmpeg status
+ITEM7() {
+  # Check if we're recording with dfmpeg or not
+  if [ "$ENABLE_ITEM7" = "true" ]; then
+		if [ -e "/tmp/dfmpeg-recording" ]; then
+				echo "<  Recording"
+		fi
+  fi
+}
+
+# CPU temp
+ITEM8() {
+  if [ "$ENABLE_ITEM8" = "true" ]; then
+		if [ -e "${BINDIR}sensors" ]; then
+				echo "<  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
+		fi
+  fi
+}
+
+# mocp status
+ITEM9() {
+  # Music
+  if [ "$ENABLE_ITEM9" = "true" ]; then
+		if [ -e "${BINDIR}mocp" ]; then
+				if [ "$(echo $(mocp -Q %file))" = "" ]; then
+						a=$a
+				else
+						echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
+				fi
+		fi
+  fi
+}
+
+# Newsboat unreads
 ITEM10() {
-# RSS
-if [ -e "${BINDIR}newsboat" ]; then
-		pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
-fi
+  if [ "$ENABLE_ITEM10" = "true" ]; then
+		if [ -e "${BINDIR}newsboat" ]; then
+				pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
+		fi
+  fi
 }
 
+# Battery percentage/charging status
 ITEM11() {
-  if [ -e "/sys/class/power_supply/BAT0/capacity" ]; then
-		echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
-  fi
+  if [ "$ENABLE_ITEM11" = "true" ]; then
+		if [ -e "/sys/class/power_supply/BAT0/capacity" ]; then
+				echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
+		fi
 
-  if [ -e "${BINDIR}acpi" ]; then
-		CHARGESTATUS=$(echo ", $(acpi | awk '{ print $3 }' | sed "s|,||g" | sed "s|Discharging|Not charging|g")") && echo $CHARGESTATUS
+		if [ -e "${BINDIR}acpi" ]; then
+				CHARGESTATUS=$(echo ", $(acpi | awk '{ print $3 }' | sed "s|,||g" | sed "s|Discharging|Not charging|g")") && echo $CHARGESTATUS
+		fi
   fi
+}
+
+# What to print
+PRINT() {
+  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
 }
 
 BASE() {
-  SLEEPTIME=12
-}
-
-PRINT() {
-  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
-
-  if [ "$USINGWAL" = "true" ]; then
-		if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
-				a=$a
-		else
-				SETCOLORS_WAL && SETCOLORS_CMD
+  # Determine whether or not
+  if [ "$USEWAL" = "true" ]; then
+		if [ "$USINGWAL" = "true" ]; then
+				if [ "$COLOR1" = "$(sed 1,1p $HOME/.cache/wal/colors)" ]; then
+						a=$a
+				else
+						SETCOLORS_WAL && SETCOLORS_CMD
+				fi
 		fi
   fi
 
-  sleep $SLEEPTIME
-  PRINT
+  # Run once if set to false (useful for maybe a shell)
+  case "$RUNONCE" in
+  "false") sleep $SLEEPTIME && BASE && PRINT ;;
+  esac
 }
 
-BASE
+# Set base colors
 SETCOLORS
 
+# Use pywal once if possible
 if [ -e "${BINDIR}xsetroot" ]; then
 		if [ -e "${BINDIR}xrdb" ]; then
-				grep xsetroot $HOME/.config/swal/swal_wm > /dev/null && SETCOLORS_WAL
+				if [ "$USEWAL" = "true" ]; then
+						grep xsetroot $HOME/.config/swal/swal_wm > /dev/null && SETCOLORS_WAL
+				fi
 		fi
 fi
 
 SETCOLORS_CMD
-
 PRINT
+BASE
+
+exit 0
