@@ -104,7 +104,8 @@ ITEM4() {
 }
 
 ITEM5() {
-  curl -so /tmp/internet_test wttr.in && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+  curl -so /tmp/hacky_internet_test wttr.in && echo "<  $(echo $(curl wttr.in/?format="%C"), $(curl wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+  rm -f /tmp/hacky_internet_test
 }
 
 ITEM6() {
