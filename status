@@ -33,7 +33,7 @@ ENABLE_ITEM6=true # Enable Network Traffic (<num>B/s (true/false)
 ENABLE_ITEM7=true # Enable dfmpeg status (true/false)
 ENABLE_ITEM8=true # Enable CPU temp (true/false)
 ENABLE_ITEM9=true # Enable mocp track (true/false)
-ENABLE_ITEM10=true # Enable newsboat unread (true/false)
+ENABLE_ITEM10=false # Enable newsboat unread (true/false)
 ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
 
 # Order of colors and items in the status bar
@@ -264,11 +264,10 @@ BASE() {
 
   # Run once if set to false (useful for maybe a shell)
   case "$RUNONCE" in
-  "false") sleep $SLEEPTIME;;
+  "false") PRINT && sleep $SLEEPTIME ;;
   "true") exit 0 ;;
   esac
 
-  PRINT
   BASE
 }
 
