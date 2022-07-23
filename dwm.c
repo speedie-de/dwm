@@ -1232,11 +1232,14 @@ drawbar(Monitor *m)
 				if (c->issticky) {
 					drw_polygon(drw, x + boxs, c->isfloating ? boxs * 2 + boxw : boxs, stickyiconbb.x, stickyiconbb.y, boxw, boxw * stickyiconbb.y / stickyiconbb.x, stickyicon, LENGTH(stickyicon), Nonconvex, c->tags & c->mon->tagset[c->mon->seltags]);
 				}
+				if (c->isfloating) {
+				    drw_rect(drw, x + boxs, boxs, boxw, boxw, c->isfixed, 0);
+				}
 				x += tabw;
 			}
 		} else {
 				drw_setscheme(drw, scheme[SchemeNorm]);
-				drw_rect(drw, x, 0, w, bh, 1, 1);
+				drw_rect(drw, x, 0, w - 2 * sp, bh, 1, 1);
 		    }
 		}
 		m->bt = n;

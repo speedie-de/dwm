@@ -250,11 +250,6 @@ ITEM11() {
   fi
 }
 
-# What to print
-PRINT() {
-  xsetroot -name "$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7)"
-}
-
 BASE() {
   # Determine whether or not
   if [ "$USEWAL" = "true" ]; then
@@ -269,8 +264,12 @@ BASE() {
 
   # Run once if set to false (useful for maybe a shell)
   case "$RUNONCE" in
-  "false") sleep $SLEEPTIME && BASE && PRINT ;;
+  "false") sleep $SLEEPTIME;;
+  "true") exit 0 ;;
   esac
+
+  BASE
+  PRINT
 }
 
 # Set base colors
