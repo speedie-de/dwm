@@ -72,7 +72,7 @@ BINDIR=$(cat /usr/share/dwm-bindir)
 SWAL_SOURCE()
 {
   ls "$SWAL_EXPORTDIR/config" || SWAL_MKCONFIG
-  . "$SWAL_EXPORTDIR/config"
+  . "$SWAL_EXPORTDIR/config" || rm -f "$SWAL_EXPORTDIR/config"
 }
 
 SWAL_CHECK()
@@ -97,10 +97,19 @@ SWAL_HELP() {
   echo "-f X | fsignal signum to reload .Xresources (with reloadxresources, fsignal and .Xresources dwm patches)"
 }
 
+SWAL_USAGE() {
+  echo "To set a wallpaper, you must create a configuration. To do this, select 'Options' in the menu and set all the options to your liking."
+  echo "The image viewer must be set to an image viewer that supports printing the filename to stdout. If you use sxiv, set the image viewer to 'sxiv -o'."
+  echo "In the case of sxiv, This means you can press 'm' when previewing an image to select it and then set it."
+  echo "Once you've selected your image using the method you prefer, select how you want to set it."
+  echo "Then your pywal colors will reload, and the wallpaper will be set."
+  echo "For more information, see dwm-help -a."
+}
+
 SWAL_SELWALLPAPER()
 {
   case "$NEW1" in
-  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\n------\n..\nOptions\nPreview\nExit" | $RUNLAUNCHER -g 1 -l 100 -p "What wallpaper would you like to set?" -l 20)" ;;
+  "") ls /tmp/swal_cpath || SWAL_SELWALLPAPER="$(printf "$(ls "$SWAL_WALLPAPERDIR")\n------\n..\nPreview\nOptions\nHelp\nExit" | $RUNLAUNCHER -g 1 -l 100 -p "What wallpaper would you like to set?" -l 20)" ;;
   "-w") SWAL_SELWALLPAPER="$(basename "$NEW2")" && touch /tmp/swal_cpath ;;
   "-h") SWAL_HELP | $RUNLAUNCHER -g 1 -l 90 ;;
   "-f") SWAL_FSIGNAL_RELOAD_XRESOURCES="$NEW2" ;;
@@ -127,6 +136,7 @@ SWAL_SETTYPE()
   "Preview") SWAL_PREVIEWIMG="$(basename $($SWAL_IMAGE_VIEWER *))" ;;
   "..") cd "$SWAL_WALLPAPERDIR/.." && SWAL_WALLPAPERDIR="$(pwd)" && SWAL_SELWALLPAPER && SET && exit 0 ;;
   "Exit") exit 0 ;;
+  "Help") SWAL_USAGE | $RUNLAUNCHER -g 1 -l 50 -p "How to use" && $0 && exit 0 ;;
   "------") $0 && exit 0 ;;
   esac
 
