@@ -108,10 +108,11 @@ RUNMIXER() {
 }
 
 AUDIO=$2
-
 case "$2" in
 "") AUDIO=alsa
-test ${BINDIR}pulsemixer && AUDIO=pulse ;;
+if [ -e "${BINDIR}pulsemixer" ]; then
+		AUDIO=pulse
+fi ;;
 esac
 
 # Update status
@@ -123,12 +124,13 @@ case "$1" in
 "-mute") MUTE && GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
 "-raise") RAISE ;;
 "-lower") LOWER ;;
-"-switch") SWITCH ;;
-"-getvol") GETVOL ;;
-"-getmute") GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
-"-getbackend") printf "$AUDIO\n" ;;
+"-switch") SWITCH && exit 0 ;;
+"-getvol") GETVOL && exit 0 ;;
+"-getmute") GETMUTE > /tmp/dwm-audioctrl-mutestatus && exit 0 ;;
+"-getbackend") printf "$AUDIO\n" && exit 0 ;;
 "-runmixer") RUNMIXER && exit 0 ;;
-"") exit 0 ;;
+"-help") printf "dwm-audioctrl\n-mute | Toggle mute\n-raise | Raise the volume by 7\n-lower | Lower the volume by 7\n-switch | Toggle output\n-getvol | Get current volume in percentage\n-getmute | Get mute status\n-getbackend | Get audio backend (ALSA, PulseAudio, etc.)\n-runmixer | Run the audio mixer detected on the system\n-help | Display this help screen\nNo arguments | Display this help screen\n"; exit 0 ;;
+"") $0 -help && exit 0 ;;
 esac
 
 pgrep -x status && UPDATESTATUS
