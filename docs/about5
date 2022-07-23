@@ -5,4 +5,5 @@ Previously all scripts bundled would only run dmenu from $PATH but you can now s
   - Add "export RUNLAUNCHER=<runlauncher>" to your .<shell>rc
 
 Run launchers must support dmenu arguments because otherwise scripts are going to be incompatible.
+It must also support the additional '-g' argument that the dmenu grid patch provides unless you modify the scripts bundled.
 Keep in mind that if you use a different run launcher, it may not support Pywal/.Xresources.

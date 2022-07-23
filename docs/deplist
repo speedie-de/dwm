@@ -11,8 +11,8 @@
   NOTE: Do not add any of these to .xinitrc or similar. They are going to be autostarted by dwm.
   If you want to use an alternative, change it in options.h.
   - dmenu
-    - NOTE: dmenu is required for most scripts included with this build of dwm.
-    - NOTE 2: My build is required for Pywal support.
+    - NOTE: dmenu is required for most scripts included with this build of dwm. My build is required for Pywal support.
+	- NOTE 2: The build must have the 'grid' patch. If yours does not have this, you can patch it in or get my build here: https://github.com/speedie-de/dmenu
   - picom
   - xclip (Required for clipboard support by a few scripts, will start automatically)
   - xwallpaper (Required to set wallpapers automatically)
