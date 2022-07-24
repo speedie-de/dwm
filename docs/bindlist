@@ -22,6 +22,7 @@
   - Super+t                   |  Reorganize tags and move clients
   - Super+f                   |  Full-screen the selected window
   - Super+b                   |  Show/hide the dwm bar
+  - Super+s                   |  Show/hide the systray (If trayer is installed)
   - Super+j/k                 |  Move focus between windows
   - Super+a/d                 |  Increase/decrease size of each window
   - Super+Minus               |  Show the scratchpad

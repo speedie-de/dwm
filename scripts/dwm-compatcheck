@@ -37,15 +37,22 @@ else
 		printf "\nWARNING: xmodmap was not found. This means the Alt+Tab script will not be able to remap Alt+hjkl temporarily."
 fi
 
+# Check if trayer exists
+if [ -e "${BINDIR}trayer" ]; then
+		trayer_exists=true
+else
+		printf "\nWARNING: trayer was not found. This means the systray will not be available."
+fi
+
 # Check if dmenu exists
 dmenu -v > /dev/null || printf "\nWARNING: dmenu was not found. This means running applications will potentially be very inconvenient. It also means most bundled scripts will NOT work unless modified to work with rofi. See help for more information"
 
 # Check if slock exists
 slock -v > /dev/null || printf "\nWARNING: slock was not found. This means the shutdown menu can't lock your screen."
 
-result="$(echo "$xrdb_exists$wmctrl_exists$xsetroot_exists$xwallpaper_exists$xmodmap_exists")"
+result="$(echo "$xrdb_exists$wmctrl_exists$xsetroot_exists$xwallpaper_exists$xmodmap_exists$trayer_exists")"
 
 case "$result" in
-"truetruetruetruetrue") printf "\nAll dependencies were found.\n\n" ;;
+"truetruetruetruetruetrue") printf "\nAll dependencies were found.\n\n" ;;
 "") printf "\nSome dependencies could not be found." ;;
 esac

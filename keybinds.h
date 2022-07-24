@@ -43,6 +43,7 @@ static Key keys[] = {
 	{ ControlMask|MODKEY|ShiftMask, XK_s,          spawn,                SHCMD("dwm-swal") },
 	{ ControlMask|MODKEY|ShiftMask, XK_n,          spawn,                SHCMD(NETWORK) },
 	{ ControlMask|MODKEY|ShiftMask, XK_b,          spawn,                SHCMD(BLUETOOTH) },
+	{ MODKEY,                       XK_s,          spawn,                SHCMD("dwm-core -toggle") },
 	{ ControlMask|MODKEY|ShiftMask, XK_m,          spawn,                SHCMD(TERMINAL EMAIL) },
 
 	/* Layout keybinds */

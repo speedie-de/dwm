@@ -59,6 +59,7 @@ install: all
 	cp -f scripts/dwm-netctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-netctrl
 	cp -f scripts/dwm-btctrl ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-btctrl
 	cp -f scripts/dwm_run ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm_run
+	cp -f scripts/dwm-core ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/dwm-core
 	cp -f status ${DESTDIR}${PREFIX}/bin ; chmod +x ${DESTDIR}${PREFIX}/bin/status
 	chmod +x ./scripts/dwm-compatcheck
 	chmod +x ./scripts/dwm-dm
@@ -81,6 +82,7 @@ uninstall:
 		${DESTDIR}${PREFIX}/bin/dwm-screenshotutil \
 		${DESTDIR}${PREFIX}/bin/dwm-virtualkeyboard \
 		${DESTDIR}${PREFIX}/bin/dwm-pdfopen \
+		${DESTDIR}${PREFIX}/bin/dwm-core \
 		${DESTDIR}${PREFIX}/bin/status \
 		${DESTDIR}${PREFIX}/share/dwm-bindlist \
 		${DESTDIR}${PREFIX}/share/dwm-deplist \

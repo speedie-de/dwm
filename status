@@ -36,10 +36,15 @@ ENABLE_ITEM9=true # Enable mocp track (true/false)
 ENABLE_ITEM10=false # Enable newsboat unread (true/false)
 ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
 
+# Systray options
+HIDE_STATUS_SYSTRAY=true # Hide the status when a systray is running (true/false)
+SYSTRAY="trayer" # Systray to use (<systray executable>).
+STATUS_WHEN_HIDDEN=" " # Status to print when status is hidden (char)
+
 # Order of colors and items in the status bar
 PRINT() {
 		$SETMETHOD \
-		"$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
+				"$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
 }
 
 # Colors
@@ -128,6 +133,26 @@ case "$MUTED" in
 "") MUTED=false ;;
 "true") MUTED=false ;;
 esac
+
+# Systray stuff
+PRINT_SYSTRAY() {
+		if [ "$HIDE_STATUS_SYSTRAY" = "true" ]; then
+				pgrep -x $SYSTRAY > /dev/null && SYSTRAYRUNNING=true
+				case "$SYSTRAYRUNNING" in
+				"true") $SETMETHOD "$STATUS_WHEN_HIDDEN" && exit 0 ;;
+				esac
+		fi
+		
+		if [ "$HIDE_SYSTEM_SYSTRAY" = "true" ]; then
+				if [ "$SYSTRAYRUNNING" = "true" ]; then
+						a=$a
+				else
+						PRINT
+				fi
+		else
+				PRINT
+		fi
+}
 
 # RAM usage
 ITEM1() {
@@ -264,7 +289,7 @@ BASE() {
 
   # Run once if set to false (useful for maybe a shell)
   case "$RUNONCE" in
-  "false") PRINT && sleep $SLEEPTIME ;;
+  "false") PRINT_SYSTRAY && sleep $SLEEPTIME ;;
   "true") exit 0 ;;
   esac
 
@@ -284,7 +309,7 @@ if [ -e "${BINDIR}xsetroot" ]; then
 fi
 
 SETCOLORS_CMD
-PRINT
+PRINT_SYSTRAY
 BASE
 
 exit 0

@@ -1,0 +1,36 @@
+#!/bin/sh
+# dwm-core
+# This script handles the systray and other things necessary for usage.
+
+BINDIR=$(cat /usr/share/dwm-bindir)
+OPT=$1
+
+USE() {
+  # Toggle
+  TOGGLE() {
+    if [ -e "/tmp/systray-started" ]; then
+		  OPT="-stop"
+    else
+		  OPT="-start"
+    fi
+		  
+  }
+  
+  case "$OPT" in
+  "-toggle") TOGGLE ;;
+  esac
+  
+  case "$OPT" in
+  "-start") trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 10 --transparent true --alpha 0 --tint 0x292d3e --height 19 &
+		    touch /tmp/systray-started ; pkill status ; status & ;;
+  "-stop") rm -f /tmp/systray-started ; pkill trayer ; pkill status ; status & ;;
+  "") echo "-start | Start the systray and restart status\n-stop | Stop the systray and restart status\n-toggle | Toggle systray and restart status" ;;
+  esac
+}
+
+# Start systray
+if [ -e "${BINDIR}trayer" ]; then
+		USE
+else
+		echo "Trayer not installed, exiting." && exit 1
+fi
