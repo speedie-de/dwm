@@ -54,7 +54,7 @@
 
 /* Window alignment options */
 static unsigned int borderpx                  = 1; /* How big your border is */
-static unsigned int snap                      = 32;
+static unsigned int snap                      = 20;
 static unsigned int gappx                     = 5; /* How big should your gaps be? 0 = No gaps */
 static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
