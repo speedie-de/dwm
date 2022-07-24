@@ -58,3 +58,4 @@
   - dwm-reorganizetags        | This patch adds a keybind to reorganize tags
   - dwm-restartsig            | This patch adds an option to "restart" dwm
   - dwm-restoreafterestart    | This patch keeps windows open on the right tags when restarting
+  - dwm-canfocusrule          | This patch adds a rule for being able to focus on a client (Used for systray)
