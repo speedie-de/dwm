@@ -20,7 +20,7 @@ fi
 if [ -e "${BINDIR}xsetroot" ]; then
 		xsetroot_exists=true
 else
-		printf "\nWARNING: xsetroot was not found. This means most status bars and bundled scripts won't work. Highly recommend installing this (sort of) optional dependency!"
+		printf "\nerror: ${BINDIR}xsetroot was not found\n" && exit 1
 fi
 
 # Check if xwallpaper exists
@@ -47,5 +47,5 @@ result="$(echo "$xrdb_exists$wmctrl_exists$xsetroot_exists$xwallpaper_exists$xmo
 
 case "$result" in
 "truetruetruetruetrue") printf "\nAll dependencies were found.\n\n" ;;
-"") printf "\nWTF NO DEPENDENCIES" ;;
+"") printf "\nSome dependencies could not be found." ;;
 esac
