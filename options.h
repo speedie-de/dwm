@@ -41,6 +41,7 @@
 #define BLUETOOTH                             "dwm-btctrl" /* Bluetooth manager to use */
 #define NOTIFICATION                          "dunst" /* Notification daemon to use */
 
+#define SESSION_FILE                          "/tmp/dwm-session"
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
 #define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
 

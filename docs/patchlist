@@ -57,3 +57,4 @@
   - dwm-savefloats            | This patch saves the position of floating windows and restores them (Modified to add a toggle)
   - dwm-reorganizetags        | This patch adds a keybind to reorganize tags
   - dwm-restartsig            | This patch adds an option to "restart" dwm
+  - dwm-restoreafterestart    | This patch keeps windows open on the right tags when restarting

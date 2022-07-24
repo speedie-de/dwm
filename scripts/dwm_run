@@ -9,7 +9,7 @@ test $HOME/.config/.Xresources && xrdb $HOME/.config/.Xresources
 
 RESET() {
 $HOME/.config/swal/swal_wm
-xsetroot -name "fsignal:25"
+#xsetroot -name "fsignal:25" # This line can be used if fsignal:30 doesn't work
 xsetroot -name "Loading" # To hide the ugly fsignal status
 xsetroot -name "fsignal:30"
 xsetroot -name "Loading" # To hide the ugly fsignal status
