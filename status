@@ -39,7 +39,7 @@ ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
 # Systray options
 HIDE_STATUS_SYSTRAY=true # Hide the status when a systray is running (true/false)
 SYSTRAY="trayer" # Systray to use (<systray executable>).
-STATUS_WHEN_HIDDEN=" " # Status to print when status is hidden (char)
+STATUS_WHEN_HIDDEN="" # Status to print when status is hidden (char)
 
 # Order of colors and items in the status bar
 PRINT() {
