@@ -43,7 +43,7 @@
 
 #define SESSION_FILE                          "/tmp/dwm-session"
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
-#define TAGKEYS(KEY,TAG)                      { MODKEY|ShiftMask, KEY, view, {.ui = 1 << TAG} }, \
+#define TAGKEYS(CHAIN,KEY,TAG)                      { MODKEY|ShiftMask, CHAIN, KEY, view, {.ui = 1 << TAG} },
 
 /* Options
  *

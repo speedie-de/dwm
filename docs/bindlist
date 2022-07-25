@@ -68,6 +68,9 @@
   - Super+Control+Shift+b     |  Connect to a bluetooth device (Requires bluez and bluez-utils)
   - Alt+Tab                   |  Switch windows quickly and easily 
   
+  -- Chained keybinds --
+  - Super+c & w               |  Curl wttr.in and open in less
+
   -- Extras --
   These will only work if your keyboard has special multimedia buttons.
   - Mute button               |  Mutes your audio
@@ -78,4 +81,3 @@
   - Power button              |  Ask if you wanna shut down, restart or lock your computer.
   - Email button              |  Open your defined email client
   - System button             |  Open your defined status viewer in a terminal
-

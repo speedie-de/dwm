@@ -61,3 +61,4 @@
   - dwm-canfocusrule          | This patch adds a rule for being able to focus on a client (Used for systray)
   - dwm-showhide              | This patch allows you to show/hide (or in this build minimize) clients.
   - dwm-spawnwd               | This patch (with some modifications) allows you to spawn clients in the working directory of the focused client
+  - dwm-keychain              | This patch allows you to create keybinds using multiple keys

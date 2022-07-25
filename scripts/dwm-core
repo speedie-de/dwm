@@ -57,6 +57,10 @@ USE() {
   esac
 }
 
+case "$OPT" in
+"-curl-weather") clear ; curl -s wttr.in | head -n 38 | tail -n 37 && sleep 60 ;;
+esac
+
 # Start systray
 if [ -e "${BINDIR}trayer" ]; then
 		USE
