@@ -98,7 +98,6 @@ ResourcePref resources[]                      = {
 	   { "borderpx",             INTEGER, &borderpx }, 
        { "snap",                 INTEGER, &snap },
        { "showbar",              INTEGER, &showbar },
-       { "topbar",               INTEGER, &topbar },
        { "nmaster",              INTEGER, &nmaster },
 	   { "rmaster",              INTEGER, &rmaster },
        { "resizehints",          INTEGER, &resizehints },

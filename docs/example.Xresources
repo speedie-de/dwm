@@ -46,7 +46,6 @@
   - dwm.borderpx:             1
   - dwm.snap:                 32
   - dwm.showbar:              1
-  - dwm.topbar:               1
   - dwm.resizehints:          0
   - dwm.mfact:                0.50
   - dwm.startontag:           1

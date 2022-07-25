@@ -31,7 +31,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_i,          spawn,                SHCMD(OPENPDF) },
 	{ MODKEY|ShiftMask,             XK_Escape,     spawn,                SHCMD("dwm-shutdown") },
 	{ ControlMask|MODKEY,           XK_Tab,        spawn,                SHCMD("dwm-utils -layout") },
-	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-help -a") },
+	{ ControlMask|MODKEY,           XK_h,          spawn,                SHCMD(TERMINAL "dwm-help -3") },
 	{ ControlMask|MODKEY,           XK_s,          spawn,                SHCMD(SCREENSHOT_FULL) },
 	{ ControlMask|MODKEY,           XK_u,          spawn,                SHCMD(TERMINAL RSS) },
     { ControlMask|MODKEY,           XK_m,          spawn,                SHCMD(KILLMUSIC) },

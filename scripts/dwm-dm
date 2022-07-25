@@ -1,6 +1,9 @@
 #!/bin/sh
 # Create a .desktop file for people who use display managers.
 
+rm -f /usr/share/dwm-topbar
 mkdir -p /usr/share/xsessions
 printf "[Desktop Entry]\nEncoding=UTF-8\nName=dwm\nComment=Dynamic window manager\nExec=dwm_run\nIcon=dwm\nType=XSession" > /usr/share/xsessions/dwm.desktop
+TOPBAR=$(cat options.h | grep "topbar" | grep "1" | awk '{ print $5 }')
+echo $TOPBAR | grep "1" && touch /usr/share/dwm-topbar
 exit 0
