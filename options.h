@@ -86,7 +86,7 @@ static int sizeicon                           = 10; /* size of the icon */
 static int spacingicon                        = 5; /* spacing between the title and icon */
 
 /* Bar options */
-static int barheight                          = 4; /* Bar height in px, 0 = default behaviour */
+static int barheight                          = 5; /* Bar height in px, 0 = default behaviour */
 static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
 static int vertpad                            = 0; /* How much padding to have vertically */
