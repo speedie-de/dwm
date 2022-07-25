@@ -69,12 +69,15 @@ static int firstwindowsize                    = 0; /* Size of first centered win
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes 1 = yes, 0 = no */
 
+/* Window spawning options */
+static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client 1 = yes, 0 = no */
+
 /* Font options */
 static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */
 static char font2[]                           = { "NotoSans-Regular:size=8:antialiasing=true" }; /* Second font */
 static char font3[]                           = { "Noto Emoji:size=8" }; /* Third font */
-static char defaultname[]                     = ""; /* What to print when a status bar is not running */
 static const char *fonts[]                    = { font, font2, font3 };
+static char defaultname[]                     = ""; /* What to print when a status bar is not running */
 
 /* Misc */
 static char shell[]                           = "/bin/sh"; /* shell to use */ 
@@ -91,8 +94,8 @@ static int spacingicon                        = 5; /* spacing between the title 
 static int barheight                          = 5; /* Bar height in px, 0 = default behaviour */
 static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
-static int vertpad                            = 0; /* How much padding to have vertically */
-static int sidepad                            = 0; /* How much padding to have horizontally */
+static int vertpad                            = 5; /* How much padding to have vertically */
+static int sidepad                            = 5; /* How much padding to have horizontally */
 
 /* Layout options */
 static unsigned int stairpx                   = 20; /* depth of the stairs layout */

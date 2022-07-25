@@ -20,6 +20,7 @@
  *
  * To understand everything else, start reading main().
  */
+#include <assert.h>
 #include <errno.h>
 #include <locale.h>
 #include <signal.h>
@@ -28,6 +29,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <libgen.h>
+#include <sys/stat.h>
 #include <limits.h>
 #include <stdint.h>
 #include <sys/types.h>
@@ -1181,7 +1184,7 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon || 1) { /* status is only drawn on selected monitor */
 		char *text, *s, ch;
-		tw = statusw = m->ww - drawstatusbar(m, bh, stext);
+		tw = statusw = m->ww - drawstatusbar(m, bh, stext) - lrpad + 2;
 
 		x = 0;
 
@@ -1241,7 +1244,7 @@ drawbar(Monitor *m)
 					}
 					remainder--;
 				}
-				drw_text(drw, x, 0, tabw, bh, lrpad / 2 + (c->icon ? c->icw + ICONSPACING : 0), c->name, 0);
+				drw_text(drw, x, 0, tabw - 2 * sp, bh, lrpad / 2 + (c->icon ? c->icw + ICONSPACING : 0), c->name, 0);
 				if (c->icon) drw_pic(drw, x + lrpad / 2, (bh - c->ich) / 2, c->icw, c->ich, c->icon);
 				if (c->issticky) {
 					drw_polygon(drw, x + boxs, c->isfloating ? boxs * 2 + boxw : boxs, stickyiconbb.x, stickyiconbb.y, boxw, boxw * stickyiconbb.y / stickyiconbb.x, stickyicon, LENGTH(stickyicon), Nonconvex, c->tags & c->mon->tagset[c->mon->seltags]);
@@ -2704,6 +2707,8 @@ sigchld(int unused)
 	}
 }
 
+#define SPAWN_CWD_DELIM " []{}()<>\"':"
+
 //void
 //sigstatusbar(const Arg *arg)
 //{
@@ -2745,6 +2750,40 @@ spawn(const Arg *arg)
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
+    if(spawncd) {
+		if(selmon->sel) {
+			const char* const home = getenv("HOME");
+			assert(home && strchr(home, '/'));
+			const size_t homelen = strlen(home);
+			char *cwd, *pathbuf = NULL;
+			struct stat statbuf;
+
+			cwd = strtok(selmon->sel->name, SPAWN_CWD_DELIM);
+			/* NOTE: strtok() alters selmon->sel->name in-place,
+			 * but that does not matter because we are going to
+			 * exec() below anyway; nothing else will use it */
+			while(cwd) {
+				if(*cwd == '~') { /* replace ~ with $HOME */
+					if(!(pathbuf = malloc(homelen + strlen(cwd)))) /* ~ counts for NULL term */
+						die("fatal: could not malloc() %u bytes\n", homelen + strlen(cwd));
+					strcpy(strcpy(pathbuf, home) + homelen, cwd + 1);
+					cwd = pathbuf;
+				}
+
+				if(strchr(cwd, '/') && !stat(cwd, &statbuf)) {
+					if(!S_ISDIR(statbuf.st_mode))
+						cwd = dirname(cwd);
+
+					if(!chdir(cwd))
+						break;
+				}
+
+				cwd = strtok(NULL, SPAWN_CWD_DELIM);
+			}
+
+			free(pathbuf);
+		}
+    }
 		setsid();
 		execvp(((char **)arg->v)[0], (char **)arg->v);
 		fprintf(stderr, "dwm: execvp %s", ((char **)arg->v)[0]);
