@@ -23,8 +23,8 @@ done
 }
 
 case "$1" in
-"") XRESOURCES ; RESET ; START_DWM ; exit 0 ;;
-"-r") RESET ; exit 0 ;;
+"") RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
+"-r") RESET ; XRESOURCES ; exit 0 ;;
 esac
 
 exit 0

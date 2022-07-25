@@ -171,7 +171,7 @@ SWAL_SETTYPE()
 
   case "$SWAL_ASK_WAL" in
   "true") wal -v && SWAL_USE_WAL=$(printf "Yes\nNo" | $RUNLAUNCHER -g 1 -l 90 -p "Do you want to use Pywal?" -l 2) && SWAL_WAL_STATUS="1" ;;
-  "false") wal -v && xrdb -query | grep color66 > /dev/null && SWAL_USE_WAL="Yes" && SWAL_WAL_STATUS="1" ;;
+  "false") wal -v && SWAL_USE_WAL="Yes" && SWAL_WAL_STATUS="1" ;;
   esac
 
   # Don't perform pywal actions if not installed/used
@@ -194,11 +194,12 @@ SWAL_EXPORT_SCRIPT()
 
 SWAL_EXPORT_SCRIPT_WAL()
 {
-  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""\nwal -i ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES'" > $SWAL_EXPORTDIR/swal_wm
+  printf "#!/bin/sh\n$SWAL_OPT $SWAL_TYPE ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'""\nwal -i ""'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'"" || rm -rf $HOME/.cache/wal ; xrdb -remove\nxrdb ~/.cache/wal/colors.Xresources\nxsetroot -name 'fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES'" > $SWAL_EXPORTDIR/swal_wm
   chmod +x $SWAL_EXPORTDIR/swal_wm
-  wal -i "'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" # Compatibility with my dwm build
+  rm -rf $HOME/.cache/wal # Delete previous colors
+  wal -i "'$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER'" && xrdb ~/.cache/wal/colors.Xresources && xsetroot -name "fsignal:$SWAL_FSIGNAL_RELOAD_XRESOURCES" || xrdb -remove # Compatibility with my dwm build
   rm -f ~/.config/swal/CurrentWallpaper && ln -s "$SWAL_WALLPAPERDIR/$SWAL_SELWALLPAPER" ~/.config/swal/CurrentWallpaper
-  
+
   if [ -e "/usr/bin/${RUNLAUNCHER}_run" ]; then
 		grep "PYWAL" ${BINDIR}${RUNLAUNCHER}_run && printf "\n${RUNLAUNCHER}_run -r" >> $SWAL_EXPORTDIR/swal_wm
 		${RUNLAUNCHER}_run -r # For speedie.gq/dmenu

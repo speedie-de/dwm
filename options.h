@@ -104,7 +104,7 @@ static int stairsamesize                      = 1; /* 1 means shrink all the sta
 
 /* Bar colors */
 static char col_background[]                  = "#222222"; /* dwm dark bg & slstatus bg */
-static char col_backgroundmid[]               = "#005577"; /* dwm middle background */
+static char col_backgroundmid[]               = "#222222"; /* dwm middle background */
 
 /* General text colors */
 static char col_textnorm[]                    = "#bbbbbb"; /* application title bar/font for norm */
