@@ -94,8 +94,8 @@ static int spacingicon                        = 5; /* spacing between the title 
 static int barheight                          = 5; /* Bar height in px, 0 = default behaviour */
 static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
-static int vertpad                            = 5; /* How much padding to have vertically */
-static int sidepad                            = 5; /* How much padding to have horizontally */
+static int vertpad                            = 0; /* How much padding to have vertically */
+static int sidepad                            = 0; /* How much padding to have horizontally */
 
 /* Layout options */
 static unsigned int stairpx                   = 20; /* depth of the stairs layout */
