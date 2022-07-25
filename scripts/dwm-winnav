@@ -35,11 +35,6 @@ SET
 windows=$(wmctrl -xl | tr -s '[:blank:]' | cut -d ' ' -f 3-3,5- | sed 's/^[a-zA-Z0-9-]*\.//' | sort | uniq)
 windows_class=$(echo $windows | awk '{ print $1 }')
 
-# If only one window is open, don't display the menu.
-case "$(printf "$windows" | wc -l)" in
-"1") RESTORE && exit 1 ;;
-esac
-
 # Add spaces to align the WM_NAMEs of the windows
 max=$(echo "$windows" | awk '{cur=length($1); max=(cur>max?cur:max)} END{print max}')
 
