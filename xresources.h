@@ -91,10 +91,11 @@ ResourcePref resources[]                      = {
 	   { "color13",              STRING,  &termcol13 },
 	   { "color14",              STRING,  &termcol14 },
 	   { "color15",              STRING,  &termcol15 },
-
 	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
+       { "defaultname",          STRING,  &defaultname },
        { "lockfullscreen",       INTEGER, &lockfullscreen },
+	   { "refreshrules",         INTEGER, &refreshrules },
 	   { "borderpx",             INTEGER, &borderpx }, 
        { "snap",                 INTEGER, &snap },
        { "showbar",              INTEGER, &showbar },

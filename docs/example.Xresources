@@ -55,6 +55,8 @@
   - dwm.sizeicon:             16
   - dwm.spacingicon:          5
   - dwm.status:               status
+  - dwm.defaultname:          dwm-is-cool
+  - dwm.refreshrules:         1
   - dwm.decorhints:           1
   - dwm.vertpad:              0
   - dwm.sidepad:              0  

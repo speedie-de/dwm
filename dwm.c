@@ -3364,7 +3364,8 @@ updatestatus(void)
 void
 updaterules(Client *c)
 {
-    //applyrules(c)
+    if (refreshrules)
+	{
 	const char *class, *instance;
 	unsigned int i;
 	const Rule *r;
@@ -3407,6 +3408,7 @@ updaterules(Client *c)
 		resize(c, c->x, c->y,
 			c->w, c->h, 0);
 	arrange(c->mon);
+	}
 }
 
 void

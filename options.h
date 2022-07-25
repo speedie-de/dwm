@@ -67,6 +67,7 @@ static int swallowfloating                    = 0; /* Swallow floating windows b
 static int centerfloating                     = 1; /* Center floating windows by default */
 static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
+static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes 1 = yes, 0 = no */
 
 /* Font options */
 static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */
