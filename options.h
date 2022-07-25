@@ -72,6 +72,7 @@ static int savefloat                          = 1; /* Save position of floating 
 static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */
 static char font2[]                           = { "NotoSans-Regular:size=8:antialiasing=true" }; /* Second font */
 static char font3[]                           = { "Noto Emoji:size=8" }; /* Third font */
+static char defaultname[]                     = ""; /* What to print when a status bar is not running */
 static const char *fonts[]                    = { font, font2, font3 };
 
 /* Misc */

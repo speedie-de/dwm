@@ -3338,7 +3338,7 @@ updatestatus(void)
     Monitor* m;
 	//if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext))) {
 	if (!gettextprop(root, XA_WM_NAME, rawstext, sizeof(rawstext))) {
-		strcpy(stext, "dwm-"VERSION);
+		strcpy(stext, defaultname);
 		statusw = TEXTW(stext) - lrpad + 2;
 	} else {
 	    copyvalidchars(stext, rawstext);
