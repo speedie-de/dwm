@@ -116,6 +116,12 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,          7)
 	TAGKEYS(                        XK_9,          8)
 	{ MODKEY,                       XK_t,          reorganizetags, {0} },
+ 
+    /* Hide/Show keybinds */
+	{ MODKEY,						XK_o, 	       hidewin, 	   {0} },
+    { MODKEY|ControlMask, 			XK_o, 	       restorewin, 	   {0} },
+    { MODKEY, 						XK_w, 	       hideotherwins,  {0} },
+    { MODKEY|ControlMask, 			XK_w, 	       restoreotherwins, {0} },
 
 	/* Media buttons */
 	{ 0, XF86XK_AudioMute,		    spawn,		                   SHCMD(VOL_MUTE) },
