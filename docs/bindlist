@@ -23,7 +23,8 @@
   - Super+f                   |  Full-screen the selected window
   - Super+b                   |  Show/hide the dwm bar
   - Super+s                   |  Show/hide the systray (If trayer is installed)
-  - Super+j/k                 |  Move focus between windows
+  - Super+j/k                 |  Move focus between visible windows
+  - Super+Shift+j/k           |  Move focus between hidden windows
   - Super+a/d                 |  Increase/decrease size of each window
   - Super+o                   |  Hide a window
   - Super+Control+o           |  Show a window

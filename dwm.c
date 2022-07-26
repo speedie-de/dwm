@@ -168,6 +168,7 @@ struct Monitor {
 	int rmaster;
 	int showbar;
 	int topbar;
+	int hidsel;
 	Client *clients;
 	Client *sel;
 	Client *stack;
@@ -252,7 +253,10 @@ static void expose(XEvent *e);
 static void focus(Client *c);
 static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
-static void focusstack(const Arg *arg);
+//static void focusstack(const Arg *arg);
+static void focusstackvis(const Arg *arg);
+static void focusstackhid(const Arg *arg);
+static void focusstack(int inc, int vis);
 static Atom getatomprop(Client *c, Atom prop);
 static Picture geticonprop(Window w, unsigned int *icw, unsigned int *ich);
 static int getrootptr(int *x, int *y);
@@ -360,11 +364,9 @@ static pid_t winpid(Window w);
 static const char broken[] = "dwm";
 static char stext[1024];
 static char rawstext[1024];
-//static int statuscmdn;
 static char lastbutton[] = "-";
 static int statusw;
-//static int statussig;
-//static pid_t statuspid = -1;
+static pid_t statuspid = -1;
 static int screen;
 static int tw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -1386,38 +1388,69 @@ focusmon(const Arg *arg)
 	warp(selmon->sel);
 }
 
+focusstackvis(const Arg *arg)
+{
+	focusstack(arg->i, 0);
+}
+
 void
-focusstack(const Arg *arg)
+focusstackhid(const Arg *arg)
+{
+	focusstack(arg->i, 1);
+}
+
+
+void
+focusstack(int inc, int hid)
 {
 	Client *c = NULL, *i;
 
-    if (issinglewin(arg)) {
-      focuswin(arg);
-      return;
-    }
+    //if (issinglewin(arg)) {
+    //  focuswin(arg);
+    //  return;
+    //}
 
-	if (!selmon->sel || (selmon->sel->isfullscreen && lockfullscreen))
+	if (!selmon->sel && !hid || (selmon->sel->isfullscreen && lockfullscreen))
 		return;
-	if (arg->i > 0) {
-		//for (c = selmon->sel->next; c && (!ISVISIBLE(c) || HIDDEN(c)); !c->canfocus; c = c->next);
-		  //for (c = selmon->sel->next; c && (!ISVISIBLE(c) || HIDDEN(c)); !c->canfocus; c = c->next);
-		  //for (c = selmon->sel->next; c && (!ISVISIBLE(c) || HIDDEN(c)); c = c->next);
-		  for (c = selmon->sel->next; c && (!ISVISIBLE(c) || !c->canfocus && HIDDEN(c)); c = c->next);
+	//if (arg->i > 0) {
+		  //for (c = selmon->sel->next; c && (!ISVISIBLE(c) || !c->canfocus && HIDDEN(c)); c = c->next);
+    if (!selmon->clients)
+		return;
+
+	if (inc > 0) {
+		if (selmon->sel)
+			for (c = selmon->sel->next;
+					 c && (!ISVISIBLE(c) || (!hid && HIDDEN(c)));
+					 c = c->next);
 		if (!c)
-			//for (c = selmon->clients; c && (!ISVISIBLE(c) || HIDDEN(c)); !c->canfocus; c = c->next);
-			  for (c = selmon->clients; c && (!ISVISIBLE(c) || !c->canfocus && HIDDEN(c)); c = c->next);
+			  for (c = selmon->clients;
+						       c && (!ISVISIBLE(c) || !c->canfocus && (!hid && HIDDEN(c)));
+							   c = c->next);
 	} else {
-		for (i = selmon->clients; i != selmon->sel; i = i->next)
-			if (ISVISIBLE(i) && !HIDDEN(i))
-				c = i;
+		//for (i = selmon->clients; i != selmon->sel; i = i->next)
+			//if (ISVISIBLE(i) && !HIDDEN(i))
+				//c = i;
+		    if (selmon->sel) {
+				    for (i = selmon->clients; i != selmon->sel; i = i->next)
+						    if (ISVISIBLE(i) && !(!hid && HIDDEN(i)))
+								    c = i;
+		    } else
+				    c = selmon->clients;
 		if (!c)
 			for (; i; i = i->next)
 				if (ISVISIBLE(i) && i->canfocus && !HIDDEN(i))
 					c = i;
 	}
+
 	if (c) {
 		focus(c);
 		restack(selmon);
+
+		
+		if (HIDDEN(c)) {
+			showwin(c);
+			c->mon->hidsel = 1;
+		}
 	}
 }
 

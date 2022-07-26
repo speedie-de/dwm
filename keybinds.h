@@ -74,8 +74,10 @@ static Key keys[] = {
 	/* dwm general binds */
 	{ MODKEY,                       -1,            XK_f,          togglefullscr,        {0} },
 	{ MODKEY,                       -1,            XK_b,          togglebar,            {0} },
-	{ MODKEY,                       -1,            XK_j,          focusstack,           {.i = +1 } },
-	{ MODKEY,                       -1,            XK_k,          focusstack,           {.i = -1 } },
+	{ MODKEY,                       -1,            XK_j,          focusstackvis,        {.i = +1 } },
+	{ MODKEY,                       -1,            XK_k,          focusstackvis,        {.i = -1 } },
+	{ MODKEY|ShiftMask,             -1,            XK_j,          focusstackhid,        {.i = +1 } },
+	{ MODKEY|ShiftMask,             -1,            XK_k,          focusstackhid,        {.i = -1 } },
 	{ MODKEY,                       -1,            XK_a,          setmfact,             {.f = -0.05} },
 	{ MODKEY,                       -1,            XK_d,          setmfact,             {.f = +0.05} },
 	{ MODKEY,                       -1,            XK_Return,     zoom,                 {0} },
