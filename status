@@ -35,6 +35,7 @@ ENABLE_ITEM8=true # Enable CPU temp (true/false)
 ENABLE_ITEM9=true # Enable mocp track (true/false)
 ENABLE_ITEM10=false # Enable newsboat unread (true/false)
 ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
+ENABLE_ITEM12=true # Enable #ff IRC backlog in status bar (true/false)
 
 # Systray options
 HIDE_STATUS_SYSTRAY=true # Hide the status when a systray is running (true/false)
@@ -44,7 +45,7 @@ STATUS_WHEN_HIDDEN="" # Status to print when status is hidden (char)
 # Order of colors and items in the status bar
 PRINT() {
 		$SETMETHOD \
-				"$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10)"
+				"$SETCOLORCMD11$(ITEM2) $SETCOLORCMD10$(ITEM3) $SETCOLORCMD13$(ITEM11) $SETCOLORCMD8$(ITEM4) $SETCOLORCMD7$(ITEM1) $SETCOLORCMD6$(ITEM6) $SETCOLORCMD4$(ITEM8) $SETCOLORCMD3$(ITEM5) $SETCOLORCMD2$(ITEM9) $SETCOLORCMD5$(ITEM7) $SETCOLORCMD9$(ITEM10) $SETCOLORCMD14$(ITEM12)"
 }
 
 # Colors
@@ -271,6 +272,18 @@ ITEM11() {
 
 		if [ -e "${BINDIR}acpi" ]; then
 				CHARGESTATUS=$(echo ", $(acpi | awk '{ print $3 }' | sed "s|,||g" | sed "s|Discharging|Not charging|g")") && echo $CHARGESTATUS
+		fi
+  fi
+}
+
+# IRC #ff backlogs
+ITEM12() {
+  if [ "$ENABLE_ITEM12" = "true" ]; then
+		if [ -e "${BINDIR}curl" ]; then
+				curl -so /tmp/ff-backlogs https://donut.gq/ff/read.php
+				if [ -e "/tmp/ff-backlogs" ]; then
+						echo "<  $(cat /tmp/ff-backlogs | tail -n 1)"
+				fi
 		fi
   fi
 }

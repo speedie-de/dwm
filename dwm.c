@@ -359,7 +359,7 @@ static pid_t winpid(Window w);
 /* variables */
 static const char broken[] = "dwm";
 static char stext[1024];
-static char rawstext[256]; // Might need to change to 1024
+static char rawstext[1024]; // Might need to change to 1024
 //static int statuscmdn;
 static char lastbutton[] = "-";
 static int statusw;
