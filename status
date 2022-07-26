@@ -35,7 +35,7 @@ ENABLE_ITEM8=true # Enable CPU temp (true/false)
 ENABLE_ITEM9=true # Enable mocp track (true/false)
 ENABLE_ITEM10=false # Enable newsboat unread (true/false)
 ENABLE_ITEM11=true # Enable battery percentage and charging status (true/false)
-ENABLE_ITEM12=true # Enable #ff IRC backlog in status bar (true/false)
+ENABLE_ITEM12=false # Enable #ff IRC backlog in status bar (true/false)
 
 # Systray options
 HIDE_STATUS_SYSTRAY=true # Hide the status when a systray is running (true/false)
