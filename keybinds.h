@@ -93,6 +93,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             -1,            XK_k,          inplacerotate,        {.i = -1} },
 	{ MODKEY|ShiftMask,             -1,            XK_h,          inplacerotate,        {.i = +2} },
 	{ MODKEY|ShiftMask,             -1,            XK_l,          inplacerotate,        {.i = -2} },
+	{ MODKEY,                       -1,            XK_t,          toggleopacity,        {0} },
 
 	/* Floating mode keybinds */
 	{ MODKEY,                       -1,            XK_Down,       moveresize,           {.v = "0x 25y 0w 0h" } },

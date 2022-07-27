@@ -1,85 +1,86 @@
   -- Applications --
   Keybinds for regular applications
-  - Super+Shift+Enter         |  Opens a terminal
-  - Super+Shift+Colon         |  Opens a dmenu prompt
-  - Super+Shift+s             |  Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
-  - Super+Shift+f             |  Opens the defined file manager
-  - Super+Shift+w             |  Opens the defined web browser
-  - Super+Shift+o             |  Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-  - Super+Shift+e             |  Opens the dboard dmenu script in dmenu which can copy text to your clipboard
-  - Super+Shift+t             |  Opens the defined editor in your terminal
-  - Super+Shift+p             |  pkills the defined web browser
-  - Super+Shift+m             |  pkills the defined music player
-  - Super+Shift+a             |  Opens the defined mixer in your terminal
-  - Super+Shift+m             |  Opens the defined music player
-  - Super+Shift+x             |  Opens the defined system process viewer in your terminal
-  - Super+Control+Shift+m     |  Opens the defined email client
-  - Super+Control+u           |  Opens the defined RSS reader
+  - Super+Shift+Enter         | Opens a terminal
+  - Super+Shift+Colon         | Opens a dmenu prompt
+  - Super+Shift+s             | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
+  - Super+Shift+f             | Opens the defined file manager
+  - Super+Shift+w             | Opens the defined web browser
+  - Super+Shift+o             | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
+  - Super+Shift+e             | Opens the dboard dmenu script in dmenu which can copy text to your clipboard
+  - Super+Shift+t             | Opens the defined editor in your terminal
+  - Super+Shift+p             | pkills the defined web browser
+  - Super+Shift+m             | pkills the defined music player
+  - Super+Shift+a             | Opens the defined mixer in your terminal
+  - Super+Shift+m             | Opens the defined music player
+  - Super+Shift+x             | Opens the defined system process viewer in your terminal
+  - Super+Control+Shift+m     | Opens the defined email client
+  - Super+Control+u           | Opens the defined RSS reader
 
   -- Navigation --
   These keybinds are for navigating dwm
-  - Super+r                   |  Toggle master on the left/right
-  - Super+t                   |  Reorganize tags and move clients
-  - Super+f                   |  Full-screen the selected window
-  - Super+b                   |  Show/hide the dwm bar
-  - Super+s                   |  Show/hide the systray (If trayer is installed)
-  - Super+j/k                 |  Move focus between visible windows
-  - Super+Shift+j/k           |  Move focus between hidden windows
-  - Super+a/d                 |  Increase/decrease size of each window
-  - Super+o                   |  Hide a window
-  - Super+Control+o           |  Show a window
-  - Super+w                   |  Hide all windows except focused
-  - Super+Control+w           |  Show all windows except focused
-  - Super+Arrow               |  Move to the next/previous tag
-  - Super+Minus               |  Show the scratchpad
-  - Super+Equal               |  Remove the scratchpad
-  - Super+Enter               |  Switch order of windows
-  - Super+Shift+q             |  Close the current window
-  - Super+Space               |  Set layout
-  - Super+Shift+Equal         |  Toggle scratchpads
-  - Super+Shift+Minus         |  Hide the scratchpad
-  - Super+Shift+Space         |  Unfloat floating windows
-  - Super+Shift+Arrow         |  Resizes a window in floating mode
-  - Super+Shift+1             |  Move to tag 1
-  - Super+Shift+2             |  Move to tag 2
-  - Super+Shift+3             |  Move to tag 3
-  - Super+Shift+4             |  Move to tag 4
-  - Super+Shift+5             |  Move to tag 5
-  - Super+Shift+6             |  Move to tag 6
-  - Super+Shift+7             |  Move to tag 7
-  - Super+Shift+8             |  Move to tag 8
-  - Super+Shift+9             |  Move to tag 9
-  - Super+Shift+h/j/k/l       |  Rotates a stack.
-  - Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
-  - Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
-  - Super+Shift+p             |  Open a dmenu prompt and open the file the user picks in Vim
-  - Super+Control+e           |  Switch to layout 3 (Grid)
-  - Super+Control+r           |  Switch to layout 1 (Monocle)
-  - Super+Control+t           |  Switch to layout 0 (Master & stack)
-  - Super+Control+y           |  Switch to layout 4 (Deck)
-  - Super+Control+0           |  Set all windows to use the same tag
-  - Super+Control+Arrow       |  Moves a window to any corner of your screen (Arrow key)
-  - Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
-  - Super+Control+h           |  Open a list of all keybinds in your terminal using less
-  - Super+Control+Shift+a/d   |  Move between available layouts
-  - Super+Alt+s               |  Make the current selected window sticky
-  - Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
-  - Super+Control+Shift+Arrow |  Resize the window to the screen size.
-  - Super+Control+Shift+s     |  Set a wallpaper
-  - Super+Control+Shift+n     |  Connect to wifi (Requires iwd)
-  - Super+Control+Shift+b     |  Connect to a bluetooth device (Requires bluez and bluez-utils)
-  - Alt+Tab                   |  Switch windows quickly and easily 
+  - Super+r                   | Toggle master on the left/right
+  - Super+t                   | Reorganize tags and move clients
+  - Super+f                   | Full-screen the selected window
+  - Super+b                   | Show/hide the dwm bar
+  - Super+s                   | Show/hide the systray (If trayer is installed)
+  - Super+j/k                 | Move focus between visible windows
+  - Super+Shift+j/k           | Move focus between hidden windows
+  - Super+a/d                 | Increase/decrease size of each window
+  - Super+o                   | Hide a window
+  - Super+Control+o           | Show a window
+  - Super+w                   | Hide all windows except focused
+  - Super+Control+w           | Show all windows except focused
+  - Super+Arrow               | Move to the next/previous tag
+  - Super+Minus               | Show the scratchpad
+  - Super+Equal               | Remove the scratchpad
+  - Super+Enter               | Switch order of windows
+  - Super+Shift+q             | Close the current window
+  - Super+Space               | Set layout
+  - Super+t                   | Disable inactive fade
+  - Super+Shift+Equal         | Toggle scratchpads
+  - Super+Shift+Minus         | Hide the scratchpad
+  - Super+Shift+Space         | Unfloat floating windows
+  - Super+Shift+Arrow         | Resizes a window in floating mode
+  - Super+Shift+1             | Move to tag 1
+  - Super+Shift+2             | Move to tag 2
+  - Super+Shift+3             | Move to tag 3
+  - Super+Shift+4             | Move to tag 4
+  - Super+Shift+5             | Move to tag 5
+  - Super+Shift+6             | Move to tag 6
+  - Super+Shift+7             | Move to tag 7
+  - Super+Shift+8             | Move to tag 8
+  - Super+Shift+9             | Move to tag 9
+  - Super+Shift+h/j/k/l       | Rotates a stack.
+  - Super+Shift+Escape        | Ask the user if they want to shutdown or reboot or nothing
+  - Super+Shift+i             | Open a dmenu prompt and open the file the user picks in Zathura
+  - Super+Shift+p             | Open a dmenu prompt and open the file the user picks in Vim
+  - Super+Control+e           | Switch to layout 3 (Grid)
+  - Super+Control+r           | Switch to layout 1 (Monocle)
+  - Super+Control+t           | Switch to layout 0 (Master & stack)
+  - Super+Control+y           | Switch to layout 4 (Deck)
+  - Super+Control+0           | Set all windows to use the same tag
+  - Super+Control+Arrow       | Moves a window to any corner of your screen (Arrow key)
+  - Super+Control+Tab         | Open a dmenu prompt asking the user what layout to switch to
+  - Super+Control+h           | Open a list of all keybinds in your terminal using less
+  - Super+Control+Shift+a/d   | Move between available layouts
+  - Super+Alt+s               | Make the current selected window sticky
+  - Super+Control+Shift+Esc   | Open dwmutils (Main menu)
+  - Super+Control+Shift+Arrow | Resize the window to the screen size.
+  - Super+Control+Shift+s     | Set a wallpaper
+  - Super+Control+Shift+n     | Connect to wifi (Requires iwd)
+  - Super+Control+Shift+b     | Connect to a bluetooth device (Requires bluez and bluez-utils)
+  - Alt+Tab                   | Switch windows quickly and easily 
   
   -- Chained keybinds --
-  - Super+c & w               |  Curl wttr.in and open in less
+  - Super+c & w               | Curl wttr.in and open in less
 
   -- Extras --
   These will only work if your keyboard has special multimedia buttons.
-  - Mute button               |  Mutes your audio
-  - Up Volume button          |  Increases your volume
-  - Down Volume button        |  Decreases your volume
-  - Stop button               |  Stops your defined music player
-  - Browser button            |  Opens your defined web browser
-  - Power button              |  Ask if you wanna shut down, restart or lock your computer.
-  - Email button              |  Open your defined email client
-  - System button             |  Open your defined status viewer in a terminal
+  - Mute button               | Mutes your audio
+  - Up Volume button          | Increases your volume
+  - Down Volume button        | Decreases your volume
+  - Stop button               | Stops your defined music player
+  - Browser button            | Opens your defined web browser
+  - Power button              | Ask if you wanna shut down, restart or lock your computer.
+  - Email button              | Open your defined email client
+  - System button             | Open your defined status viewer in a terminal
