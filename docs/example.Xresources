@@ -65,3 +65,5 @@
   - dwm.firstwindowsize:      0
   - dwm.savefloat:            1
   - dwm.warpcursor:           1
+  - dwm.activeopacity:        1.0f
+  - dwm.inactiveopacity:      0.875f

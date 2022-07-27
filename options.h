@@ -68,6 +68,9 @@ static int centerfloating                     = 1; /* Center floating windows by
 static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes 1 = yes, 0 = no */
+static double activeopacity				      = 1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
+static double inactiveopacity                 = 0.875f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
+static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */
 
 /* Window spawning options */
 static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client 1 = yes, 0 = no */

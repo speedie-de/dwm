@@ -115,5 +115,7 @@ ResourcePref resources[]                      = {
 	   { "savefloat",			 INTEGER, &savefloat },
 	   { "warpcursor",			 INTEGER, &warpcursor },
 	   { "mfact",                FLOAT,   &mfact },
+	   { "activeopacity",        STRING,  &activeopacity },
+	   { "inactiveopacity",      STRING,  &inactiveopacity },
 /*       value in .Xresources    type     value in dwm */
 };

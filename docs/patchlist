@@ -63,3 +63,4 @@
   - dwm-spawnwd               | This patch (with some modifications) allows you to spawn clients in the working directory of the focused client
   - dwm-keychain              | This patch allows you to create keybinds using multiple keys
   - dwm-focusadjacenttag      | This patch allows you to move to the next/previous tag
+  - dwm-fadeinactive          | This patch adds an option to fade inactive clients
