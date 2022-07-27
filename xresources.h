@@ -117,6 +117,7 @@ ResourcePref resources[]                      = {
 	   { "savefloat",			 INTEGER, &savefloat },
 	   { "warpcursor",			 INTEGER, &warpcursor },
 	   { "pertag",			     INTEGER, &pertag },
+	   { "i3nmaster",			 INTEGER, &i3nmaster },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };

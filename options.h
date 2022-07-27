@@ -61,13 +61,14 @@ static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
 static int nmaster                            = 1;
 static int resizehints                        = 0;
-static int startontag                         = 1; /* Start on a tag or not? 1 = yes, 0 = no */
+static int startontag                         = 1; /* Start on a tag or not? */
 static int decorhints                         = 1; /* Respect decoration hints */
 static int swallowfloating                    = 0; /* Swallow floating windows by default */
 static int centerfloating                     = 1; /* Center floating windows by default */
 static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes */
+static int i3nmaster                          = 0; /* Enable i3-gaps like nmaster (1/0) */
 
 /* Window aesthetic options */
 static double activeopacity				      = 1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
@@ -97,9 +98,9 @@ static int sizeicon                           = 10; /* size of the icon */
 static int spacingicon                        = 5; /* spacing between the title and icon */
 
 /* Bar options */
-static int barheight                          = 5; /* Bar height in px, 0 = default behaviour */
-static int showbar                            = 1; /* Show the bar or not? 1 = yes, 0 = no */
-static int topbar                             = 1; /* Should the bar be on the top of bottom? 1 = yes, 0 = no */
+static int barheight                          = 5; /* Bar height in px, 0 = calculate automatically */
+static int showbar                            = 1; /* Show the bar or not? */
+static int topbar                             = 1; /* Should the bar be on the top of bottom? */
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
 
