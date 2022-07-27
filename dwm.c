@@ -313,8 +313,8 @@ static void sigterm(int unused);
 //static void sigstatusbar(const Arg *arg);
 static void spawn(const Arg *arg);
 static void tagmon(const Arg *arg);
-static void tagtoleft(const Arg *arg);
-static void tagtoright(const Arg *arg);
+//static void tagtoleft(const Arg *arg);
+//static void tagtoright(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
 static void togglefloating(const Arg *arg);
@@ -328,7 +328,7 @@ static void focuswin(const Arg *arg);
 static void togglermaster(const Arg *arg);
 static void togglefullscr(const Arg *arg);
 static void freeicon(Client *c);
-static void togglewin(const Arg *arg);
+//static void togglewin(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
 static void unmapnotify(XEvent *e);
@@ -372,7 +372,7 @@ static char stext[1024];
 static char rawstext[1024];
 static char lastbutton[] = "-";
 static int statusw;
-static pid_t statuspid = -1;
+//static pid_t statuspid = -1;
 static int screen;
 static int tw, sh;           /* X display screen geometry width, height */
 static int bh, blw = 0;      /* bar geometry */
@@ -2889,6 +2889,7 @@ tagmon(const Arg *arg)
 	sendmon(selmon->sel, dirtomon(arg->i));
 }
 
+/*
 void
 tagtoleft(const Arg *arg) {
 	if(selmon->sel != NULL
@@ -2899,7 +2900,9 @@ tagtoleft(const Arg *arg) {
 		arrange(selmon);
 	}
 }
+*/
 
+/*
 void
 tagtoright(const Arg *arg) {
 	if(selmon->sel != NULL
@@ -2910,6 +2913,7 @@ tagtoright(const Arg *arg) {
 		arrange(selmon);
 	}
 }
+*/
 
 void
 tile(Monitor *m)
@@ -3181,6 +3185,7 @@ freeicon(Client *c)
 	updatecurrentdesktop();
 }
 
+/*
 void
 togglewin(const Arg *arg)
 {
@@ -3194,6 +3199,7 @@ togglewin(const Arg *arg)
 		restack(selmon);
 	}
 }
+*/
 
 
 void

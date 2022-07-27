@@ -43,7 +43,7 @@
 
 #define SESSION_FILE                          "/tmp/dwm-session"
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
-#define TAGKEYS(CHAIN,KEY,TAG)                      { MODKEY|ShiftMask, CHAIN, KEY, view, {.ui = 1 << TAG} },
+#define TAGKEYS(CHAIN,KEY,TAG)                { MODKEY|ShiftMask, CHAIN, KEY, view, {.ui = 1 << TAG} },
 
 /* Options
  *
@@ -68,6 +68,8 @@ static int centerfloating                     = 1; /* Center floating windows by
 static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes 1 = yes, 0 = no */
+
+/* Window aesthetic options */
 static double activeopacity				      = 1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
 static double inactiveopacity                 = 0.875f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */

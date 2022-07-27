@@ -30,7 +30,7 @@ case "$O" in
 "") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n-wmd | Write documentation (Markdown)\n-whtml | Write documentation (HTML) using markdown-to-html.\n"; exit 0 ;;
 "-h") printf "Hello, I'm your dwm guide. How can I help you?\nNo arguments to view this list of arguments.\n-h | View this list of arguments.\n-a | View everything.\n-1 | What is dwm?\n-2 | List of patches\n-3 | List of all keybinds\n-4 | List of all dependencies\n-5 | .Xresources/Pywal information.\n-6 | Fsignal information\n-7 | Switching run launcher\n-8 | Installation\n-9 | Layouts\n-10| Important information.\n-w | Write documentation to ../readme\n-wmd | Write documentation (Markdown)\n-whtml | Write documentation (HTML) using markdown-to-html.\n"; exit 0 ;;
 "-1") cat /usr/share/dwm-about | sed "s|--|${COL2}--${COL1}|g" | head -n 10 | less ;;
-"-2") cat /usr/share/dwm-about /usr/share/dwm-patchlist | sed "s|--|${COL2}--${COL1}|g" | tail -n 66 | less ;;
+"-2") cat /usr/share/dwm-about /usr/share/dwm-patchlist | sed "s|--|${COL2}--${COL1}|g" | tail -n 68 | less ;;
 "-3") cat /usr/share/dwm-about-2 /usr/share/dwm-bindlist | sed "s|--|${COL2}--${COL1}|g" | less ;;
 "-4") cat /usr/share/dwm-deplist | sed "s|--|${COL2}--${COL1}|g" | less ;;
 "-5") cat /usr/share/dwm-about-3 /usr/share/dwm-xresources | tail -n 59 | sed "s|--|${COL2}--${COL1}|g" | less ;;
