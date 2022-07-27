@@ -30,6 +30,7 @@
   - Super+Control+o           |  Show a window
   - Super+w                   |  Hide all windows except focused
   - Super+Control+w           |  Show all windows except focused
+  - Super+Arrow               |  Move to the next/previous tag
   - Super+Minus               |  Show the scratchpad
   - Super+Equal               |  Remove the scratchpad
   - Super+Enter               |  Switch order of windows
