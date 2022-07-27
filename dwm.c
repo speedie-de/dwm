@@ -3652,6 +3652,8 @@ view(const Arg *arg)
 	selmon->seltags ^= 1; /* toggle sel tagset */
 	if (arg->ui & TAGMASK) {
 		selmon->tagset[selmon->seltags] = arg->ui & TAGMASK;
+
+    if (pertag) {
 		selmon->pertag->prevtag = selmon->pertag->curtag;
 
 		if (arg->ui == ~0)
@@ -3674,6 +3676,7 @@ view(const Arg *arg)
 
 	if (selmon->showbar != selmon->pertag->showbars[selmon->pertag->curtag])
 		togglebar(NULL);
+    }
 
 	focus(NULL);
 	arrange(selmon);

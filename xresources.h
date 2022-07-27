@@ -94,6 +94,8 @@ ResourcePref resources[]                      = {
 	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
        { "defaultname",          STRING,  &defaultname },
+	   { "activeopacity",        STRING,  &activeopacity },
+	   { "inactiveopacity",      STRING,  &inactiveopacity },
        { "lockfullscreen",       INTEGER, &lockfullscreen },
 	   { "refreshrules",         INTEGER, &refreshrules },
 	   { "borderpx",             INTEGER, &borderpx }, 
@@ -114,8 +116,7 @@ ResourcePref resources[]                      = {
 	   { "firstwindowsize",      INTEGER, &firstwindowsize },
 	   { "savefloat",			 INTEGER, &savefloat },
 	   { "warpcursor",			 INTEGER, &warpcursor },
+	   { "pertag",			     INTEGER, &pertag },
 	   { "mfact",                FLOAT,   &mfact },
-	   { "activeopacity",        STRING,  &activeopacity },
-	   { "inactiveopacity",      STRING,  &inactiveopacity },
 /*       value in .Xresources    type     value in dwm */
 };

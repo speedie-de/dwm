@@ -56,7 +56,7 @@
 /* Window alignment options */
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 20;
-static unsigned int gappx                     = 5; /* How big should your gaps be? 0 = No gaps */
+static unsigned int gappx                     = 5; /* How big should your gaps be? */
 static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
 static int nmaster                            = 1;
@@ -67,7 +67,7 @@ static int swallowfloating                    = 0; /* Swallow floating windows b
 static int centerfloating                     = 1; /* Center floating windows by default */
 static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
-static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes 1 = yes, 0 = no */
+static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes */
 
 /* Window aesthetic options */
 static double activeopacity				      = 1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
@@ -75,7 +75,7 @@ static double inactiveopacity                 = 0.875f; /* Window opacity when i
 static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */
 
 /* Window spawning options */
-static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client 1 = yes, 0 = no */
+static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client */
 
 /* Font options */
 static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */
@@ -90,6 +90,7 @@ static char status[]                          = "status"; /* status bar to use, 
 static char *scratchpadcmd[]                  = {"s", TERMINAL, "-t", "scratchpad", NULL};
 static int lockfullscreen                     = 1;
 static int warpcursor                         = 1; /* Warp cursor when switching client/monitor */
+static int pertag                             = 1; /* Use different mfact and layout for each layout */
 
 /* Icon options */
 static int sizeicon                           = 10; /* size of the icon */
