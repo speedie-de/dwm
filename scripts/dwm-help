@@ -16,7 +16,8 @@ case "$O" in
 						 sed "s|-- Patches --|## Patches|g" | \
 						 sed "s|-- Keybinds --|## Keybinds|g" | \
 						 sed "s|-- Applications --|### Applications|g" | \
-						 sed "s|-- Navigation --|### Nagigation|g" | \
+						 sed "s|-- Navigation --|### Navigation|g" | \
+						 sed "s|-- Chained keybinds --|### Chained keybinds|g" | \
 						 sed "s|-- Extras --|### Extras|g" | \
 						 sed "s|-- Dependencies --|## Dependencies|g" | \
 						 sed "s|-- Features --|## Features|g" | \

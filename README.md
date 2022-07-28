@@ -134,7 +134,7 @@ Below is a list of all dwm keybinds.
   - Super+Control+Shift+m     | Opens the defined email client
   - Super+Control+u           | Opens the defined RSS reader
 
-  ### Nagigation
+  ### Navigation
   These keybinds are for navigating dwm
   - Super+r                   | Toggle master on the left/right
   - Super+t                   | Reorganize tags and move clients
@@ -189,7 +189,7 @@ Below is a list of all dwm keybinds.
   - Super+Control+Shift+b     | Connect to a bluetooth device (Requires bluez and bluez-utils)
   - Alt+Tab                   | Switch windows quickly and easily 
   
-  -- Chained keybinds --
+  ### Chained keybinds
   - Super+c & w               | Curl wttr.in and open in less
 
   ### Extras
