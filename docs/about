@@ -1,6 +1,6 @@
 -- speedie's fork of dynamic window manager --
    https://speedie.gq/dwm
-  https://speedie./gq/donate
+  https://speedie.gq/donate
 
 -- What is dwm? --
 dwm or dynamic window manager is a window manager. It manages the user's open windows and tiles them according to a set layout (dynamic). 
