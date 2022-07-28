@@ -87,7 +87,7 @@ My build of dwm has been patched with the following patches:
   - dwm-tatami                | Adds a tatami layout to dwm.
   - dwm-fsignal               | Allows you to interact with dwm through shell scripts (such as included swal, dwmshutdown or dwmutils)
   - dwm-selfrestart           | Allows dwm to restart without killing your X server.
-  - dwm-fancybar              | Display window title for all windows open on a tag.
+  - dwm-awesomebar            | Display window title for all windows open on a tag.
   - dwm-inplacerotate         | Allows you to 'rotate' windows.
   - dwm-ignore-transient      | This patch adds an option to ignore transient windows, fixing issues with certain applications.
   - dwm-status2d              | This patch allows you to draw stuff (and colored text) on your status bar.
@@ -103,86 +103,105 @@ My build of dwm has been patched with the following patches:
   - dwm-savefloats            | This patch saves the position of floating windows and restores them (Modified to add a toggle)
   - dwm-reorganizetags        | This patch adds a keybind to reorganize tags
   - dwm-restartsig            | This patch adds an option to restart dwm
+  - dwm-restoreafterestart    | This patch keeps windows open on the right tags when restarting
+  - dwm-canfocusrule          | This patch adds a rule for being able to focus on a client (Used for systray)
+  - dwm-showhide              | This patch allows you to show/hide (or in this build minimize) clients.
+  - dwm-spawnwd               | This patch (with some modifications) allows you to spawn clients in the working directory of the focused client
+  - dwm-keychain              | This patch allows you to create keybinds using multiple keys
+  - dwm-focusadjacenttag      | This patch allows you to move to the next/previous tag
+  - dwm-fadeinactive          | This patch adds an option to fade inactive clients
+  - dwm-i3nmaster             | This patch adds i3-like nmaster as an option
+  - dwm-tagpreviews           | This patch adds tag previews (hover over tags)
 
 ## Keybinds
 Below is a list of all dwm keybinds.
 
   ### Applications
   Keybinds for regular applications
-  - Super+Shift+Enter         |  Opens a terminal
-  - Super+Shift+Colon         |  Opens a dmenu prompt
-  - Super+Shift+s             |  Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
-  - Super+Shift+f             |  Opens the defined file manager
-  - Super+Shift+w             |  Opens the defined web browser
-  - Super+Shift+o             |  Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
-  - Super+Shift+e             |  Opens the dboard dmenu script in dmenu which can copy text to your clipboard
-  - Super+Shift+t             |  Opens the defined editor in your terminal
-  - Super+Shift+p             |  pkills the defined web browser
-  - Super+Shift+m             |  pkills the defined music player
-  - Super+Shift+a             |  Opens the defined mixer in your terminal
-  - Super+Shift+m             |  Opens the defined music player
-  - Super+Shift+x             |  Opens the defined system process viewer in your terminal
-  - Super+Control+Shift+m     |  Opens the defined email client
-  - Super+Control+u           |  Opens the defined RSS reader
+  - Super+Shift+Enter         | Opens a terminal
+  - Super+Shift+Colon         | Opens a dmenu prompt
+  - Super+Shift+s             | Opens 'maim' to take a screenshot and copies it to the clipboard using 'xclip'
+  - Super+Shift+f             | Opens the defined file manager
+  - Super+Shift+w             | Opens the defined web browser
+  - Super+Shift+o             | Opens the dfmpeg dmenu script in dmenu which can record your screen (Only if manually installed)
+  - Super+Shift+e             | Opens the dboard dmenu script in dmenu which can copy text to your clipboard
+  - Super+Shift+t             | Opens the defined editor in your terminal
+  - Super+Shift+p             | pkills the defined web browser
+  - Super+Shift+m             | pkills the defined music player
+  - Super+Shift+a             | Opens the defined mixer in your terminal
+  - Super+Shift+m             | Opens the defined music player
+  - Super+Shift+x             | Opens the defined system process viewer in your terminal
+  - Super+Control+Shift+m     | Opens the defined email client
+  - Super+Control+u           | Opens the defined RSS reader
 
   ### Nagigation
   These keybinds are for navigating dwm
-  - Super+r                   |  Toggle master on the left/right
-  - Super+t                   |  Reorganize tags and move clients
-  - Super+f                   |  Full-screen the selected window
-  - Super+b                   |  Show/hide the dwm bar
-  - Super+j/k                 |  Move focus between windows
-  - Super+a/d                 |  Increase/decrease size of each window
-  - Super+Minus               |  Show the scratchpad
-  - Super+Equal               |  Remove the scratchpad
-  - Super+Enter               |  Switch order of windows
-  - Super+Shift+q             |  Close the current window
-  - Super+Space               |  Set layout
-  - Super+Shift+Equal         |  Toggle scratchpads
-  - Super+Shift+Minus         |  Hide the scratchpad
-  - Super+Shift+Space         |  Unfloat floating windows
-  - Super+Shift+Arrow         |  Resizes a window in floating mode
-  - Super+Shift+1             |  Move to tag 1
-  - Super+Shift+2             |  Move to tag 2
-  - Super+Shift+3             |  Move to tag 3
-  - Super+Shift+4             |  Move to tag 4
-  - Super+Shift+5             |  Move to tag 5
-  - Super+Shift+6             |  Move to tag 6
-  - Super+Shift+7             |  Move to tag 7
-  - Super+Shift+8             |  Move to tag 8
-  - Super+Shift+9             |  Move to tag 9
-  - Super+Shift+h/j/k/l       |  Rotates a stack.
-  - Super+Shift+Escape        |  Ask the user if they want to shutdown or reboot or nothing
-  - Super+Shift+i             |  Open a dmenu prompt and open the file the user picks in Zathura
-  - Super+Shift+p             |  Open a dmenu prompt and open the file the user picks in Vim
-  - Super+Control+e           |  Switch to layout 3 (Grid)
-  - Super+Control+r           |  Switch to layout 1 (Monocle)
-  - Super+Control+t           |  Switch to layout 0 (Master & stack)
-  - Super+Control+y           |  Switch to layout 4 (Deck)
-  - Super+Control+0           |  Set all windows to use the same tag
-  - Super+Control+Arrow       |  Moves a window to any corner of your screen
-  - Super+Control+Tab         |  Open a dmenu prompt asking the user what layout to switch to
-  - Super+Control+h           |  Open a list of all keybinds in your terminal using less
-  - Super+Control+Shift+a/d   |  Move between available layouts
-  - Super+Alt+s               |  Make the current selected window sticky
-  - Super+Control+Shift+Esc   |  Open dwmutils (Main menu)
-  - Super+Control+Shift+Arrow |  Resize the window to the screen size.
-  - Super+Control+Shift+s     |  Set a wallpaper
-  - Super+Control+Shift+n     |  Connect to wifi (Requires iwd)
-  - Super+Control+Shift+b     |  Connect to a bluetooth device (Requires bluez and bluez-utils)
-  - Alt+Tab                   |  Switch windows quickly and easily 
+  - Super+r                   | Toggle master on the left/right
+  - Super+t                   | Reorganize tags and move clients
+  - Super+f                   | Full-screen the selected window
+  - Super+b                   | Show/hide the dwm bar
+  - Super+s                   | Show/hide the systray (If trayer is installed)
+  - Super+j/k                 | Move focus between visible windows
+  - Super+Shift+j/k           | Move focus between hidden windows
+  - Super+a/d                 | Increase/decrease size of each window
+  - Super+o                   | Hide a window
+  - Super+Control+o           | Show a window
+  - Super+w                   | Hide all windows except focused
+  - Super+Control+w           | Show all windows except focused
+  - Super+Arrow               | Move to the next/previous tag
+  - Super+Minus               | Show the scratchpad
+  - Super+Equal               | Remove the scratchpad
+  - Super+Enter               | Switch order of windows
+  - Super+Shift+q             | Close the current window
+  - Super+Space               | Set layout
+  - Super+t                   | Disable inactive fade
+  - Super+Shift+Equal         | Toggle scratchpads
+  - Super+Shift+Minus         | Hide the scratchpad
+  - Super+Shift+Space         | Unfloat floating windows
+  - Super+Shift+Arrow         | Resizes a window in floating mode
+  - Super+Shift+1             | Move to tag 1
+  - Super+Shift+2             | Move to tag 2
+  - Super+Shift+3             | Move to tag 3
+  - Super+Shift+4             | Move to tag 4
+  - Super+Shift+5             | Move to tag 5
+  - Super+Shift+6             | Move to tag 6
+  - Super+Shift+7             | Move to tag 7
+  - Super+Shift+8             | Move to tag 8
+  - Super+Shift+9             | Move to tag 9
+  - Super+Shift+h/j/k/l       | Rotates a stack.
+  - Super+Shift+Escape        | Ask the user if they want to shutdown or reboot or nothing
+  - Super+Shift+i             | Open a dmenu prompt and open the file the user picks in Zathura
+  - Super+Shift+p             | Open a dmenu prompt and open the file the user picks in Vim
+  - Super+Control+e           | Switch to layout 3 (Grid)
+  - Super+Control+r           | Switch to layout 1 (Monocle)
+  - Super+Control+t           | Switch to layout 0 (Master & stack)
+  - Super+Control+y           | Switch to layout 4 (Deck)
+  - Super+Control+0           | Set all windows to use the same tag
+  - Super+Control+Arrow       | Moves a window to any corner of your screen (Arrow key)
+  - Super+Control+Tab         | Open a dmenu prompt asking the user what layout to switch to
+  - Super+Control+h           | Open a list of all keybinds in your terminal using less
+  - Super+Control+Shift+a/d   | Move between available layouts
+  - Super+Alt+s               | Make the current selected window sticky
+  - Super+Control+Shift+Esc   | Open dwmutils (Main menu)
+  - Super+Control+Shift+Arrow | Resize the window to the screen size.
+  - Super+Control+Shift+s     | Set a wallpaper
+  - Super+Control+Shift+n     | Connect to wifi (Requires iwd)
+  - Super+Control+Shift+b     | Connect to a bluetooth device (Requires bluez and bluez-utils)
+  - Alt+Tab                   | Switch windows quickly and easily 
   
+  -- Chained keybinds --
+  - Super+c & w               | Curl wttr.in and open in less
+
   ### Extras
   These will only work if your keyboard has special multimedia buttons.
-  - Mute button               |  Mutes your audio
-  - Up Volume button          |  Increases your volume
-  - Down Volume button        |  Decreases your volume
-  - Stop button               |  Stops your defined music player
-  - Browser button            |  Opens your defined web browser
-  - Power button              |  Ask if you wanna shut down, restart or lock your computer.
-  - Email button              |  Open your defined email client
-  - System button             |  Open your defined status viewer in a terminal
-
+  - Mute button               | Mutes your audio
+  - Up Volume button          | Increases your volume
+  - Down Volume button        | Decreases your volume
+  - Stop button               | Stops your defined music player
+  - Browser button            | Opens your defined web browser
+  - Power button              | Ask if you wanna shut down, restart or lock your computer.
+  - Email button              | Open your defined email client
+  - System button             | Open your defined status viewer in a terminal
 ## Dependencies
   These are absolutely necessary, dwm will NOT compile without them
   - libxft-bgra (Can be installed through 'make <distro>-libxftfix')
@@ -196,8 +215,8 @@ Below is a list of all dwm keybinds.
   NOTE: Do not add any of these to .xinitrc or similar. They are going to be autostarted by dwm.
   If you want to use an alternative, change it in options.h.
   - dmenu
-    - NOTE: dmenu is required for most scripts included with this build of dwm.
-    - NOTE 2: My build is required for Pywal support.
+    - NOTE: dmenu is required for most scripts included with this build of dwm. My build is required for Pywal support.
+	- NOTE 2: The build must have the 'grid' patch. If yours does not have this, you can patch it in or get my build here: https://github.com/speedie-de/dmenu
   - picom
   - xclip (Required for clipboard support by a few scripts, will start automatically)
   - xwallpaper (Required to set wallpapers automatically)
@@ -315,7 +334,6 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
   - dwm.borderpx:             1
   - dwm.snap:                 32
   - dwm.showbar:              1
-  - dwm.topbar:               1
   - dwm.resizehints:          0
   - dwm.mfact:                0.50
   - dwm.startontag:           1
@@ -325,6 +343,8 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
   - dwm.sizeicon:             16
   - dwm.spacingicon:          5
   - dwm.status:               status
+  - dwm.defaultname:          dwm-is-cool
+  - dwm.refreshrules:         1
   - dwm.decorhints:           1
   - dwm.vertpad:              0
   - dwm.sidepad:              0  
@@ -333,6 +353,11 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
   - dwm.firstwindowsize:      0
   - dwm.savefloat:            1
   - dwm.warpcursor:           1
+  - dwm.pertag:               1
+  - dwm.i3nmaster:            0
+  - dwm.monocleclientcount:   0
+  - dwm.activeopacity:        1.0f
+  - dwm.inactiveopacity:      0.875f
 
 ## Fsignal
 Thanks to the 'fsignal' patch available on suckless.org's website, we can easily write shell scripts to interact with dwm.
@@ -381,4 +406,5 @@ Previously all scripts bundled would only run dmenu from $PATH but you can now s
   - Add export RUNLAUNCHER=<runlauncher> to your .<shell>rc
 
 Run launchers must support dmenu arguments because otherwise scripts are going to be incompatible.
+It must also support the additional '-g' argument that the dmenu grid patch provides unless you modify the scripts bundled.
 Keep in mind that if you use a different run launcher, it may not support Pywal/.Xresources.
