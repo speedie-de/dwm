@@ -27,7 +27,7 @@ clean:
 
 dist: clean
 	mkdir -p dwm-spde-${VERSION}
-	cp -R config.mk docs drw.c xresources.h fsignal.h drw.h dwm.c keybinds.h options.h autostart.h colors.h rules.h layouts.h layouts.c status selfrestart.c LICENSE Makefile scripts transient.c util.c util.h dwm-spde-${VERSION}
+	cp -R config.mk docs drw.c xresources.h fsignal.h drw.h dwm.c keybinds.h options.h autostart.h colors.h rules.h layouts.h layouts.c status selfrestart.c LICENSE Makefile scripts transient.c util.c util.h dwm.png dwm-spde-${VERSION}
 	tar -cf dwm-spde-${VERSION}.tar dwm-spde-${VERSION}
 	gzip dwm-spde-${VERSION}.tar
 	rm -rf dwm-spde-${VERSION} dwm
@@ -67,6 +67,7 @@ install: all
 	echo "${DESTDIR}${PREFIX}/bin/" > /usr/share/dwm-bindir
 	./scripts/dwm-compatcheck
 	./scripts/dwm-dm
+	[ -f dwm.png ] && cp -f dwm.png ${DESTDIR}${PREFIX}/share/pixmaps/dwm.png || :
 	rm -f drw.o dwm.o util.o dwm ; echo "Installed dwm to ${DESTDIR}${PREFIX}/bin"
    
 uninstall:
