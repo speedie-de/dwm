@@ -170,3 +170,6 @@ static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[
 /* Icon misc */
 static XPoint stickyicon[]                    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
 static XPoint stickyiconbb                    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
+
+/* Tag preview options */
+static const int scalepreview                 = 4; /* Size of tag preview */
