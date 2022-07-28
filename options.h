@@ -105,6 +105,7 @@ static int vertpad                            = 0; /* How much padding to have v
 static int sidepad                            = 0; /* How much padding to have horizontally */
 
 /* Layout options */
+static unsigned int monocleclientcount        = 0; /* Display client count in the Monocle layout */
 static unsigned int stairpx                   = 20; /* depth of the stairs layout */
 static int stairdirection                     = 1; /* 0: left-aligned, 1: right-aligned */
 static int stairsamesize                      = 1; /* 1 means shrink all the staired windows to the same size */
