@@ -22,7 +22,7 @@
   - wmctrl (Needed for proper window management)
   - xsetroot (Needed for most scripts including Pywal support)
   - slock (Required for screen locking)
-  - maim (Required for built in 'bb' script)
+  - maim (Required for built in 'dwm-screenshotutil' script)
   
   -- Software --
   This build of dwm comes with binds for software. 

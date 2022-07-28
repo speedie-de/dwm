@@ -1,30 +1,61 @@
 #!/bin/sh
-# This simple script uses $RUNLAUNCHER to ask the user what they wanna do.
+# This simple script uses $RUNLAUNCHER to ask the user what they want to do.
+#
+# NOTE: You must either permit nopass for poweroff and reboot commands for your user or simply enable nopass entirely!!
 
 case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
 BINDIR=$(cat /usr/share/dwm-bindir)
-
-MOREOPTS() {
-
-USER_OPT3=$(printf "Restart dwm\nEnd task\ndwm command\n.." | $RUNLAUNCHER -l 4 -g 1 -p "What do you wanna do?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff")
-
-case "$USER_OPT3" in
-"") exit 0 ;;
-"Restart dwm") xsetroot -name "fsignal:25" && exit 0 ;;
-"End task") ENDTASK=$(printf "\n" | $RUNLAUNCHER -l 1 -p "What task to end?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff") && pkill $ENDTASK && exit 0 ;;
-"dwm command") dwmutils && exit 0 ;;
-"..") $0 && exit 0 ;;
-esac
-}
+EXPORTDIR=$HOME/.config/dwm-de/powermenu
+mkdir -p $EXPORTDIR
 
 ls ${BINDIR}sudo && PERM=sudo
 ls ${BINDIR}doas && PERM=doas
 ls ${BINDIR}rootdo && PERM=rootdo
 
-USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nMore" | $RUNLAUNCHER -l 5 -p "What do you wanna do?" -nb "#333333" -sb "#222222" -nf "#ffffff" -sf "#ffffff")
+case "$PERM" in
+"") PERM=su ;;
+esac
+
+COL_NORMAL_TEXT_NORMAL="#ffffff"
+COL_NORMAL_TEXT_SELECTED="#ffffff"
+COL_NORMAL_BACKGROUND_NORMAL="#333333"
+COL_NORMAL_BACKGROUND_SELECTED="#222222"
+COL_WARNING_TEXT_NORMAL="#ffffff"
+COL_WARNING_TEXT_SELECTED="#000000"
+COL_WARNING_BACKGROUND_NORMAL="#DC143C"
+COL_WARNING_BACKGROUND_SELECTED="#8b0000"
+
+# Load config if available and override settings
+if [ -e "$EXPORTDIR/config" ]; then
+		. $EXPORTDIR/config
+else
+		printf "COL_NORMAL_TEXT_NORMAL=$COL_NORMAL_TEXT_NORMAL # Text color for not selected options (Regular prompt)" > $EXPORTDIR/config
+		printf "\nCOL_NORMAL_TEXT_SELECTED=$COL_NORMAL_TEXT_SELECTED # Text color for selected option (Regular prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_NORMAL_BACKGROUND_NORMAL=$COL_NORMAL_BACKGROUND_NORMAL # Background color for not selected options (Regular prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_NORMAL_BACKGROUND_SELECTED=$COL_NORMAL_BACKGROUND_SELECTED # Background color for selected option (Regular prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_WARNING_TEXT_NORMAL=$COL_WARNING_TEXT_NORMAL # Text color for not selected options (Warning prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_WARNING_TEXT_SELECTED=$COL_WARNING_TEXT_SELECTED # Text color for selected option (Warning prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_WARNING_BACKGROUND_NORMAL=$COL_WARNING_BACKGROUND_NORMAL # Background color for not selected options (Warning prompt)" >> $EXPORTDIR/config
+		printf "\nCOL_WARNING_BACKGROUND_SELECTED=$COL_WARNING_BACKGROUND_SELECTED # Background color for selected option (Warning prompt)" >> $EXPORTDIR/config
+		printf "\nPERM=$PERM # Root access tool (sudo, doas, etc.). Must support nopass for poweroff and reboot commands." >> $EXPORTDIR/config
+fi
+
+MOREOPTS() {
+  USER_OPT3=$(printf "Restart dwm\nEnd task\ndwm command\n.." | $RUNLAUNCHER -l 4 -g 1 -p "What do you want to do?" -nb "$COL_NORMAL_BACKGROUND_NORMAL" -sb "$COL_NORMAL_BACKGROUND_SELECTED" -nf "$COL_NORMAL_TEXT_NORMAL" -sf "$COL_NORMAL_TEXT_SELECTED")
+  
+  case "$USER_OPT3" in
+  "") exit 0 ;;
+  "Restart dwm") xsetroot -name "fsignal:31" && exit 0 ;;
+  "End task") ENDTASK=$(printf "\n" | $RUNLAUNCHER -l 1 -p "What task to end?" -nb "$COL_NORMAL_BACKGROUND_NORMAL" -sb "$COL_NORMAL_BACKGROUND_SELECTED" -nf "$COL_NORMAL_TEXT_NORMAL" -sf "$COL_NORMAL_TEXT_SELECTED") && pkill $ENDTASK && exit 0 ;;
+  "dwm command") dwmutils && exit 0 ;;
+  "..") $0 && exit 0 ;;
+  esac
+}
+
+USER_OPT1=$(printf "Shutdown\nReboot\nExit\nLock\nMore" | $RUNLAUNCHER -l 5 -p "What do you want to do?" -nb "$COL_NORMAL_BACKGROUND_NORMAL" -sb "$COL_NORMAL_BACKGROUND_SELECTED" -nf "$COL_NORMAL_TEXT_NORMAL" -sf "$COL_NORMAL_TEXT_SELECTED")
 
 case "$USER_OPT1" in
 "Shutdown") CMD="$PERM poweroff" ;;
@@ -35,7 +66,7 @@ case "$USER_OPT1" in
 "") exit 0 ;;
 esac
 
-USER_OPT2=$(printf "Yes\nNo" | $RUNLAUNCHER -l 2 -p "Are you sure?" -nb "#DC143C" -sb "#8b0000" -nf "#ffffff" -sf "#000000")
+USER_OPT2=$(printf "Yes\nNo" | $RUNLAUNCHER -l 2 -p "Are you sure?" -nb "$COL_WARNING_BACKGROUND_NORMAL" -sb "$COL_WARNING_BACKGROUND_SELECTED" -nf "$COL_WARNING_TEXT_NORMAL" -sf "$COL_WARNING_TEXT_SELECTED")
 case "$USER_OPT2" in
 "Yes") $CMD ;;
 "No") exit 0 ;;

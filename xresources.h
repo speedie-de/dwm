@@ -103,6 +103,7 @@ ResourcePref resources[]                      = {
        { "showbar",              INTEGER, &showbar },
        { "nmaster",              INTEGER, &nmaster },
 	   { "rmaster",              INTEGER, &rmaster },
+	   { "attachdirection",      INTEGER, &attachdirection },
        { "resizehints",          INTEGER, &resizehints },
        { "startontag",           INTEGER, &startontag },
 	   { "gappx",                INTEGER, &gappx },

@@ -61,11 +61,7 @@ static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
 static int nmaster                            = 1;
 static int resizehints                        = 0;
-static int startontag                         = 1; /* Start on a tag or not? */
 static int decorhints                         = 1; /* Respect decoration hints */
-static int swallowfloating                    = 0; /* Swallow floating windows by default */
-static int centerfloating                     = 1; /* Center floating windows by default */
-static int firstwindowsize                    = 0; /* Size of first centered window */
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes */
 static int i3nmaster                          = 0; /* Enable i3-gaps like nmaster (1/0) */
@@ -77,6 +73,11 @@ static Bool bUseOpacity                       = True; /* Starts with opacity on 
 
 /* Window spawning options */
 static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client */
+static int attachdirection                    = 0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
+static int swallowfloating                    = 0; /* Swallow floating windows by default */
+static int centerfloating                     = 1; /* Center floating windows by default */
+static int firstwindowsize                    = 0; /* Size of first centered window */
+static int startontag                         = 1; /* Start on a tag or not? */
 
 /* Font options */
 static char font[]                            = { "fontawesome:size=8" }; /* What font should we use? */

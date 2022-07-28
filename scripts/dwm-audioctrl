@@ -122,6 +122,7 @@ UPDATESTATUS() {
 
 case "$1" in
 "-mute") MUTE && GETMUTE > /tmp/dwm-audioctrl-mutestatus ;;
+"-remute") MUTE && GETMUTE > /tmp/dwm-audioctrl-mutestatus  ; MUTE && GETMUTE > /tmp/dwm-audioctrl-mutestatus ; exit 0 ;;
 "-raise") RAISE ;;
 "-lower") LOWER ;;
 "-switch") SWITCH && exit 0 ;;
@@ -129,7 +130,7 @@ case "$1" in
 "-getmute") GETMUTE > /tmp/dwm-audioctrl-mutestatus && exit 0 ;;
 "-getbackend") printf "$AUDIO\n" && exit 0 ;;
 "-runmixer") RUNMIXER && exit 0 ;;
-"-help") printf "dwm-audioctrl\n-mute | Toggle mute\n-raise | Raise the volume by 7\n-lower | Lower the volume by 7\n-switch | Toggle output\n-getvol | Get current volume in percentage\n-getmute | Get mute status\n-getbackend | Get audio backend (ALSA, PulseAudio, etc.)\n-runmixer | Run the audio mixer detected on the system\n-help | Display this help screen\nNo arguments | Display this help screen\n"; exit 0 ;;
+"-help") printf "dwm-audioctrl\n-mute | Toggle mute\n-raise | Raise the volume by 7\n-lower | Lower the volume by 7\n-switch | Toggle output\n-getvol | Get current volume in percentage\n-getmute | Get mute status\n-getbackend | Get audio backend (ALSA, PulseAudio, etc.)\n-runmixer | Run the audio mixer detected on the system\n-remute | Mute and unmute.\n-help | Display this help screen\nNo arguments | Display this help screen\n"; exit 0 ;;
 "") $0 -help && exit 0 ;;
 esac
 

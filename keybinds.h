@@ -126,8 +126,8 @@ static Key keys[] = {
 	TAGKEYS(                        -1,            XK_8,          7)
 	TAGKEYS(                        -1,            XK_9,          8)
 	{ MODKEY,                       -1,            XK_t,          reorganizetags, {0} },
-	{ MODKEY,                       -1,            XK_Left,       viewtoleft,     {0} },
-	{ MODKEY,                       -1,            XK_Right,      viewtoright,    {0} },
+	{ SMODKEY,                       -1,           XK_Left,       viewtoleft,     {0} },
+	{ SMODKEY,                       -1,           XK_Right,      viewtoright,    {0} },
  
     /* Hide/Show keybinds */
 	{ MODKEY,						-1,            XK_o, 	       hidewin, 	   {0} },

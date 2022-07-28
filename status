@@ -316,7 +316,7 @@ SETCOLORS
 if [ -e "${BINDIR}xsetroot" ]; then
 		if [ -e "${BINDIR}xrdb" ]; then
 				if [ "$USEWAL" = "true" ]; then
-						grep xsetroot $HOME/.config/swal/swal_wm > /dev/null && SETCOLORS_WAL
+						wal -v > /dev/null && SETCOLORS_WAL
 				fi
 		fi
 fi

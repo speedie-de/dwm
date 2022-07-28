@@ -3,12 +3,28 @@
 # This script handles the systray and other things necessary for usage.
 
 BINDIR=$(cat /usr/share/dwm-bindir) # Set binary directory to the contents of this variable.
+
 TINT="222222" # Default tint
 EDGE="top" # Part of the screen where your systray will be placed
 GET_EDGE_AUTO="true" # Get edge automatically (true/false)
 SYSTRAY_COL=1 # When using pywal, set color to background (1) or backgroundmid (0)
+EXPORTDIR=$HOME/.config/dwm-de/systray # Config directory
+mkdir -p $EXPORTDIR
+
+# Load config if available and override settings
+if [ -e "$EXPORTDIR/config" ]; then
+		. $EXPORTDIR/config
+else
+		printf "TINT=$TINT # Tint when pywal is not used." > $EXPORTDIR/config
+		printf "\nEDGE=$EDGE # Part of the screen where your systray will be placed" >> $EXPORTDIR/config
+		printf "\nGET_EDGE_AUTO=$GET_EDGE_AUTO # Get edge automatically (true/false)" >> $EXPORTDIR/config
+		printf "\nSYSTRAY_COL=$SYSTRAY_COL # When using pywal, set color to background (1) or backgroundmid (0)" >> $EXPORTDIR/config
+fi
+
+TINT="$(echo $TINT | sed "s|#||g")"
 OPT=$1
 
+# Pywal tint
 PYWAL_TINT() {
   # Pywal tint
   if [ -e "$HOME/.cache/wal/colors" ]; then

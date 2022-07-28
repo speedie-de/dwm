@@ -29,3 +29,4 @@
   - xsetroot -name "fsignal:29" | Reorganize tags
   - xsetroot -name "fsignal:30" | Restart dwm
   - xsetroot -name "fsignal:31" | Shutdown dwm
+

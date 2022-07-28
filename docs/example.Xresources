@@ -51,6 +51,7 @@
   - dwm.startontag:           1
   - dwm.gappx:                10
   - dwm.rmaster:              0
+  - dwm.attachdirection:      0
   - dwm.shell:                /bin/sh
   - dwm.sizeicon:             16
   - dwm.spacingicon:          5

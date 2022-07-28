@@ -66,3 +66,4 @@
   - dwm-fadeinactive          | This patch adds an option to fade inactive clients
   - dwm-i3nmaster             | This patch adds i3-like nmaster as an option
   - dwm-tagpreviews           | This patch adds tag previews (hover over tags)
+  - dwm-attachdirection       | This patch allows you to attach clients to any direction
