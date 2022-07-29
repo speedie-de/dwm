@@ -110,6 +110,9 @@ static int topbar                             = 1; /* Should the bar be on the t
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
 
+/* Status options */
+static int statusallmons                      = 1; /* Draw status bar on all monitors */
+
 /* Layout options */
 static unsigned int monocleclientcount        = 0; /* Display client count in the Monocle layout */
 static unsigned int stairpx                   = 20; /* depth of the stairs layout */

@@ -3645,8 +3645,12 @@ updatestatus(void)
 		statusw += TEXTW(text) - lrpad + 2;
 
 	}
-	for(m = mons; m; m = m->next)
-		drawbar(selmon);
+	if (statusallmons) {
+		for(m = mons; m; m = m->next)
+				drawbar(m);
+		} else {
+				drawbar(selmon);
+		}
 }
 
 void
