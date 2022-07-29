@@ -32,4 +32,5 @@
   - xsetroot -name "fsignal:32" | dwmblocks signum 1
   - xsetroot -name "fsignal:33" | dwmblocks signum 2
   - xsetroot -name "fsignal:34" | dwmblocks signum 3
+  - xsetroot -name "fsignal:35" | Switch to the Tiling (5:4) layout
 

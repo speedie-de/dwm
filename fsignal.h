@@ -39,4 +39,5 @@ static Signal signals[] = {
 	{ 32,           sigdwmblocks,   {.i = 1} },
 	{ 33,           sigdwmblocks,   {.i = 2} },
 	{ 34,           sigdwmblocks,   {.i = 3} },
+	{ 35,           setlayout,      {.v = &layouts[16]} },
 };

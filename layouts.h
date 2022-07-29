@@ -21,5 +21,6 @@ static const Layout layouts[]                 = {
 	{ "| (L13)",         tatami },
 	{ "| (L14)",	     tilewide },
 	{ "| (L15)",         stairs },
+	{ "| (L16)",         tile54 },
 	{ NULL,              NULL },
 };

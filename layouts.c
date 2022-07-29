@@ -679,3 +679,40 @@ deck(Monitor *m) {
 		else
 			resize(c, m->wx + mw + gappx/ns, m->wy + gappx, m->ww - mw - (2*c->bw) - gappx*(5-ns)/2, m->wh - (2*c->bw) - 2*gappx, False);
 }
+
+void
+tile54(Monitor *m)
+{
+        unsigned int i, n, h, mw, my, ty, move;
+        Client *c;
+
+        for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+        if (n == 0)
+                return;
+
+        if (n == 1) {
+                mw = m->ww * 0.703125;  // 16:9 to horizontal 5:4
+                //mw = m->ww * 0.45;    // 16:9 to vertical 5:4
+                move = (m->ww - mw) / 2;
+                h = m->wh;
+                c = nexttiled(m->clients);
+                i = my = ty = 0;
+                resize(c, m->wx + move, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+                return;
+        }
+
+        if (n > m->nmaster)
+                mw = m->nmaster ? m->ww * m->mfact : 0;
+        else
+                mw = m->ww;
+        for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+                if (i < m->nmaster) {
+                        h = (m->wh - my) / (MIN(n, m->nmaster) - i);
+                        resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
+                        my += HEIGHT(c);
+                } else {
+                        h = (m->wh - ty) / (n - i);
+                        resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
+                        ty += HEIGHT(c);
+                }
+}

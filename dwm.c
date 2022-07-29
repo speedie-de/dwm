@@ -289,6 +289,7 @@ static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void resetlayout(const Arg *arg);
+static void setgaps(const Arg *arg);
 static void reorganizetags(const Arg *arg);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
@@ -2673,6 +2674,16 @@ setfullscreen(Client *c, int fullscreen)
 		resizeclient(c, c->x, c->y, c->w, c->h);
 		arrange(c->mon);
 	}
+}
+
+void
+setgaps(const Arg *arg)
+{
+		if ((arg->i == 0) || (selmon->gappx + arg->i < 0))
+				selmon->gappx = 0;
+		else
+				selmon->gappx += arg->i;
+		arrange(selmon);
 }
 
 void
