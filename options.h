@@ -57,7 +57,7 @@
 /* Window alignment options */
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 20; /* Snap pixel */
-static unsigned int gappx                     = 5; /* How big should your gaps be? */
+static unsigned int gappx                     = 10; /* How big should your gaps be? */
 static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
 static int nmaster                            = 1;
@@ -109,8 +109,8 @@ static int spacingicon                        = 5; /* spacing between the title 
 static int barheight                          = 5; /* Bar height in px, 0 = calculate automatically */
 static int showbar                            = 1; /* Show the bar or not? */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? */
-static int vertpad                            = 0; /* How much padding to have vertically */
-static int sidepad                            = 0; /* How much padding to have horizontally */
+static int vertpad                            = 5; /* How much padding to have vertically */
+static int sidepad                            = 5; /* How much padding to have horizontally */
 static int leftlayout                         = 1; /* Layout indicator on the left (1) or on the right (0) */
 static int hidelayout                         = 0; /* Hide layout indicator (1) or show (0) */
 

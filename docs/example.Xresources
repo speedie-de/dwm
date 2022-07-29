@@ -1,8 +1,8 @@
   - dwm.nmaster:              1
   - dwm.rmaster:              1
-  - dwm.font:                 NotoSans-Regular:size=8
-  - dwm.font2:                JoyPixels:size=8
-  - dwm.font3:                Siji:size=8
+  - dwm.font:                 fontconfig:size=8
+  - dwm.font2:				  NotoSans-Regular:size=8:antialiasing=true
+  - dwm.font3:                Noto Emoji:size=8
   - dwm.col_background:       #222222
   - dwm.col_backgroundmid:    #222222
   - dwm.col_textnorm:         #bbbbbb
@@ -51,12 +51,12 @@
   - dwm.startontag:           1
   - dwm.gappx:                10
   - dwm.rmaster:              0
-  - dwm.attachdirection:      0
+  - dwm.attachdirection:      3
   - dwm.shell:                /bin/sh
   - dwm.sizeicon:             16
   - dwm.spacingicon:          5
   - dwm.status:               status
-  - dwm.defaultname:          dwm-is-cool
+  - dwm.defaultname:          ""
   - dwm.refreshrules:         1
   - dwm.decorhints:           1
   - dwm.vertpad:              0
