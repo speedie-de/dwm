@@ -109,7 +109,8 @@ static int showbar                            = 1; /* Show the bar or not? */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? */
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
-static int leftlayout                         = 1; /* Layout button on the left (1) or on the right (0) */
+static int leftlayout                         = 1; /* Layout indicator on the left (1) or on the right (0) */
+static int hidelayout                         = 0; /* Hide layout indicator (1) or show (0) */
 
 /* Status options */
 static int statusallmons                      = 1; /* Draw status bar on all monitors */
@@ -151,6 +152,9 @@ static char col_tag8[]                        = "#333333"; /* tag 8 background *
 static char col_tag8_text[]                   = "#eeeeee"; /* tag 8 text (fg) */
 static char col_tag9[]                        = "#333333"; /* tag 9 background */
 static char col_tag9_text[]                   = "#eeeeee"; /* tag 9 text (fg) */
+static char col_layouttext[]                  = "#000000"; /* Layout indicator text (fg) */
+static char col_layoutbgnorm[]                = "#222222"; /* Layout indicator background (norm) */
+static char col_layoutbgsel[]                 = "#bbbbbb"; /* Layout indicator background (norm) */
 
 /* status2d colors */
 static char termcol0[]                        = "#000000";
