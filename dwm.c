@@ -2875,10 +2875,13 @@ showhide(Client *c)
 void
 showtagpreview(unsigned int i)
 {
+    
 	if (!selmon->previewshow || !selmon->tagmap[i]) {
 		XUnmapWindow(dpy, selmon->tagwin);
 		return;
 	}
+
+	if (tagpreview) {
 
 	XSetWindowBackgroundPixmap(dpy, selmon->tagwin, selmon->tagmap[i]);
 	XCopyArea(dpy, selmon->tagmap[i], selmon->tagwin, drw->gc, 0, 0,
@@ -2886,6 +2889,8 @@ showtagpreview(unsigned int i)
 			0, 0);
 	XSync(dpy, False);
 	XMapWindow(dpy, selmon->tagwin);
+
+	}
 }
 
 void
