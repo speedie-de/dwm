@@ -73,8 +73,8 @@ static double inactiveopacity                 = 0.875f; /* Window opacity when i
 static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */
 
 /* Tag preview options */
-static int tagpreview                   = 1; /* Enable tag previews */
-static int scalepreview                 = 4; /* Size of tag preview */
+static int tagpreview                         = 1; /* Enable tag previews */
+static int scalepreview                       = 4; /* Size of tag preview */
 
 /* Window spawning options */
 static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client */
