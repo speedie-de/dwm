@@ -68,3 +68,4 @@
   - dwm-tagpreviews           | This patch adds tag previews (hover over tags)
   - dwm-attachdirection       | This patch allows you to attach clients to any direction
   - dwm-ispermanent           | This patch allows you to make clients permanent (used for systray)
+  - dwm-leftlayout            | This patch allows you to move the layout indicator to the left

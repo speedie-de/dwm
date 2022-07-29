@@ -1297,6 +1297,11 @@ drawbar(Monitor *m)
 			urg |= c->tags;
 	}
 	x = 0;
+	if (leftlayout) {
+	w = blw = TEXTW(m->ltsymbol);
+	drw_setscheme(drw, scheme[SchemeNorm]);
+	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	}
 	for (i = 0; i < LENGTH(tags); i++) {
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 		     continue;
@@ -1307,12 +1312,8 @@ drawbar(Monitor *m)
 		x += w;
 	}
 
-    /* Draw the layout bar on the right if leftlayout is 0 */
-	if (leftlayout) {
-		w = blw = TEXTW(m->ltsymbol);
-		drw_setscheme(drw, scheme[SchemeNorm]);
-		x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
-	} else {
+    /* Draw the layout bar on the right if leftlayout is not 0 */
+	if (!leftlayout) {
 		w = blw = TEXTW(m->ltsymbol);
 		drw_setscheme(drw, scheme[SchemeNorm]);
 		x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
