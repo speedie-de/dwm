@@ -1,7 +1,5 @@
 #!/bin/sh
 
-DATE=$(date "+%T_%D" | sed "s|:|-|g" | sed "s|/||g")
-
 rm -f /tmp/screenshot*
 
 case "$RUNLAUNCHER" in
@@ -15,11 +13,15 @@ mkdir -p $EXPORTDIR
 
 # Config
 SHOWCURSOR="true" # Show cursor or not (true/false)
+DEFAULTSCREENSHOTPATH=$HOME/Screenshots # Default screenshot path
+FORMAT="+%T_%D" # Screenshot format
 
 if [ -e "$EXPORTDIR/config" ]; then
 		. $EXPORTDIR/config
 else
 		printf "SHOWCURSOR=$SHOWCURSOR # Show cursor or not (true/false)" > $EXPORTDIR/config
+		printf "\nDEFAULTSCREENSHOTPATH=$DEFAULTSCREENSHOTPATH # Where screenshots are saved\n" >> $EXPORTDIR/config
+		echo "FORMAT='$FORMAT' # Where screenshots are saved. : and / will be replaced with _ and nothing respectively." >> $EXPORTDIR/config
 fi
 
 case "$SHOWCURSOR" in
@@ -78,11 +80,13 @@ SENDNOTIF_IMG() {
   fi
 }
 
+mkdir -p $DEFAULTSCREENSHOTPATH
+
 # Perform actions based on user input
 case "$U_INPUT" in
 "Image") cat /tmp/screenshot-$DATE | xclip -selection clipboard -t image/png && SENDNOTIF_IMG ;;
 "URL") printf "\n" | xclip -selection clipboard && curl -s -F source=@"/tmp/screenshot-$DATE" -F "type=file" -F "action=upload" "https://imgbb.com/json" | sed "s/\\\\//g; s/\"/\\n/g" | grep -m 1 -A 2 url | tail -n 1 | xclip -selection clipboard && SENDNOTIF_URL ;;
-"Save") SAVEDIR=$(printf "$HOME/Screenshot.png" | $RUNLAUNCHER -l 1 -g 1 -p "Where do you want to save it? (Including filename)") && cat /tmp/screenshot-$DATE > $SAVEDIR && SENDNOTIF_SAVE ;;
+"Save") SAVEDIR=$(printf "$DEFAULTSCREENSHOTPATH/screenshot-$(date "$FORMAT" | sed "s|:|-|g" | sed "s|/||g").png" | $RUNLAUNCHER -l 1 -g 1 -p "Where do you want to save it? (Including filename)") && cat /tmp/screenshot-$DATE > $SAVEDIR && SENDNOTIF_SAVE ;;
 esac
 
 rm -f /tmp/screenshot* # Remove the screenshots

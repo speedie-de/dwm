@@ -1,5 +1,5 @@
-/* Define
- * This build comes with defines for common software such as your web browser or terminal.
+/* Define This build comes with defines for common software such as your web
+ * browser or terminal.
  * If you wish to use a different browser for example, simply change the values.
  *
  * You do not need to edit 'keybinds.h' or 'rules.h' because that's where these are used.
@@ -30,8 +30,8 @@
 #define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
 #define VOL_MUTE                              "dwm-audioctrl -mute" /* Command to run when muting volume */
 #define VOL_OUTPUT_SPEAKER                    "dwm-audioctrl -switch" /* Command to run when enabling speakers */
-#define MODKEY Mod4Mask
-#define SMODKEY Mod1Mask
+#define MODKEY Mod1Mask
+#define SMODKEY Mod4Mask
 #define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks, status for other value */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
