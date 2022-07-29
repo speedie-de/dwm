@@ -219,6 +219,7 @@ static void spawnscratch(const Arg *arg);
 static void inplacerotate(const Arg *arg);
 static void togglescratch(const Arg *arg);
 static void togglesticky(const Arg *arg);
+static void previewtag(const Arg *arg);
 static void setcurrentdesktop(void);
 static void setdesktopnames(void);
 static void setnumdesktops(void);
@@ -4135,6 +4136,17 @@ load_xresources(void)
 	for (p = resources; p < resources + LENGTH(resources); p++)
 		resource_load(db, p->name, p->type, p->dst);
 	XCloseDisplay(display);
+}
+
+/* Thanks to https://codeberg.org/explosion-mental/demwm for this! */
+void
+previewtag(const Arg *arg)
+{
+	if (selmon->previewshow != (arg->ui + 1))
+		selmon->previewshow = arg->ui + 1;
+	else
+		selmon->previewshow = 0;
+	showtagpreview(arg->ui);
 }
 
 int

@@ -30,8 +30,8 @@
 #define VOL_UP                                "dwm-audioctrl -raise" /* Command to run when increasing volume */
 #define VOL_MUTE                              "dwm-audioctrl -mute" /* Command to run when muting volume */
 #define VOL_OUTPUT_SPEAKER                    "dwm-audioctrl -switch" /* Command to run when enabling speakers */
-#define MODKEY Mod1Mask
-#define SMODKEY Mod4Mask
+#define MODKEY Mod4Mask
+#define SMODKEY Mod1Mask
 #define STATUSBAR                             status /* Status bar to use, set to dwmblocks if using dwmblocks, status for other value */
 #define ICONSIZE                              sizeicon /* Icon size */
 #define ICONSPACING                           spacingicon  /* Space between icon and title */
@@ -43,7 +43,8 @@
 
 #define SESSION_FILE                          "/tmp/dwm-session"
 #define SHCMD(cmd)                            { .v = (const char*[]){ shell, "-c", cmd, NULL } } /* Shell to use */
-#define TAGKEYS(CHAIN,KEY,TAG)                { MODKEY|ShiftMask, CHAIN, KEY, view, {.ui = 1 << TAG} },
+#define TAGKEYS(CHAIN,KEY,TAG)                { MODKEY, CHAIN, KEY, view, {.ui = 1 << TAG} },	\
+										      { MODKEY|ShiftMask, CHAIN, KEY, previewtag, {.ui = TAG} },
 
 /* Options
  *

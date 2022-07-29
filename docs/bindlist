@@ -41,15 +41,24 @@
   - Super+Shift+Minus         | Hide the scratchpad
   - Super+Shift+Space         | Unfloat floating windows
   - Super+Shift+Arrow         | Resizes a window in floating mode
-  - Super+Shift+1             | Move to tag 1
-  - Super+Shift+2             | Move to tag 2
-  - Super+Shift+3             | Move to tag 3
-  - Super+Shift+4             | Move to tag 4
-  - Super+Shift+5             | Move to tag 5
-  - Super+Shift+6             | Move to tag 6
-  - Super+Shift+7             | Move to tag 7
-  - Super+Shift+8             | Move to tag 8
-  - Super+Shift+9             | Move to tag 9
+  - Super+1                   | Move to tag 1
+  - Super+2					  | Move to tag 2
+  - Super+3					  | Move to tag 3
+  - Super+4					  | Move to tag 4
+  - Super+5					  | Move to tag 5
+  - Super+6					  | Move to tag 6
+  - Super+7					  | Move to tag 7
+  - Super+8					  | Move to tag 8
+  - Super+9					  | Move to tag 9
+  - Super+Shift+1             | Preview tag 1
+  - Super+Shift+2             | Preview tag 2
+  - Super+Shift+3             | Preview tag 3
+  - Super+Shift+4             | Preview tag 4
+  - Super+Shift+5             | Preview tag 5
+  - Super+Shift+6             | Preview tag 6
+  - Super+Shift+7             | Preview tag 7
+  - Super+Shift+8             | Preview tag 8
+  - Super+Shift+9             | Preview tag 9
   - Super+Shift+h/j/k/l       | Rotates a stack.
   - Super+Shift+Escape        | Ask the user if they want to shutdown or reboot or nothing
   - Super+Shift+i             | Open a dmenu prompt and open the file the user picks in Zathura
