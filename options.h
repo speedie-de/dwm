@@ -154,6 +154,8 @@ static char col_tag8[]                        = "#333333"; /* tag 8 background *
 static char col_tag8_text[]                   = "#eeeeee"; /* tag 8 text (fg) */
 static char col_tag9[]                        = "#333333"; /* tag 9 background */
 static char col_tag9_text[]                   = "#eeeeee"; /* tag 9 text (fg) */
+
+/* Layout indicator colors */
 static char col_layouttext[]                  = "#000000"; /* Layout indicator text (fg) */
 static char col_layoutbgnorm[]                = "#222222"; /* Layout indicator background (norm) */
 static char col_layoutbgsel[]                 = "#bbbbbb"; /* Layout indicator background (norm) */
