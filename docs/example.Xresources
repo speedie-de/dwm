@@ -1,5 +1,5 @@
   - dwm.nmaster:              1
-  - dwm.rmaster:              1
+  - dwm.rmaster:              0
   - dwm.font:                 fontawesome:size=8
   - dwm.font2:				  NotoSans-Regular:size=8:antialiasing=true
   - dwm.font3:                Noto Emoji:size=8
@@ -27,6 +27,9 @@
   - dwm.col_tag8_text:        #eeeeee
   - dwm.col_tag9:             #333333
   - dwm.col_tag9_text:        #eeeeee
+  - dwm.col_layouttext:       #000000
+  - dwm.col_layoutbgnorm:     #222222
+  - dwm.col_layoutbgsel:      #bbbbbb
   - dwm.col_status0:          #000000
   - dwm.col_status1:          #ff0000
   - dwm.col_status2:          #33ff00
@@ -44,7 +47,7 @@
   - dwm.col_status14:         #00ffff
   - dwm.col_status15:         #ffffff
   - dwm.borderpx:             1
-  - dwm.snap:                 32
+  - dwm.snap:                 20
   - dwm.showbar:              1
   - dwm.resizehints:          0
   - dwm.mfact:                0.50
@@ -52,7 +55,7 @@
   - dwm.gappx:                10
   - dwm.attachdirection:      3
   - dwm.shell:                /bin/sh
-  - dwm.sizeicon:             16
+  - dwm.sizeicon:             10
   - dwm.spacingicon:          5
   - dwm.status:               status
   - dwm.defaultname:          ""
@@ -60,7 +63,7 @@
   - dwm.decorhints:           1
   - dwm.vertpad:              0
   - dwm.sidepad:              0  
-  - dwm.barheight:            0
+  - dwm.barheight:            5
   - dwm.centerfloating:       1
   - dwm.firstwindowsize:      0
   - dwm.savefloat:            1
@@ -75,4 +78,7 @@
   - dwm.hidelayout:           0
   - dwm.leftlayout:           1
   - dwm.fadeinactive:         1
-  - 
+  - dwm.stairpx:              20
+  - dwm.stairdirection:       1
+  - dwm.stairsamesize:        1
+

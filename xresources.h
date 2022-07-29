@@ -97,6 +97,7 @@ ResourcePref resources[]                      = {
 	   { "color13",              STRING,  &termcol13 },
 	   { "color14",              STRING,  &termcol14 },
 	   { "color15",              STRING,  &termcol15 },
+
 	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
        { "defaultname",          STRING,  &defaultname },
@@ -131,6 +132,9 @@ ResourcePref resources[]                      = {
 	   { "hidelayout",	         INTEGER, &hidelayout },
 	   { "statusallmons",	     INTEGER, &statusallmons },
 	   { "fadeinactive",	     INTEGER, &fadeinactive },
+	   { "stairpx",				 INTEGER, &stairpx },
+	   { "stairdirection",		 INTEGER, &stairdirection },
+	   { "stairsamesize",		 INTEGER, &stairsamesize },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };
