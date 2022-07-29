@@ -314,6 +314,7 @@ static void showwin(Client *c);
 static void showhide(Client *c);
 static void showtagpreview(unsigned int i);
 static void sigchld(int unused);
+static void sigdwmblocks(const Arg *arg);
 static void sighup(int unused);
 static void sigterm(int unused);
 static void spawn(const Arg *arg);
