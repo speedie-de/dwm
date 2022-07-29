@@ -72,6 +72,10 @@ static double activeopacity				      = 1.0f; /* Window opacity when it's focused
 static double inactiveopacity                 = 0.875f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */
 
+/* Tag preview options */
+static int tagpreview                   = 1; /* Enable tag previews */
+static int scalepreview                 = 4; /* Size of tag preview */
+
 /* Window spawning options */
 static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client */
 static int attachdirection                    = 0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
@@ -173,7 +177,3 @@ static const char *alttags[]                  = { "[1]", "[2]", "[3]", "[4]", "[
 /* Icon misc */
 static XPoint stickyicon[]                    = { {0,0}, {4,0}, {4,8}, {2,6}, {0,8}, {0,0} }; /* represents the icon as an array of vertices */
 static XPoint stickyiconbb                    = {4,8};	/* defines the bottom right corner of the polygon's bounding box (speeds up scaling) */
-
-/* Tag preview options */
-static int tagpreview                   = 1; /* Enable tag previews */
-static int scalepreview                 = 4; /* Size of tag preview */
