@@ -68,6 +68,7 @@
   - dwm.warpcursor:           1
   - dwm.pertag:               1
   - dwm.i3nmaster:            0
+  - dwm.scalepreview:         4
   - dwm.monocleclientcount:   0
   - dwm.activeopacity:        1.0f
   - dwm.inactiveopacity:      0.875f

@@ -120,6 +120,7 @@ ResourcePref resources[]                      = {
 	   { "pertag",			     INTEGER, &pertag },
 	   { "i3nmaster",			 INTEGER, &i3nmaster },
 	   { "monocleclientcount",	 INTEGER, &monocleclientcount },
+	   { "scalepreview",	     INTEGER, &scalepreview },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };
