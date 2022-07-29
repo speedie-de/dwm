@@ -44,16 +44,20 @@ LOADCONFIG() {
 # Reset dwm
 RESET() {
 
-  # Do not reload dwm if we're asked not to.
+  # Do not reload dwm config if we're asked not to.
   if [ "$DONOTLOADCONFIG" = "true" ]; then
 		DONOTLOADCONFIG=true
   else
 		$HOME/.config/dwm-de/swal/swal_wm > /dev/null
   fi
 
-  xsetroot -name "Loading" # To hide the ugly fsignal status
-  xsetroot -name "fsignal:30" # Send fsignal to restart dwm
-  xsetroot -name "Loading" # To hide the ugly fsignal status
+  if [ "$DONOTRELOAD" = "true" ]; then
+		DONOTRELOAD=true
+  else
+		xsetroot -name "Loading" # To hide the ugly fsignal status
+		xsetroot -name "fsignal:30" # Send fsignal to restart dwm
+		xsetroot -name "Loading" # To hide the ugly fsignal status
+  fi
 }
 
 # Check for running window managers
@@ -61,7 +65,8 @@ CHECKEXISTINGWM() {
   if [ "$CARG" = "force" ]; then
 		echo "WARNING: Bypassing all checks (due to -f argument). Use this with caution!"
   else
-		pgrep -x dwm > /dev/null && echo "dwm is already running. Use $0 -r to restart it." ; exit 1
+		pgrep -x dwm > /dev/null && echo "dwm is already running. Use $0 -r to restart it."
+		pgrep -x dwm > /dev/null && exit 1
   fi
 }
 
@@ -97,7 +102,7 @@ DELETECONFIG() {
 }
 
 case "$ARGS" in
-"") CHECKEXISTINGWM ; XRESOURCES ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; START_DWM ; exit 0 ;;
+"") CHECKEXISTINGWM ; XRESOURCES ; DONOTRELOAD=true ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; START_DWM ; exit 0 ;;
 "-r") XRESOURCES > /dev/null ; RESET ; LOADCONFIG > /dev/null ; DONOTLOADCONFIG=true ; RESET ; echo "Restarted dwm." ; exit 0 ;;
 "-h") HELP ; exit 0 ;;
 "-f") CARG="force" ; LOADCONFIG ; RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
