@@ -131,6 +131,7 @@ ResourcePref resources[]                      = {
 	   { "leftlayout",	         INTEGER, &leftlayout },
 	   { "hidelayout",	         INTEGER, &hidelayout },
 	   { "statusallmons",	     INTEGER, &statusallmons },
+	   { "fadeinactive",	     INTEGER, &fadeinactive },
 	   { "mfact",                FLOAT,   &mfact },
 /*       value in .Xresources    type     value in dwm */
 };

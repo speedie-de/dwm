@@ -68,6 +68,7 @@ static int refreshrules                       = 1; /* Refresh rules when a CLASS
 static int i3nmaster                          = 0; /* Enable i3-gaps like nmaster (1/0) */
 
 /* Window aesthetic options */
+static int fadeinactive                       = 1; /* Fade inactive windows */
 static double activeopacity				      = 1.0f; /* Window opacity when it's focused (0 <= opacity <= 1) */
 static double inactiveopacity                 = 0.875f; /* Window opacity when it's inactive (0 <= opacity <= 1) */
 static Bool bUseOpacity                       = True; /* Starts with opacity on any unfocused windows */
@@ -78,7 +79,7 @@ static int scalepreview                       = 4; /* Size of tag preview */
 
 /* Window spawning options */
 static int spawncd                            = 1; /* Spawn clients in the working directory of the focused client */
-static int attachdirection                    = 0; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
+static int attachdirection                    = 3; /* 0 default, 1 above, 2 aside, 3 below, 4 bottom, 5 top */
 static int swallowfloating                    = 0; /* Swallow floating windows by default */
 static int centerfloating                     = 1; /* Center floating windows by default */
 static int firstwindowsize                    = 0; /* Size of first centered window */

@@ -2176,7 +2176,7 @@ nexttiled(Client *c)
 void
 opacity(Client *c, double opacity)
 {
-	if(bUseOpacity && opacity > 0 && opacity < 1) {
+	if(bUseOpacity && opacity > 0 && opacity < 1 && fadeinactive) {
 		unsigned long real_opacity[] = { opacity * 0xffffffff };
 		XChangeProperty(dpy, c->win, netatom[NetWMWindowsOpacity], XA_CARDINAL,
 				32, PropModeReplace, (unsigned char *)real_opacity,

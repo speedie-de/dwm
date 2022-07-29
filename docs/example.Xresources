@@ -75,4 +75,5 @@
   - dwm.activeopacity:        1.0f
   - dwm.hidelayout:           0
   - dwm.leftlayout:           1
+  - dwm.fadeinactive:         1
   - dwm.inactiveopacity:      0.875f
