@@ -1974,9 +1974,10 @@ motionnotify(XEvent *e)
 		do {
 			if (!(occ & 1 << i || selmon->tagset[selmon->seltags] & 1 << i))
 				continue;
-			x += TEXTW(tags[i]);
+			x += TEXTW(m->ltsymbol);
 		} while (ev->x >= x && ++i < (LENGTH(tags)));
 
+		if (!leftlayout) {
 		if (i < LENGTH(tags)) {
 			if ((i + 1) != selmon->previewshow && !(selmon->tagset[selmon->seltags] & 1 << i)) {
 				selmon->previewshow = i + 1;
@@ -1990,9 +1991,9 @@ motionnotify(XEvent *e)
 			XUnmapWindow(dpy, selmon->tagwin);
 		}
 	} else if (selmon->previewshow) {
-		//selmon->previewshow = 0;
 		showtagpreview(0);
 		XUnmapWindow(dpy, selmon->tagwin);
+	}
 	}
 	if (ev->window != root)
 		return;
@@ -2898,6 +2899,8 @@ void
 showtagpreview(unsigned int i)
 {
     
+	Monitor *m;
+
 	if (!selmon->previewshow || !selmon->tagmap[i]) {
 		XUnmapWindow(dpy, selmon->tagwin);
 		return;
