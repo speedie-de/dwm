@@ -373,6 +373,8 @@ static pid_t winpid(Window w);
 static const char broken[] = "dwm";
 static char stext[1024];
 static char rawstext[1024];
+static int dwmblockssig;
+pid_t dwmblockspid = 0;
 static char lastbutton[] = "-";
 static int statusw;
 static int screen;
@@ -758,6 +760,23 @@ buttonpress(XEvent *e)
 	XButtonPressedEvent *ev = &e->xbutton;
 	*lastbutton = '0' + ev->button;
 
+		char *text = rawstext;
+		//unsigned int i = -1;
+		char ch;
+		dwmblockssig = 0;
+		while (text[++i]) {
+			if ((unsigned char)text[i] < ' ') {
+				ch = text[i];
+				text[i] = '\0';
+				x += TEXTW(text) - lrpad;
+				text[i] = ch;
+				text += i+1;
+				i = -1;
+				if (x >= ev->x) break;
+				dwmblockssig = ch;
+			}
+		}
+
 	/* focus monitor if necessary */
 	if ((m = wintomon(ev->window)) && m != selmon) {
 		unfocus(selmon->sel, 1);
@@ -984,7 +1003,6 @@ copyvalidchars(char *text, char *rawtext)
 	}
 	text[j] = '\0';
 }
-
 
 Monitor *
 createmon(void)
@@ -1579,6 +1597,18 @@ geticonprop(Window win, unsigned int *picw, unsigned int *pich)
 	XFree(p);
 
 	return ret;
+}
+
+int
+getdwmblockspid()
+{
+	char buf[16];
+	FILE *fp = popen("pidof -s dwmblocks", "r");
+	fgets(buf, sizeof(buf), fp);
+	pid_t pid = strtoul(buf, NULL, 10);
+	pclose(fp);
+	dwmblockspid = pid;
+	return pid != 0 ? 0 : -1;
 }
 
 int
@@ -2931,6 +2961,23 @@ sigterm(int unused)
 {
 	Arg a = {.i = 0};
 	quit(&a);
+}
+
+void
+sigdwmblocks(const Arg *arg)
+{
+	union sigval sv;
+	sv.sival_int = (dwmblockssig << 8) | arg->i;
+	if (!dwmblockspid)
+		if (getdwmblockspid() == -1)
+			return;
+
+	if (sigqueue(dwmblockspid, SIGUSR1, sv) == -1) {
+		if (errno == ESRCH) {
+			if (!getdwmblockspid())
+				sigqueue(dwmblockspid, SIGUSR1, sv);
+		}
+	}
 }
 
 void

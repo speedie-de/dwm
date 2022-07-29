@@ -36,4 +36,7 @@ static Signal signals[] = {
 	{ 29,           reorganizetags, {0} },
 	{ 30,           quit,           {1} },
 	{ 31,           quit,           {0} },
+	{ 32,           sigdwmblocks,   {.i = 1} },
+	{ 33,           sigdwmblocks,   {.i = 2} },
+	{ 34,           sigdwmblocks,   {.i = 3} },
 };
