@@ -1258,7 +1258,6 @@ void
 drawbar(Monitor *m)
 {
 	int x, w, tw = 0, scm;
-	//unsigned int n = 0;
 	int boxs = drw->fonts->h / 9;
 	int boxw = drw->fonts->h / 6 + 2;
 	unsigned int i, occ = 0, urg = 0, n = 0;
@@ -3649,7 +3648,6 @@ void
 updatestatus(void)
 {
     Monitor* m;
-	//if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext))) {
 	if (!gettextprop(root, XA_WM_NAME, rawstext, sizeof(rawstext))) {
 		strcpy(stext, defaultname);
 		statusw = TEXTW(stext) - lrpad + 2;

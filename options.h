@@ -58,7 +58,6 @@
 static unsigned int borderpx                  = 1; /* How big your border is */
 static unsigned int snap                      = 20; /* Snap pixel */
 static unsigned int gappx                     = 10; /* How big should your gaps be? */
-static float mfact                            = 0.50;
 static int rmaster                            = 0; /* 0 means master area is initially on the right */
 static int nmaster                            = 1;
 static int resizehints                        = 0;
@@ -66,6 +65,7 @@ static int decorhints                         = 1; /* Respect decoration hints *
 static int savefloat                          = 1; /* Save position of floating windows */
 static int refreshrules                       = 1; /* Refresh rules when a CLASS or TITLE changes */
 static int i3nmaster                          = 0; /* Enable i3-gaps like nmaster (1/0) */
+static float mfact                            = 0.50;
 
 /* Window aesthetic options */
 static int fadeinactive                       = 1; /* Fade inactive windows */
