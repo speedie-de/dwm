@@ -1,6 +1,6 @@
 # speedie's fork of dynamic window manager
    https://speedie.gq/dwm
-  https://speedie./gq/donate
+  https://speedie.gq/donate
 
 ## What is dwm?
 dwm or dynamic window manager is a window manager. It manages the user's open windows and tiles them according to a set layout (dynamic). 
@@ -112,6 +112,9 @@ My build of dwm has been patched with the following patches:
   - dwm-fadeinactive          | This patch adds an option to fade inactive clients
   - dwm-i3nmaster             | This patch adds i3-like nmaster as an option
   - dwm-tagpreviews           | This patch adds tag previews (hover over tags)
+  - dwm-attachdirection       | This patch allows you to attach clients to any direction
+  - dwm-ispermanent           | This patch allows you to make clients permanent (used for systray)
+  - dwm-leftlayout            | This patch allows you to move the layout indicator to the left
 
 ## Keybinds
 Below is a list of all dwm keybinds.
@@ -134,7 +137,7 @@ Below is a list of all dwm keybinds.
   - Super+Control+Shift+m     | Opens the defined email client
   - Super+Control+u           | Opens the defined RSS reader
 
-  ### Nagigation
+  ### Navigation
   These keybinds are for navigating dwm
   - Super+r                   | Toggle master on the left/right
   - Super+t                   | Reorganize tags and move clients
@@ -148,7 +151,7 @@ Below is a list of all dwm keybinds.
   - Super+Control+o           | Show a window
   - Super+w                   | Hide all windows except focused
   - Super+Control+w           | Show all windows except focused
-  - Super+Arrow               | Move to the next/previous tag
+  - Alt+Arrow                 | Move to the next/previous tag
   - Super+Minus               | Show the scratchpad
   - Super+Equal               | Remove the scratchpad
   - Super+Enter               | Switch order of windows
@@ -159,15 +162,24 @@ Below is a list of all dwm keybinds.
   - Super+Shift+Minus         | Hide the scratchpad
   - Super+Shift+Space         | Unfloat floating windows
   - Super+Shift+Arrow         | Resizes a window in floating mode
-  - Super+Shift+1             | Move to tag 1
-  - Super+Shift+2             | Move to tag 2
-  - Super+Shift+3             | Move to tag 3
-  - Super+Shift+4             | Move to tag 4
-  - Super+Shift+5             | Move to tag 5
-  - Super+Shift+6             | Move to tag 6
-  - Super+Shift+7             | Move to tag 7
-  - Super+Shift+8             | Move to tag 8
-  - Super+Shift+9             | Move to tag 9
+  - Super+1                   | Move to tag 1
+  - Super+2					  | Move to tag 2
+  - Super+3					  | Move to tag 3
+  - Super+4					  | Move to tag 4
+  - Super+5					  | Move to tag 5
+  - Super+6					  | Move to tag 6
+  - Super+7					  | Move to tag 7
+  - Super+8					  | Move to tag 8
+  - Super+9					  | Move to tag 9
+  - Super+Shift+1             | Preview tag 1
+  - Super+Shift+2             | Preview tag 2
+  - Super+Shift+3             | Preview tag 3
+  - Super+Shift+4             | Preview tag 4
+  - Super+Shift+5             | Preview tag 5
+  - Super+Shift+6             | Preview tag 6
+  - Super+Shift+7             | Preview tag 7
+  - Super+Shift+8             | Preview tag 8
+  - Super+Shift+9             | Preview tag 9
   - Super+Shift+h/j/k/l       | Rotates a stack.
   - Super+Shift+Escape        | Ask the user if they want to shutdown or reboot or nothing
   - Super+Shift+i             | Open a dmenu prompt and open the file the user picks in Zathura
@@ -189,7 +201,7 @@ Below is a list of all dwm keybinds.
   - Super+Control+Shift+b     | Connect to a bluetooth device (Requires bluez and bluez-utils)
   - Alt+Tab                   | Switch windows quickly and easily 
   
-  -- Chained keybinds --
+  ### Chained keybinds
   - Super+c & w               | Curl wttr.in and open in less
 
   ### Extras
@@ -226,7 +238,7 @@ Below is a list of all dwm keybinds.
   - wmctrl (Needed for proper window management)
   - xsetroot (Needed for most scripts including Pywal support)
   - slock (Required for screen locking)
-  - maim (Required for built in 'bb' script)
+  - maim (Required for built in 'dwm-screenshotutil' script)
   
   ## Software
   This build of dwm comes with binds for software. 
@@ -287,10 +299,10 @@ If it is not or you want it somewhere else, you can edit 'autostart.h' and 'make
 Note that the 'xrdb' dependency is required for both pywal and .Xresources support and 'xsetroot' is required for automatic reloading of colors.
 
   - dwm.nmaster:              1
-  - dwm.rmaster:              1
-  - dwm.font:                 NotoSans-Regular:size=8
-  - dwm.font2:                JoyPixels:size=8
-  - dwm.font3:                Siji:size=8
+  - dwm.rmaster:              0
+  - dwm.font:                 fontawesome:size=8
+  - dwm.font2:				  NotoSans-Regular:size=8:antialiasing=true
+  - dwm.font3:                Noto Emoji:size=8
   - dwm.col_background:       #222222
   - dwm.col_backgroundmid:    #222222
   - dwm.col_textnorm:         #bbbbbb
@@ -315,6 +327,9 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
   - dwm.col_tag8_text:        #eeeeee
   - dwm.col_tag9:             #333333
   - dwm.col_tag9_text:        #eeeeee
+  - dwm.col_layouttext:       #000000
+  - dwm.col_layoutbgnorm:     #222222
+  - dwm.col_layoutbgsel:      #bbbbbb
   - dwm.col_status0:          #000000
   - dwm.col_status1:          #ff0000
   - dwm.col_status2:          #33ff00
@@ -332,32 +347,41 @@ Note that the 'xrdb' dependency is required for both pywal and .Xresources suppo
   - dwm.col_status14:         #00ffff
   - dwm.col_status15:         #ffffff
   - dwm.borderpx:             1
-  - dwm.snap:                 32
+  - dwm.snap:                 20
   - dwm.showbar:              1
   - dwm.resizehints:          0
   - dwm.mfact:                0.50
   - dwm.startontag:           1
   - dwm.gappx:                10
-  - dwm.rmaster:              0
+  - dwm.attachdirection:      3
   - dwm.shell:                /bin/sh
-  - dwm.sizeicon:             16
+  - dwm.sizeicon:             10
   - dwm.spacingicon:          5
   - dwm.status:               status
-  - dwm.defaultname:          dwm-is-cool
+  - dwm.defaultname:          
   - dwm.refreshrules:         1
   - dwm.decorhints:           1
   - dwm.vertpad:              0
   - dwm.sidepad:              0  
-  - dwm.barheight:            0
+  - dwm.barheight:            5
   - dwm.centerfloating:       1
   - dwm.firstwindowsize:      0
   - dwm.savefloat:            1
   - dwm.warpcursor:           1
   - dwm.pertag:               1
   - dwm.i3nmaster:            0
+  - dwm.scalepreview:         4
+  - dwm.tagpreview:           1
+  - dwm.mousepreview:         1
   - dwm.monocleclientcount:   0
-  - dwm.activeopacity:        1.0f
-  - dwm.inactiveopacity:      0.875f
+  - dwm.statusallmons:        1
+  - dwm.hidelayout:           0
+  - dwm.leftlayout:           1
+  - dwm.fadeinactive:         1
+  - dwm.stairpx:              20
+  - dwm.stairdirection:       1
+  - dwm.stairsamesize:        1
+
 
 ## Fsignal
 Thanks to the 'fsignal' patch available on suckless.org's website, we can easily write shell scripts to interact with dwm.
@@ -399,6 +423,11 @@ Below is a list of all signums and what they do.
   - 29 | Reorganize tags
   - 30 | Restart dwm
   - 31 | Shutdown dwm
+  - 32 | dwmblocks signum 1
+  - 33 | dwmblocks signum 2
+  - 34 | dwmblocks signum 3
+  - 35 | Switch to the Tiling (5:4) layout
+
 ## Switching run launcher
 Some users may prefer to use a different run launcher than dmenu.
 Previously all scripts bundled would only run dmenu from $PATH but you can now switch run launcher very easily.
