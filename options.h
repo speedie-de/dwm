@@ -109,6 +109,7 @@ static int showbar                            = 1; /* Show the bar or not? */
 static int topbar                             = 1; /* Should the bar be on the top of bottom? */
 static int vertpad                            = 0; /* How much padding to have vertically */
 static int sidepad                            = 0; /* How much padding to have horizontally */
+static int leftlayout                         = 0; /* Layout button on the left (1) or on the right (0) */
 
 /* Status options */
 static int statusallmons                      = 1; /* Draw status bar on all monitors */

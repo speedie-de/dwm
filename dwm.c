@@ -118,7 +118,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
 	int bw, oldbw;
 	unsigned int tags;
-	int isfixed, canfocus, isfloating, isurgent, neverfocus, oldstate, isfullscreen, ignoretransient, issticky, isterminal, noswallow, CenterThisWindow, needresize;
+	int isfixed, canfocus, ispermanent, isfloating, isurgent, neverfocus, oldstate, isfullscreen, ignoretransient, issticky, isterminal, noswallow, CenterThisWindow, needresize;
 	pid_t pid;
 	char scratchkey;
 	unsigned int icw, ich; Picture icon;
@@ -186,6 +186,7 @@ typedef struct {
 	const char *title;
 	unsigned int tags;
 	int isfloating;
+	int ispermanent;
 	int canfocus;
 	int isterminal;
 	int noswallow;
@@ -519,6 +520,7 @@ applyrules(Client *c)
 			c->canfocus = r->canfocus;
 			c->ignoretransient = r->ignoretransient;
 			c->CenterThisWindow = r->CenterThisWindow;
+			c->ispermanent = r->ispermanent;
 			c->tags |= r->tags;
 			c->scratchkey = r->scratchkey;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
@@ -1304,9 +1306,17 @@ drawbar(Monitor *m)
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tagtext, urg & 1 << i);
 		x += w;
 	}
-	w = blw = TEXTW(m->ltsymbol);
-	drw_setscheme(drw, scheme[SchemeNorm]);
-	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+
+    /* Draw the layout bar on the right if leftlayout is 0 */
+	if (leftlayout) {
+		w = blw = TEXTW(m->ltsymbol);
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+	} else {
+		w = blw = TEXTW(m->ltsymbol);
+		drw_setscheme(drw, scheme[SchemeNorm]);
+		x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
+    }
 
 	if ((w = m->ww - tw - x) > bh) {
 		if (n > 0) {
@@ -1805,7 +1815,7 @@ fake_signal(void)
 void
 killclient(const Arg *arg)
 {
-	if (!selmon->sel)
+	if (!selmon->sel || selmon->sel->ispermanent)
 		return;
 	if (!sendevent(selmon->sel, wmatom[WMDelete])) {
 		XGrabServer(dpy);
