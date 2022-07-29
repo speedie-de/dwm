@@ -70,6 +70,7 @@
   - dwm.i3nmaster:            0
   - dwm.scalepreview:         4
   - dwm.tagpreview:           1
+  - dwm.mousepreview:         1
   - dwm.monocleclientcount:   0
   - dwm.statusallmons:        1
   - dwm.activeopacity:        1.0f

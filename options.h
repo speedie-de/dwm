@@ -75,6 +75,7 @@ static Bool bUseOpacity                       = True; /* Starts with opacity on 
 
 /* Tag preview options */
 static int tagpreview                         = 1; /* Enable tag previews */
+static int mousepreview                       = 1; /* Display tag previews if hovering over a tag */
 static int scalepreview                       = 4; /* Size of tag preview */
 
 /* Window spawning options */

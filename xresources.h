@@ -128,6 +128,7 @@ ResourcePref resources[]                      = {
 	   { "monocleclientcount",	 INTEGER, &monocleclientcount },
 	   { "scalepreview",	     INTEGER, &scalepreview },
 	   { "tagpreview",	         INTEGER, &tagpreview },
+	   { "mousepreview",	     INTEGER, &mousepreview },
 	   { "leftlayout",	         INTEGER, &leftlayout },
 	   { "hidelayout",	         INTEGER, &hidelayout },
 	   { "statusallmons",	     INTEGER, &statusallmons },

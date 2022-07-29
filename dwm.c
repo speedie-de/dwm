@@ -1977,7 +1977,7 @@ motionnotify(XEvent *e)
 			x += TEXTW(m->ltsymbol);
 		} while (ev->x >= x && ++i < (LENGTH(tags)));
 
-		if (!leftlayout) {
+		if (!leftlayout && mousepreview) {
 		if (i < LENGTH(tags)) {
 			if ((i + 1) != selmon->previewshow && !(selmon->tagset[selmon->seltags] & 1 << i)) {
 				selmon->previewshow = i + 1;
