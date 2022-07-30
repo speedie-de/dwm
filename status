@@ -20,6 +20,7 @@ RUNONCE=false # Only run status bar once (true/false)
 SLEEPTIME=7 # How long delay in seconds between each reload (int)
 DATEBINDIR="/bin/" # Directory where your 'date' binary is. Default should be fine for most people
 SETMETHOD="xsetroot -name" # Method used to set the status bar
+SEP="<" # Separator to use
 
 # Status bar modules
 # Set to true/false to enable/disable.
@@ -135,6 +136,7 @@ else
 		printf "USEWAL=$USEWAL # Use Pywal if possible (true/false)" > $HOME/.config/dwm-de/status/config
 		printf "\nRUNONCE=$RUNONCE # Only run status bar once (true/false)" >> $HOME/.config/dwm-de/status/config
 		printf "\nSLEEPTIME=$SLEEPTIME # How long delay in seconds between each reload (int)" >> $HOME/.config/dwm-de/status/config
+		printf "\nSEP='$SEP' # Separator to use" >> $HOME/.config/dwm-de/status/config
 		printf "\n\nENABLE_ITEM1=$ENABLE_ITEM1 # Enable RAM usage (true/false)" >> $HOME/.config/dwm-de/status/config
 		printf "\nENABLE_ITEM2=$ENABLE_ITEM2 # Enable Time (HH:MM) (true/false)" >> $HOME/.config/dwm-de/status/config
 		printf "\nENABLE_ITEM3=$ENABLE_ITEM3 # Enable Date (DD/MM/YY) (true/false)" >> $HOME/.config/dwm-de/status/config
@@ -203,7 +205,7 @@ PRINT_SYSTRAY() {
 ITEM1() {
   if [ "$ENABLE_ITEM1" = "true" ]; then
 		if [ -e "${BINDIR}free" ]; then
-				echo "<  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
+				echo "$SEP  $(echo $(free -h --giga | awk '/^Mem/ {print $3}')B)"
 		fi
   fi
 }
@@ -212,7 +214,7 @@ ITEM1() {
 ITEM2() {
   if [ "$ENABLE_ITEM2" = "true" ]; then
 		if [ -e "${DATEBINDIR}date" ]; then
-				echo "<  $(date +%H:%M)"
+				echo "$SEP  $(date +%H:%M)"
 		fi
   fi
 }
@@ -221,7 +223,7 @@ ITEM2() {
 ITEM3() {
   if [ "$ENABLE_ITEM3" = "true" ]; then
 		if [ -e "${DATEBINDIR}date" ]; then
-				echo "<  $(date +%d/%m/%Y)"
+				echo "$SEP  $(date +%d/%m/%Y)"
 		fi
   fi
 }
@@ -230,12 +232,12 @@ ITEM3() {
 ITEM4() {
   if [ "$ENABLE_ITEM4" = "true" ]; then
 		if [ -e "${BINDIR}pulsemixer" ]; then
-				echo "<  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
+				echo "$SEP  $(echo $(pulsemixer --get-volume | awk '{ print $1 }')%)"
 				test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null && MUTED=false
 				test /tmp/dwm-audioctrl-mutestatus && grep "Not muted" /tmp/dwm-audioctrl-mutestatus > /dev/null || MUTED=true
 				test /tmp/dwm-audioctrl-mutestatus || MUTED=false
 		else
-				echo "<  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
+				echo "$SEP  $(echo $(amixer -c 0 get Master | tail -n1 | sed -r "s/.*\[(.*)%\].*/\1/")%)"
 		fi
 
 		if [ "$MUTED" = "false" ]; then
@@ -250,7 +252,7 @@ ITEM4() {
 ITEM5() {
   if [ "$ENABLE_ITEM5" = "true" ]; then
 		if [ -e "${BINDIR}curl" ]; then
-				curl -so /tmp/hacky_internet_test wttr.in && echo "<  $(echo $(curl -s wttr.in/?format="%C"), $(curl -s wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
+				curl -so /tmp/hacky_internet_test wttr.in && echo "$SEP  $(echo $(curl -s wttr.in/?format="%C"), $(curl -s wttr.in/?format=3 | sed 's/.* //' | sed 's/.*\(.....\)/\1/'))"
 				rm -f /tmp/hacky_internet_test
 		fi
   fi
@@ -260,7 +262,7 @@ ITEM5() {
 ITEM6() {
   if [ "$ENABLE_ITEM6" = "true" ]; then
 		if [ -e "${BINDIR}awk" ]; then
-				echo "<  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/' | sed "s|B|B/s |")"
+				echo "$SEP  $(awk '{$1=$1/1024000; print $1"B";}' /sys/class/net/[ew]*/statistics/tx_bytes | sed 's/.*\(....\)/\1/' | sed "s|B|B/s |")"
 		fi
   fi
 }
@@ -270,7 +272,7 @@ ITEM7() {
   # Check if we're recording with dfmpeg or not
   if [ "$ENABLE_ITEM7" = "true" ]; then
 		if [ -e "/tmp/dfmpeg-recording" ]; then
-				echo "<  Recording"
+				echo "$SEP  Recording"
 		fi
   fi
 }
@@ -279,7 +281,7 @@ ITEM7() {
 ITEM8() {
   if [ "$ENABLE_ITEM8" = "true" ]; then
 		if [ -e "${BINDIR}sensors" ]; then
-				echo "<  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
+				echo "$SEP  $(sensors | grep "temp1" | sed 's/(.*//' | sed "s/temp1.//" | sed -r 's/\s+//g' | awk '{ print $1 }')"
 		fi
   fi
 }
@@ -292,7 +294,7 @@ ITEM9() {
 				if [ "$(echo $(mocp -Q %file))" = "" ]; then
 						a=$a
 				else
-						echo "<  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
+						echo "$SEP  $(basename "$(mocp -Q %file)" | sed 's|\(.*\)[.].*|\1|')"
 				fi
 		fi
   fi
@@ -302,7 +304,7 @@ ITEM9() {
 ITEM10() {
   if [ "$ENABLE_ITEM10" = "true" ]; then
 		if [ -e "${BINDIR}newsboat" ]; then
-				pgrep -x newsboat > /dev/null || echo "<  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
+				pgrep -x newsboat > /dev/null || echo "$SEP  $(newsboat -x print-unread | sed "s| unread articles||") unread!"
 		fi
   fi
 }
@@ -311,7 +313,7 @@ ITEM10() {
 ITEM11() {
   if [ "$ENABLE_ITEM11" = "true" ]; then
 		if [ -e "/sys/class/power_supply/BAT0/capacity" ]; then
-				echo "<  $(cat /sys/class/power_supply/BAT0/capacity)%"
+				echo "$SEP  $(cat /sys/class/power_supply/BAT0/capacity)%"
 		fi
 
 		if [ -e "${BINDIR}acpi" ]; then
@@ -326,7 +328,7 @@ ITEM12() {
 		if [ -e "${BINDIR}curl" ]; then
 				curl -so /tmp/ff-backlogs https://donut.gq/ff/read.php
 				if [ -e "/tmp/ff-backlogs" ]; then
-						echo "<  $(cat /tmp/ff-backlogs | tail -n 1)"
+						echo "$SEP  $(cat /tmp/ff-backlogs | tail -n 1)"
 				fi
 		fi
   fi

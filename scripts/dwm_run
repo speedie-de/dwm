@@ -14,6 +14,7 @@ fi
 
 # Load .Xresources if available
 XRESOURCES() {
+		pgrep -x status && pkill status
 		if [ -e "$HOME/.Xresources" ]; then
 				if [ -e "${BINDIR}xrdb" ]; then
 						xrdb $HOME/.Xresources
@@ -56,7 +57,7 @@ RESET() {
 		DONOTRELOAD=true
   else
 		xsetroot -name "Loading" # To hide the ugly fsignal status
-		xsetroot -name "fsignal:30" # Send fsignal to restart dwm
+		xsetroot -name "fsignal:31" # Send fsignal to restart dwm
 		xsetroot -name "Loading" # To hide the ugly fsignal status
   fi
 }
