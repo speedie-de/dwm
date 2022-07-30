@@ -22,6 +22,24 @@ case "$RUNLAUNCHER" in
 esac
 
 BINDIR=$(cat /usr/share/dwm-bindir)
+DOTDIR=$HOME/.config/dwm-de/winnav
+POSITION="bottom" # top, bottom, center (your $RUNLAUNCHER must support center for this to work)
+
+mkdir -p $HOME/.config/dwm-de/winnav
+
+# Create config if it does not exist.
+if [ -e "$HOME/.config/dwm-de/winnav/config" ]; then
+		. $HOME/.config/dwm-de/winnav/config
+else
+		printf "POSITION=$POSITION # top, bottom, center (Your installed $RUNLAUNCHER must support center (-c) for this to work)" > $HOME/.config/dwm-de/winnav/config
+fi
+
+# Set position based on config
+case "$POSITION" in
+"bottom") POSARG="-b" ;;
+"top") POSARG="" ;;
+"center") POSARG="-c" ;;
+esac
 
 # Check if wmctrl is available
 if [ -e "${BINDIR}wmctrl" ]; then
@@ -64,7 +82,7 @@ windows=$(echo "$windows" | \
                     $1 = ""; printf "%s\n", $0}')
 
 
-target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | sed "s/$class | //g")
+target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER $POSARG -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | sed "s/$class | //g")
 
 case "$target" in
 "") RESTORE && exit 0 ;;
