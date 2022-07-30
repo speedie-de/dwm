@@ -103,7 +103,7 @@ DELETECONFIG() {
 
 case "$ARGS" in
 "") CHECKEXISTINGWM ; XRESOURCES ; DONOTRELOAD=true ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; START_DWM ; exit 0 ;;
-"-r") XRESOURCES ; DONOTRELOAD=true ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; echo "Restarted dwm." ; exit 0 ;;
+"-r") XRESOURCES > /dev/null ; RESET ; LOADCONFIG > /dev/null ; DONOTLOADCONFIG=true ; RESET ; echo "Restarted dwm." ; exit 0 ;;
 "-h") HELP ; exit 0 ;;
 "-f") CARG="force" ; LOADCONFIG ; RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
 "-loadconfig") LOADCONFIG ; exit 0 ;;
