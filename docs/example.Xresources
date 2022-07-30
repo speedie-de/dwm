@@ -50,7 +50,6 @@
   - dwm.mfact:                0.50
   - dwm.startontag:           1
   - dwm.gappx:                10
-  - dwm.rmaster:              0
   - dwm.attachdirection:      3
   - dwm.shell:                /bin/sh
   - dwm.sizeicon:             16

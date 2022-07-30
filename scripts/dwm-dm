@@ -1,9 +1,20 @@
 #!/bin/sh
 # Create a .desktop file for people who use display managers.
 
+# Delete the topbar file
 rm -f /usr/share/dwm-topbar
+
+# Make the directory for the .desktop file if it does not exist
 mkdir -p /usr/share/xsessions
+
+# Write the .desktop entry
 printf "[Desktop Entry]\nEncoding=UTF-8\nName=dwm\nComment=Dynamic window manager\nExec=dwm_run\nIcon=dwm\nType=XSession" > /usr/share/xsessions/dwm.desktop
+
+# If the bar is on the top, touch /usr/share/dwm-topbar
 TOPBAR=$(cat options.h | grep "topbar" | grep "1" | awk '{ print $5 }')
 echo $TOPBAR | grep "1" && touch /usr/share/dwm-topbar
+
+# Copy .Xresources file
+cp docs/example.Xresources /usr/share/example.Xresources
+
 exit 0

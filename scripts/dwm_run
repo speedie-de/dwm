@@ -2,29 +2,110 @@
 # External script which starts dwm!
 # https://speedie.gq/dwm for instructions and usage!
 
+BINDIR=$(cat /usr/share/dwm-bindir)
+ARGS=$1
+
+# No second argument is supported
+if [ "$2" = "" ]; then
+		ARGS2=""
+else
+		echo "Unknown argument: $2" ; exit 1
+fi
+
+# Load .Xresources if available
 XRESOURCES() {
-test $HOME/.Xresources && xrdb $HOME/.Xresources
-test $HOME/.config/.Xresources && xrdb $HOME/.config/.Xresources
+		if [ -e "$HOME/.Xresources" ]; then
+				if [ -e "${BINDIR}xrdb" ]; then
+						xrdb $HOME/.Xresources
+				fi
+		elif [ -e "$HOME/.config/.Xresources" ]; then
+				if [ -e "${BINDIR}xrdb" ]; then
+						xrdb $HOME/.config/.Xresources
+				fi
+		fi
 }
 
+# Load dwm config, create if it does not exist.
+LOADCONFIG() {
+		mkdir -p $HOME/.config/dwm-de
+		if [ -e "${BINDIR}xrdb" ]; then
+				if [ -e "$HOME/.config/dwm-de/dwmrc" ]; then
+						xrdb $HOME/.config/dwm-de/dwmrc
+				else
+						echo "# dynamic window manager configuration file" > $HOME/.config/dwm-de/dwmrc && echo "Wrote comment 1"
+						echo "# This is your dwm configuration file. It is configured in .Xresources syntax." >> $HOME/.config/dwm-de/dwmrc && echo "Wrote comment 2"
+						echo "# It is loaded on startup but you can reload it during runtime by running $0 -r.\n" >> $HOME/.config/dwm-de/dwmrc && echo "Wrote comment 3"
+						sed "s|  - ||g" /usr/share/example.Xresources >> $HOME/.config/dwm-de/dwmrc && echo "Wrote example configuration file"
+						
+				fi
+		fi
+}
+
+# Reset dwm
 RESET() {
-$HOME/.config/dwm-de/swal/swal_wm
-xsetroot -name "Loading" # To hide the ugly fsignal status
-xsetroot -name "fsignal:30"
-xsetroot -name "Loading" # To hide the ugly fsignal status
+
+  # Do not reload dwm if we're asked not to.
+  if [ "$DONOTLOADCONFIG" = "true" ]; then
+		DONOTLOADCONFIG=true
+  else
+		$HOME/.config/dwm-de/swal/swal_wm > /dev/null
+  fi
+
+  xsetroot -name "Loading" # To hide the ugly fsignal status
+  xsetroot -name "fsignal:30" # Send fsignal to restart dwm
+  xsetroot -name "Loading" # To hide the ugly fsignal status
 }
 
+# Check for running window managers
+CHECKEXISTINGWM() {
+  if [ "$CARG" = "force" ]; then
+		echo "WARNING: Bypassing all checks (due to -f argument). Use this with caution!"
+  else
+		pgrep -x dwm > /dev/null && echo "dwm is already running. Use $0 -r to restart it." ; exit 1
+  fi
+}
+
+# Start dwm itself
 START_DWM() {
-dwm-audioctrl -remute # Fix a weird bug
-pgrep -x dwm && exit 0
-while true; do
-dwm > /tmp/dwm-log
-done
+  dwm-audioctrl -remute # Fix a weird bug
+  while true; do
+  dwm > /tmp/dwm-log
+  done
 }
 
-case "$1" in
-"") RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
+# List of arguments
+HELP() {
+  printf "dynamic window manager\nNo arguments | Start dwm using default options\n-f | Start dwm bypassing all checks (such as whether or not a window manager is running)\n-noxrdb | Start dwm without loading colors.\n-nomkconfig | Start dwm without creating a config file (or loading it)\n-h | View this list of arguments\n-r | Restart dwm and reload colors\n-loadconfig | Load and create config if it does not exist\n-unloadconfig | Unload the dwm configuration\n-deleteconfig | Delete the dwm configuration\n"
+}
+
+# Unload dwm configuration
+UNLOADCONFIG() {
+		if [ -e "${BINDIR}xrdb" ]; then
+				xrdb -remove && echo "Unloaded configuration"
+		else
+				echo "Unable to unload configuration" ; exit 1
+		fi
+}
+
+# Delete dwm configuration
+DELETECONFIG() {
+		if [ -e "$HOME/.config/dwm-de/dwmrc" ]; then
+				rm -f $HOME/.config/dwm-de/dwmrc && echo "Deleted $HOME/.config/dwm-de/dwmrc."
+		else
+				echo "Failed to delete configuration file." ; exit 1
+		fi
+}
+
+case "$ARGS" in
+"") CHECKEXISTINGWM ; XRESOURCES ; LOADCONFIG ; RESET ; START_DWM ; exit 0 ;;
 "-r") RESET ; XRESOURCES ; exit 0 ;;
+"-h") HELP ; exit 0 ;;
+"-f") CARG="force" ; LOADCONFIG ; RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
+"-loadconfig") LOADCONFIG ; exit 0 ;;
+"-unloadconfig") UNLOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; exit 0 ;;
+"-deleteconfig") DELETECONFIG ; exit 0 ;;
+"-noxrdb") START_DWM ; exit 0 ;;
+"-nomkconfig") CHECKEXISTINGWM ; XRESOURCES ; RESET ; START_DWM ; exit 0 ;;
 esac
 
 exit 0
