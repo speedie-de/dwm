@@ -131,6 +131,8 @@ ResourcePref resources[]                      = {
 	   { "leftlayout",	         INTEGER, &leftlayout },
 	   { "hidelayout",	         INTEGER, &hidelayout },
 	   { "hidetitle",	         INTEGER, &hidetitle },
+	   { "hidetags",	         INTEGER, &hidetags },
+	   { "hidestatus",	         INTEGER, &hidestatus },
 	   { "statusallmons",	     INTEGER, &statusallmons },
 	   { "fadeinactive",	     INTEGER, &fadeinactive },
 	   { "stairpx",				 INTEGER, &stairpx },

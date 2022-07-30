@@ -1246,6 +1246,7 @@ drawstatusbar(Monitor *m, int bh, char* stext) {
 	if (!isCode) {
 		w = TEXTW(text) - lrpad;
 		drw_text(drw, x, 0, w, bh, 0, text, 0);
+		w = 0;
 	}
 
 	drw_setscheme(drw, scheme[SchemeNorm]);
@@ -1270,7 +1271,9 @@ drawbar(Monitor *m)
 	/* draw status first so it can be overdrawn by tags later */
 	if (m == selmon || 1) { /* status is only drawn on selected monitor */
 		char *text, *s, ch;
-		tw = statusw = m->ww - drawstatusbar(m, bh, stext) - lrpad + 2;
+		if (!hidestatus) {
+				tw = statusw = m->ww - drawstatusbar(m, bh, stext) - lrpad + 2;
+		}
 
 		x = 0;
 
@@ -1284,8 +1287,12 @@ drawbar(Monitor *m)
 				text = s + 1;
 			}
 		}
-		tw = TEXTW(text) - lrpad + 2;
-		tw = statusw;
+		
+		/* Hide status if asked to */
+		if (!hidestatus) {
+				tw = TEXTW(text) - lrpad + 2;
+				tw = statusw;
+		}
 	}
 
 	for (c = m->clients; c; c = c->next) {
@@ -1305,10 +1312,12 @@ drawbar(Monitor *m)
 		if (!(occ & 1 << i || m->tagset[m->seltags] & 1 << i))
 		     continue;
 		tagtext = occ & 1 << i ? alttags[i] : tags[i];
-		w = TEXTW(tagtext);
-		drw_setscheme(drw, (m->tagset[m->seltags] & 1 << i ? tagscheme[i] : scheme[SchemeNorm]));
-		drw_text(drw, x, 0, w, bh, lrpad / 2, tagtext, urg & 1 << i);
-		x += w;
+		if (!hidetags) {
+		  w = TEXTW(tagtext);
+		  drw_setscheme(drw, (m->tagset[m->seltags] & 1 << i ? tagscheme[i] : scheme[SchemeNorm]));
+		  drw_text(drw, x, 0, w, bh, lrpad / 2, tagtext, urg & 1 << i);
+		  x += w;
+		}
 	}
 
     /* Draw the layout bar on the right if leftlayout is not 0 */

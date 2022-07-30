@@ -77,6 +77,8 @@
   - dwm.statusallmons:        1
   - dwm.hidelayout:           0
   - dwm.hidetitle:            0
+  - dwm.hidestatus:           0
+  - dwm.hidetags:             0
   - dwm.leftlayout:           1
   - dwm.fadeinactive:         1
   - dwm.stairpx:              20
