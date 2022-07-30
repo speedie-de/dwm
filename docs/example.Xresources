@@ -76,6 +76,7 @@
   - dwm.monocleclientcount:   0
   - dwm.statusallmons:        1
   - dwm.hidelayout:           0
+  - dwm.hidetitle:            0
   - dwm.leftlayout:           1
   - dwm.fadeinactive:         1
   - dwm.stairpx:              20

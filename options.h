@@ -113,6 +113,7 @@ static int vertpad                            = 0; /* How much padding to have v
 static int sidepad                            = 0; /* How much padding to have horizontally */
 static int leftlayout                         = 1; /* Layout indicator on the left (1) or on the right (0) */
 static int hidelayout                         = 0; /* Hide layout indicator (1) or show (0) */
+static int hidetitle                          = 0; /* Hide title (1) or show (0) */
 
 /* Status options */
 static int statusallmons                      = 1; /* Draw status bar on all monitors */

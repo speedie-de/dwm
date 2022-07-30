@@ -130,6 +130,7 @@ ResourcePref resources[]                      = {
 	   { "mousepreview",	     INTEGER, &mousepreview },
 	   { "leftlayout",	         INTEGER, &leftlayout },
 	   { "hidelayout",	         INTEGER, &hidelayout },
+	   { "hidetitle",	         INTEGER, &hidetitle },
 	   { "statusallmons",	     INTEGER, &statusallmons },
 	   { "fadeinactive",	     INTEGER, &fadeinactive },
 	   { "stairpx",				 INTEGER, &stairpx },
