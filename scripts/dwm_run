@@ -49,6 +49,7 @@ RESET() {
 		DONOTLOADCONFIG=true
   else
 		$HOME/.config/dwm-de/swal/swal_wm > /dev/null
+		LOADCONFIG
   fi
 
   if [ "$DONOTRELOAD" = "true" ]; then
@@ -102,8 +103,8 @@ DELETECONFIG() {
 }
 
 case "$ARGS" in
-"") CHECKEXISTINGWM ; XRESOURCES ; DONOTRELOAD=true ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; START_DWM ; exit 0 ;;
-"-r") XRESOURCES > /dev/null ; DONOTRELOAD=true ; RESET ; DONOTLOADCONFIG=true ; LOADCONFIG ; DONOTRELOAD=false ; RESET ; echo "Restarted dwm." ; exit 0 ;;
+"") CHECKEXISTINGWM ; XRESOURCES ; RESET ; START_DWM ; exit 0 ;;
+"-r") XRESOURCES ; RESET ; echo "Restarted dwm." ; exit 0 ;;
 "-h") HELP ; exit 0 ;;
 "-f") CARG="force" ; LOADCONFIG ; RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
 "-loadconfig") LOADCONFIG ; exit 0 ;;
