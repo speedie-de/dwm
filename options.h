@@ -48,8 +48,7 @@
 
 /* Options
  *
- * If you're going to be using .Xresources then you don't need to change any of these.
- * Otherwise, you can carefully edit them.
+ * If xrdb is installed, you can simply edit ~/.config/dwm-de/dwmrc instead of recompiling.
  *
  * Once you're done with your edits, run 'make clean install'.
  ****************************************/
