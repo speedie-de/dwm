@@ -1,6 +1,6 @@
   - dwm.nmaster:              1
   - dwm.rmaster:              1
-  - dwm.font:                 fontconfig:size=8
+  - dwm.font:                 fontawesome:size=8
   - dwm.font2:				  NotoSans-Regular:size=8:antialiasing=true
   - dwm.font3:                Noto Emoji:size=8
   - dwm.col_background:       #222222
@@ -72,8 +72,7 @@
   - dwm.mousepreview:         1
   - dwm.monocleclientcount:   0
   - dwm.statusallmons:        1
-  - dwm.activeopacity:        1.0f
   - dwm.hidelayout:           0
   - dwm.leftlayout:           1
   - dwm.fadeinactive:         1
-  - dwm.inactiveopacity:      0.875f
+  - 

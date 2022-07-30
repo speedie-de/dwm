@@ -30,7 +30,7 @@ LOADCONFIG() {
 		mkdir -p $HOME/.config/dwm-de
 		if [ -e "${BINDIR}xrdb" ]; then
 				if [ -e "$HOME/.config/dwm-de/dwmrc" ]; then
-						xrdb $HOME/.config/dwm-de/dwmrc
+						xrdb -merge $HOME/.config/dwm-de/dwmrc
 				else
 						echo "# dynamic window manager configuration file" > $HOME/.config/dwm-de/dwmrc && echo "Wrote comment 1"
 						echo "# This is your dwm configuration file. It is configured in .Xresources syntax." >> $HOME/.config/dwm-de/dwmrc && echo "Wrote comment 2"
@@ -81,7 +81,7 @@ HELP() {
 # Unload dwm configuration
 UNLOADCONFIG() {
 		if [ -e "${BINDIR}xrdb" ]; then
-				xrdb -remove && echo "Unloaded configuration"
+				xrdb -remove dwm* && echo "Unloaded configuration"
 		else
 				echo "Unable to unload configuration" ; exit 1
 		fi
@@ -98,7 +98,7 @@ DELETECONFIG() {
 
 case "$ARGS" in
 "") CHECKEXISTINGWM ; XRESOURCES ; RESET ; LOADCONFIG ; DONOTLOADCONFIG=true ; RESET ; START_DWM ; exit 0 ;;
-"-r") RESET > /dev/null; XRESOURCES > /dev/null ; LOADCONFIG > /dev/null ; DONOTLOADCONFIG=true ; RESET > /dev/null ; echo "Restarted dwm." ; exit 0 ;;
+"-r") XRESOURCES > /dev/null ; RESET ; LOADCONFIG > /dev/null ; DONOTLOADCONFIG=true ; RESET ; echo "Restarted dwm." ; exit 0 ;;
 "-h") HELP ; exit 0 ;;
 "-f") CARG="force" ; LOADCONFIG ; RESET ; XRESOURCES ; START_DWM ; exit 0 ;;
 "-loadconfig") LOADCONFIG ; exit 0 ;;

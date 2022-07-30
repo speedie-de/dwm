@@ -100,8 +100,6 @@ ResourcePref resources[]                      = {
 	   { "shell",                STRING,  &shell },
        { "status",               STRING,  &status },
        { "defaultname",          STRING,  &defaultname },
-	   { "activeopacity",        STRING,  &activeopacity },
-	   { "inactiveopacity",      STRING,  &inactiveopacity },
        { "lockfullscreen",       INTEGER, &lockfullscreen },
 	   { "refreshrules",         INTEGER, &refreshrules },
 	   { "borderpx",             INTEGER, &borderpx }, 
