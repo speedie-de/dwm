@@ -7,36 +7,55 @@
 # - Other small improvements.
 
 RESTORE() {
-  xmodmap -e "keycode 23 = Tab"
-  xmodmap -e "keycode 116 = Down"
+  if [ -e "${BINDIR}xmodmap" ]; then
+		xmodmap -e "keycode 23 = Tab"
+		xmodmap -e "keycode 116 = Down"
 
-  # Vim
-  xmodmap -e "keycode 44 = j"
-  xmodmap -e "keycode 45 = k"
+		# Vim
+		xmodmap -e "keycode 44 = j"
+		xmodmap -e "keycode 45 = k"
+  fi
 }
 
 case "$RUNLAUNCHER" in
 "") RUNLAUNCHER=dmenu ;;
 esac
 
-wmctrl -xl || exit 1
+BINDIR=$(cat /usr/share/dwm-bindir)
+
+# Check if wmctrl is available
+if [ -e "${BINDIR}wmctrl" ]; then
+		echo "wmctrl found"
+
+		case "$(wmctrl -xl | wc -l)" in
+		"") echo "No clients found." ; exit 1 ;;
+		"1") echo "One client running, will not open menu." ; exit 0 ;;
+		esac
+else
+		echo "wmctrl not found, exiting." && exit 1
+fi
 
 SET() {
-  xmodmap -e "keycode 23 = Down"
-  xmodmap -e "keycode 116 = Tab"
+  if [ -e "${BINDIR}xmodmap" ]; then
+		xmodmap -e "keycode 23 = Down"
+		xmodmap -e "keycode 116 = Tab"
 
-  # Vim
-  xmodmap -e "keycode 44 = Down"
-  xmodmap -e "keycode 45 = Up"
+		# Vim
+		xmodmap -e "keycode 44 = Down"
+		xmodmap -e "keycode 45 = Up"
+  fi
 }
 
 SET
 
 windows=$(wmctrl -xl | tr -s '[:blank:]' | cut -d ' ' -f 3-3,5- | sed 's/^[a-zA-Z0-9-]*\.//' | sort | uniq)
+echo "Windows are:\n $windows\n============================"
 windows_class=$(echo $windows | awk '{ print $1 }')
+echo "Class is:\n $windows_class\n============================"
 
 # Add spaces to align the WM_NAMEs of the windows
 max=$(echo "$windows" | awk '{cur=length($1); max=(cur>max?cur:max)} END{print max}')
+echo "Max is:\n$max"
 
 windows=$(echo "$windows" | \
               awk -v max="$max" \
@@ -45,12 +64,12 @@ windows=$(echo "$windows" | \
                     $1 = ""; printf "%s\n", $0}')
 
 
-target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | cut -d ' ' -f 2-)
+target=$(printf "\n$windows" | cut -f 2- -d ' ' | sed 's/^ *//g' | $RUNLAUNCHER -b -l 10 -g 1 -p "Which window?" | tr -s '[:blank:]' | sed "s/$class | //g")
 
 case "$target" in
 "") RESTORE && exit 0 ;;
 esac
 
-wmctrl -a "$target"
+wmctrl -a "$target" && echo "Switched focus"
 
 RESTORE
