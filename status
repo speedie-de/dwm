@@ -124,6 +124,50 @@ case "$BINDIR" in
 "") BINDIR=$(cat /usr/share/dwm-bindir) ;;
 esac
 
+mkdir -p $HOME/.config/dwm-de/status
+
+# Load config and create options if it does not exist
+LOADCONFIG() {
+if [ -e "$HOME/.config/dwm-de/status/config" ]; then
+		. $HOME/.config/dwm-de/status/config && echo "Loaded configuration file"
+else
+		touch $HOME/.config/dwm-de/status/config && echo "Created configuration file"
+		printf "USEWAL=$USEWAL # Use Pywal if possible (true/false)" > $HOME/.config/dwm-de/status/config
+		printf "\nRUNONCE=$RUNONCE # Only run status bar once (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nSLEEPTIME=$SLEEPTIME # How long delay in seconds between each reload (int)" >> $HOME/.config/dwm-de/status/config
+		printf "\n\nENABLE_ITEM1=$ENABLE_ITEM1 # Enable RAM usage (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM2=$ENABLE_ITEM2 # Enable Time (HH:MM) (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM3=$ENABLE_ITEM3 # Enable Date (DD/MM/YY) (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM4=$ENABLE_ITEM4 # Enable Volume/Mute status (<perc>%) (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM5=$ENABLE_ITEM5 # Enable Weather (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM6=$ENABLE_ITEM6 # Enable Network Traffic (<num>B/s) (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM7=$ENABLE_ITEM7 # Enable dfmpeg status (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM8=$ENABLE_ITEM8 # Enable CPU temp (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM9=$ENABLE_ITEM9 # Enable mocp track (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM10=$ENABLE_ITEM10 # Enable newsboat unread (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM11=$ENABLE_ITEM11 # Enable battery percentage and charging status (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nENABLE_ITEM12=$ENABLE_ITEM12 # Enable #ff IRC backlogs in status bar (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\n\nHIDE_STATUS_SYSTRAY=$HIDE_STATUS_SYSTRAY # Hide the status when a systray is running (true/false)" >> $HOME/.config/dwm-de/status/config
+		printf "\nSYSTRAY=$SYSTRAY # Systray to use (<systray executable>)" >> $HOME/.config/dwm-de/status/config
+		printf "\nSTATUS_WHEN_HIDDEN=$STATUS_WHEN_HIDDEN # Status to print when status is hidden (char)" >> $HOME/.config/dwm-de/status/config
+		printf "\n\nCOLOR1=$COLOR1 # Color for ITEM1 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR2=$COLOR2 # Color for ITEM2 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR3=$COLOR3 # Color for ITEM3 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR4=$COLOR4 # Color for ITEM4 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR5=$COLOR5 # Color for ITEM5 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR6=$COLOR6 # Color for ITEM6 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR7=$COLOR7 # Color for ITEM7 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR8=$COLOR8 # Color for ITEM8 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR9=$COLOR9 # Color for ITEM9 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR10=$COLOR10 # Color for ITEM10 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR11=$COLOR11 # Color for ITEM11 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR12=$COLOR12 # Color for ITEM12 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR13=$COLOR13 # Color for ITEM13 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR14=$COLOR14 # Color for ITEM14 (hex color)" >> $HOME/.config/dwm-de/status/config
+		printf "\nCOLOR15=$COLOR15 # Color for ITEM15 (hex color)\n" >> $HOME/.config/dwm-de/status/config
+fi
+}
+
 # Set it to /usr/bin if it was not possible to get it through /usr/share/dwm-bindir
 case "$BINDIR" in
 "") BINDIR="/usr/bin" ;;
@@ -313,6 +357,7 @@ BASE() {
 SETCOLORS
 
 # Use pywal once if possible
+USE_PYWAL_COLORS() {
 if [ -e "${BINDIR}xsetroot" ]; then
 		if [ -e "${BINDIR}xrdb" ]; then
 				if [ "$USEWAL" = "true" ]; then
@@ -320,7 +365,10 @@ if [ -e "${BINDIR}xsetroot" ]; then
 				fi
 		fi
 fi
+}
 
+LOADCONFIG
+USE_PYWAL_COLORS
 SETCOLORS_CMD
 PRINT_SYSTRAY
 BASE
