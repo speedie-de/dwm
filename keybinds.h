@@ -137,6 +137,7 @@ static Key keys[] = {
 
     /* Chained keybinds */
 	{ MODKEY,                       XK_c,          XK_w,           spawn,           SHCMD(TERMINAL "dwm-core -curl-weather") },
+	{ MODKEY,                       XK_c,          XK_m,           spawn,           SHCMD(TERMINAL "dwm-core -curl-cheatsheet") },
 
 	/* Media buttons */
 	{ 0,                            -1,            XF86XK_AudioMute,		    spawn,		                   SHCMD(VOL_MUTE) },

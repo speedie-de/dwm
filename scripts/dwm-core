@@ -75,6 +75,9 @@ USE() {
 
 case "$OPT" in
 "-curl-weather") clear ; curl -s wttr.in | head -n 38 | tail -n 37 && sleep 60 ;;
+"-curl-cheatsheet") clear ; echo -n "What cheatsheet do you want to view?\nExample: vim\n > " ; read CHEATSHEET ; curl -s cheat.sh/$(echo $CHEATSHEET | tr '[:upper:]' '[:lower:]') > /tmp/cheatsheet
+grep "Unknown topic." /tmp/cheatsheet && $0 -curl-cheatsheet && exit 0 
+less /tmp/cheatsheet ;;
 esac
 
 # Start systray

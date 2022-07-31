@@ -82,6 +82,7 @@
   
   -- Chained keybinds --
   - Super+c & w               | Curl wttr.in and open in less
+  - Super+c & m               | Ask the user for a topic and curl cheat.sh
 
   -- Extras --
   These will only work if your keyboard has special multimedia buttons.
