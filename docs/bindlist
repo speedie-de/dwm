@@ -42,14 +42,14 @@
   - Super+Shift+Space         | Unfloat floating windows
   - Super+Shift+Arrow         | Resizes a window in floating mode
   - Super+1                   | Move to tag 1
-  - Super+2					  | Move to tag 2
-  - Super+3					  | Move to tag 3
-  - Super+4					  | Move to tag 4
-  - Super+5					  | Move to tag 5
-  - Super+6					  | Move to tag 6
-  - Super+7					  | Move to tag 7
-  - Super+8					  | Move to tag 8
-  - Super+9					  | Move to tag 9
+  - Super+2                   | Move to tag 2
+  - Super+3                   | Move to tag 3
+  - Super+4                   | Move to tag 4
+  - Super+5                   | Move to tag 5
+  - Super+6                   | Move to tag 6
+  - Super+7                   | Move to tag 7
+  - Super+8                   | Move to tag 8
+  - Super+9                   | Move to tag 9
   - Super+Shift+1             | Preview tag 1
   - Super+Shift+2             | Preview tag 2
   - Super+Shift+3             | Preview tag 3
